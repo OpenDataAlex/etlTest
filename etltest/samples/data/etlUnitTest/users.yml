@@ -1,0 +1,12 @@
+#Record to test for valid birthday
+1:
+  first_name:  Bob
+  last_name:  Richards
+  birthday:  01-40-2000
+  zipcode:  55555
+#Record to test for lower and upper cases
+2:
+  first_name:  Sarah
+  last_name: Jenkins
+  birthday:  02-02-2000
+  zipcode:  12345

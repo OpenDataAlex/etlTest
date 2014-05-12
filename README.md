@@ -1,0 +1,39 @@
+#projectTemplate
+
+[![Build Status](https://travis-ci.org/dbaAlex/etlTest.png?branch=develop)](https://travis-ci.org/dbaAlex/etlTest) [![Coverage Status](https://coveralls.io/repos/dbaAlex/etlTest/badge.png?branch=develop)](https://coveralls.io/r/dbaAlex/etlTest?branch=develop)
+
+##Installation
+
+You can install **projectTemplate** by downloading the source and using the setup.py script as follows:
+
+    $ git clone <<<Github link>>>
+    $ cd projectTemplate
+    $ python setup.py install
+
+This setup call installs all of the necessary python dependencies. There are a few external dependencies as well, so please see the section below labeled "Non-Python Dependencies".
+
+Once you have done that, its ready to run!
+
+### So what is <<<projectTemplate>>>?
+
+
+### Quickstart
+
+To actually use <<<projectTemplate>>>, you need a resource file for it to act on. A most basic resource file can be found in the [res](https://github.com/dbaAlex/etlTest/tree/develop/res) directory of the project (testsuite.yml). Executing the following will take that resource, generate some python code in the output directory specified, and run the code which will display the output of the tests executed to your terminal.
+
+    $ python etlTest/etlTest.py -f res/testsuite.yml -o /tmp/ -g -e
+
+### Documentation
+
+The documentation for **<<<projectTemplate>>>** can be found on Read the Docs [here](https://etlTest.readthedocs.org/en/latest/).
+
+### Non-Python Dependencies
+
+The only dependencies that are not handled in python currently are the ones for SQLAlchemy to connect to datasources. Documentation on how to install these is as follows:
+
+* [MySQL](https://github.com/dbaAlex/etlTest/blob/develop/docs/mysql_deps.md)
+* [Oracle](https://github.com/dbaAlex/etlTest/blob/develop/docs/oracle_deps.md)
+
+### Reporting Issues
+
+We would love some feedback! Please do not hesitate to report any issues/questions/comments via the [Github Issue Tracker](https://github.com/dbaAlex/etlTest/issues).

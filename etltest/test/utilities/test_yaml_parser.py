@@ -5,17 +5,18 @@
 __author__ = 'ameadows'
 
 import unittest
-import yaml
 import json
+import inspect
+import os
 from etltest.utilities.yaml_parser import YAMLParser
-
-test_dir = "~/etlTest/etltest/samples/test/"
-data_dir = "~/etlTest/etltest/samples/data/"
+tmp_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+test_dir = tmp_path  + "/../../samples/test/"
+data_dir = tmp_path + "/../../samples/data/"
 test_file = test_dir + "dataMart/users.yml"
 data_file = data_dir + "etlUnitTest/users.yml"
 
 
-class yaml_parser_tests(unittest.TestCase):
+class YamlParserTests(unittest.TestCase):
     maxDiff = None
 
     # Testing test yaml file for correct processing.

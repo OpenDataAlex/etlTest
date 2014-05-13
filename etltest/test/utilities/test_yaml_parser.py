@@ -9,8 +9,8 @@ import yaml
 import json
 from etltest.utilities.yaml_parser import YAMLParser
 
-test_dir = "../../samples/test/"
-data_dir = "../../samples/data/"
+test_dir = "~/etlTest/etltest/samples/test/"
+data_dir = "~/etlTest/etltest/samples/data/"
 test_file = test_dir + "dataMart/users.yml"
 data_file = data_dir + "etlUnitTest/users.yml"
 

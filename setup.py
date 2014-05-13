@@ -5,7 +5,7 @@ import sys
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
-import etlTest
+import etltest
 
 
 class Tox(TestCommand):
@@ -13,6 +13,7 @@ class Tox(TestCommand):
         TestCommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
+
     def run_tests(self):
         #import here, cause outside the eggs aren't loaded
         import tox
@@ -21,14 +22,14 @@ class Tox(TestCommand):
 
 setup(
     name='etlTest',
-    version=etlTest.__version__,
+    version=etltest.__version__,
     url='',
     license='GNU GENERAL PUBLIC LICENSE Version 3',
     description='',
     author='Alex Meadows, Coty Sutherland',
     packages=find_packages(),
     install_requires=[
-        'appdirs==1.3.0'
+        'appdirs==1.3.0',
         'Jinja2==2.7.2',
         'MarkupSafe==0.19',
         'MySQL-python==1.2.5',

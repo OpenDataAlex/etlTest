@@ -1,9 +1,12 @@
 __author__ = 'ameadows, coty'
 
-from setuptools import setup, find_packages
-import etlTest
-from setuptools.command.test import test as TestCommand
 import sys
+
+from setuptools import setup, find_packages
+from setuptools.command.test import test as TestCommand
+
+import etlTest
+
 
 class Tox(TestCommand):
     def finalize_options(self):
@@ -17,14 +20,15 @@ class Tox(TestCommand):
         sys.exit(errcode)
 
 setup(
-    name='projectTemplate',
-    version=projecttemplate.__version__,
+    name='etlTest',
+    version=etlTest.__version__,
     url='',
     license='GNU GENERAL PUBLIC LICENSE Version 3',
     description='',
-    author='Alex Meadows',
+    author='Alex Meadows, Coty Sutherland',
     packages=find_packages(),
     install_requires=[
+        'appdirs==1.3.0'
         'Jinja2==2.7.2',
         'MarkupSafe==0.19',
         'MySQL-python==1.2.5',
@@ -37,7 +41,7 @@ setup(
         'tox==1.7.1',
         'unittest-xml==0.2.2',
         'unittest-xml-reporting==1.7.0',
-        'virtualenv==1.11.4',
+        'virtualenv==1.11.5',
         'wsgiref==0.1.2',
         'xmlunittest==0.2.0'
     ],
@@ -47,5 +51,5 @@ setup(
         'Natural Language :: English',
     ],
     cmdclass = {'tox': Tox},
-    test_suite='projecttemplate.test'
+    test_suite='etltest.test'
 )

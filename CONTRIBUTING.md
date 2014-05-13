@@ -18,7 +18,7 @@ What to participate/contribute to etlTest?  Feel free to  along and enhancements
 
 ## Making Changes
 
-* <<<projectTemplate>>> uses [git-flow](http://nvie.com/posts/a-successful-git-branching-model/) as the git branching model
+* <<<etlTest>>> uses [git-flow](http://nvie.com/posts/a-successful-git-branching-model/) as the git branching model
   * **All commits should be made to the develop branch**
   * [Install git-flow](https://github.com/nvie/gitflow) and create a `feature` branch with the following command:
 

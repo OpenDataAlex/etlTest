@@ -26,7 +26,6 @@ class YAMLParser():
         with open(filename, 'r') as f:
             data = yaml.safe_load_all(f.read())
             self.log.debug("Reading file %s." % filename)
-            self.log.debug("File contents: %s ." % tuple(data))
             return data
 
     def read_dir(self, dirname):
@@ -47,9 +46,3 @@ class YAMLParser():
                 tmp = self.read_file(filename)
                 yaml_results.extend(tmp)
         return yaml_results
-
-if __name__ == "__main__":
-    reader = YAMLParser().read_dir("/home/ameadows/PycharmProjects/etlTest/etltest/samples/test/")
-
-    for r in reader:
-        print r

@@ -1,6 +1,6 @@
 #etlTest
 
-[![Build Status](https://travis-ci.org/dbaAlex/etlTest.png?branch=develop)](https://travis-ci.org/dbaAlex/etlTest) [![Coverage Status](https://coveralls.io/repos/dbaAlex/etlTest/badge.png?branch=develop)](https://coveralls.io/r/dbaAlex/etlTest?branch=develop)
+[![Build Status](https://travis-ci.org/dbaAlex/etlTest.png?branch=dev)](https://travis-ci.org/dbaAlex/etlTest) [![Coverage Status](https://coveralls.io/repos/dbaAlex/etlTest/badge.png?branch=dev)](https://coveralls.io/r/dbaAlex/etlTest?branch=dev)
 
 ##Installation
 

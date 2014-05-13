@@ -6,7 +6,7 @@
 
 You can install **etlTest** by downloading the source and using the setup.py script as follows:
 
-    $ git clone <<<Github link>>>
+    $ git clone git@github.com:OpenDataAlex/etlTest.git
     $ cd etlTest
     $ python setup.py install
 
@@ -14,18 +14,18 @@ This setup call installs all of the necessary python dependencies. There are a f
 
 Once you have done that, its ready to run!
 
-### So what is <<<etlTest>>>?
+### So what is etlTest?
 
 
 ### Quickstart
 
-To actually use <<<etlTest>>>, you need a resource file for it to act on. A most basic resource file can be found in the [res](https://github.com/OpenDataAlex/etlTest/tree/develop/res) directory of the project (testsuite.yml). Executing the following will take that resource, generate some python code in the output directory specified, and run the code which will display the output of the tests executed to your terminal.
+To actually use etlTest, you need a resource file for it to act on. A most basic resource file can be found in the [res](https://github.com/OpenDataAlex/etlTest/tree/develop/res) directory of the project (testsuite.yml). Executing the following will take that resource, generate some python code in the output directory specified, and run the code which will display the output of the tests executed to your terminal.
 
     $ python etlTest/etlTest.py -f res/testsuite.yml -o /tmp/ -g -e
 
 ### Documentation
 
-The documentation for **<<<etlTest>>>** can be found on Read the Docs [here](https://etlTest.readthedocs.org/en/latest/).
+The documentation for **etlTest** can be found on Read the Docs [here](https://etlTest.readthedocs.org/en/latest/).
 
 ### Non-Python Dependencies
 

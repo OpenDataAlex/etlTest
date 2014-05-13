@@ -3,13 +3,13 @@
 # Code repository can be found at: https://github.com/rjbs/rx
 
 from TAP.Simple import *
-import Rx
+from etltest.utilities.rx import rx
 import json
 import re
 
 plan(None)
 
-rx = Rx.Factory({ "register_core_types": True });
+rx = rx.Factory({ "register_core_types": True });
 
 isa_ok(rx, Rx.Factory)
 

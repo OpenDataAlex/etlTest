@@ -33,7 +33,7 @@ class yaml_parser_tests(unittest.TestCase):
                           ' table record.", "result": "SARAH", "query": {"where": "user_id = 2",' \
                           ' "from": "users", "select": "first_name"}}}]'
 
-        self.assertCountEqual(json.dumps(tuple(given_result)), expected_result)
+        self.assertItemsEqual(json.dumps(tuple(given_result)), expected_result)
 
     # Testing data yaml file for correct processing.
     def test_process_data_file(self):
@@ -41,7 +41,7 @@ class yaml_parser_tests(unittest.TestCase):
         expected_result = '[{"1": {"first_name": "Bob", "last_name": "Richards", "birthday": "01-40-2000",' \
                           ' "zipcode": 55555}, "2": {"first_name": "Sarah", "last_name": "Jenkins",' \
                           ' "birthday": "02-02-2000", "zipcode": 12345}}]'
-        self.assertCountEqual(json.dumps(tuple(given_result)), expected_result)
+        self.assertItemsEqual(json.dumps(tuple(given_result)), expected_result)
 
 
     # Testing a directory of test yaml files to verify they are processed correctly.
@@ -59,7 +59,7 @@ class yaml_parser_tests(unittest.TestCase):
                           ' table record.", "result": "SARAH", "query": {"where": "user_id = 2",' \
                           ' "from": "users", "select": "first_name"}}}]'
 
-        self.assertCountEqual(json.dumps(tuple(given_result)), expected_result)
+        self.assertItemsEqual(json.dumps(tuple(given_result)), expected_result)
 
     # Testing a directory of data yaml files to verify they are processed correctly.
     def test_process_data_dir(self):
@@ -68,4 +68,4 @@ class yaml_parser_tests(unittest.TestCase):
                           ' "zipcode": 55555}, "2": {"first_name": "Sarah", "last_name": "Jenkins",' \
                           ' "birthday": "02-02-2000", "zipcode": 12345}}]'
 
-        self.assertCountEqual(json.dumps(tuple(given_result)), expected_result)
+        self.assertItemsEqual(json.dumps(tuple(given_result)), expected_result)

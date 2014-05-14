@@ -6,12 +6,14 @@ __author__ = 'ameadows'
 
 import unittest
 import json
-import inspect
-import os
+
 from etltest.utilities.yaml_parser import YAMLParser
-tmp_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-test_dir = tmp_path  + "/../../samples/test/"
-data_dir = tmp_path + "/../../samples/data/"
+from etltest.utilities.settings_manager import SettingsManager
+
+
+tmp_path = SettingsManager().get_file_location()
+test_dir = tmp_path  + "/../samples/test/"
+data_dir = tmp_path + "/../samples/data/"
 test_file = test_dir + "dataMart/users.yml"
 data_file = data_dir + "etlUnitTest/users.yml"
 

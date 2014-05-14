@@ -12,8 +12,8 @@ from etltest.utilities.settings_manager import SettingsManager
 
 
 tmp_path = SettingsManager().get_file_location()
-test_dir = tmp_path  + "/../samples/test/"
-data_dir = tmp_path + "/../samples/data/"
+test_dir = tmp_path  + "/samples/test/"
+data_dir = tmp_path + "/samples/data/"
 test_file = test_dir + "dataMart/users.yml"
 data_file = data_dir + "etlUnitTest/users.yml"
 

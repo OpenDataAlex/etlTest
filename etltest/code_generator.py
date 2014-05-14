@@ -1,5 +1,6 @@
 __author__ = 'coty, ameadows'
 
+from etltest.utilities.settings import etltest_config, console
 from etltest.utilities.settings_manager import find_setting
 from etltest.utilities.yaml_parser import YAMLParser
 
@@ -10,10 +11,14 @@ class CodeGenerator():
         Generates full test code sets based on yaml files and the
           Jinja2 templates.
         """
+        self.log = logging.getLogger(name="CodeGenerator")
+        self.log.setLevel(etltest_config['logging_level'])
+        self.log.addHandler(console)
+
         self.in_file = in_file
         self.in_dir = in_dir
+        self.out_dir = find_setting('Locations', 'tests')
 
-        self.env = Environment(loader=PackageLoader('etltest', 'templates'))
 
         if self.in_file is not None:
             self.test_list = YAMLParser.read_file(self.in_file)
@@ -24,6 +29,14 @@ class CodeGenerator():
             self.test_list = YAMLParser.read_dir(test_loc)
 
     def generate_test(self):
+        """
+            This method generates test code based on the Jinja2 template and the test yaml file provided.
+        """
+        # TODO:  Continue working on YAML Validator.  Must be included either here or in the parser...
+
+        self.jinja_setup()
+
+
 
     def generate_data(self):
 

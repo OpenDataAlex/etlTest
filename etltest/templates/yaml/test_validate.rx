@@ -1,0 +1,7 @@
+---
+testName: //str
+  required:
+    desc:  //str
+    testSuites:  //rec
+      required:
+        suite:  //str

@@ -9,18 +9,25 @@ import logging
 from ConfigParser import SafeConfigParser
 from shutil import copyfile
 import inspect
-
+import re
 import os
 import appdirs
 
+from etltest.utilities.settings import etltest_config, console
 
 class SettingsManager():
 
     def __init__(self):
+        """
+            This method initializes the log for SettingsManager as well as sets some static variables for file paths.
+        """
+        self.log = logging.getLogger(name="SettingsManager")
+        self.log.setLevel(etltest_config['logging_level'])
+        self.log.addHandler(console)
 
-        self.app_name = 'etlTest'
-        self.app_author = 'BlueFireDS'
-        self.settings_file = 'etlTest.properties'
+        self.app_name = etltest_config['app_name']
+        self.app_author = etltest_config['app_author']
+        self.settings_file = etltest_config['settings_file']
 
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)
@@ -33,20 +40,22 @@ class SettingsManager():
         """
 
         if not os.path.isdir(self.user_settings):
-            logging.info('User settings directory does not exist.  Building now.')
+            self.log.info('User settings directory does not exist.  Building now.')
             os.makedirs(self.user_settings)
 
-            logging.info('Copying default settings files.')
-            copyfile('../templates/settings/' + self.settings_file, self.user_settings + '/' + self.settings_file)
+            self.log.info("Copying default settings file to user directory. (%s/%s)" % self.user_settings
+                          , self.settings_file)
+            copyfile(self.get_file_location() + '/templates/settings/' + self.settings_file
+                     , self.user_settings + '/' + self.settings_file)
 
         else:
-            logging.info("User settings directory exists.")
+            self.log.info("User settings directory exists.")
 
         if not os.path.isdir(self.user_logging):
-            logging.info('Logging directory does not exist.  Building now.')
+            self.log.info('Logging directory does not exist.  Building now.')
             os.makedirs(self.user_logging)
         else:
-            logging.info("User logging directory exists")
+            self.log.info("User logging directory exists (%s)" % self.user_logging)
 
     def get_settings(self):
         """
@@ -54,7 +63,6 @@ class SettingsManager():
         """
         parser = SafeConfigParser()
         return parser.read(self.user_settings + "/" + self.settings_file)
-
 
     def find_setting(self, setting_section, setting_name):
         """
@@ -68,6 +76,9 @@ class SettingsManager():
 
         return config(setting_section)[setting_name]
 
-    def get_file_location(self):
+    @staticmethod
+    def get_file_location():
 
-        return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        file_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        file_path = re.sub('/utilities', '', file_path)
+        return file_path

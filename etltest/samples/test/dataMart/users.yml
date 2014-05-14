@@ -1,4 +1,4 @@
-testFirstNameLower:
+testName:  testFirstNameLower
   desc:  Test for process that lower cases the first name field of a users table record.
   testSuites:
     suite:  dataMart
@@ -14,7 +14,7 @@ testFirstNameLower:
     where:  user_id = 2
   result:  sarah
 
-testFirstNameUpper:
+testName:  testFirstNameUpper
   desc:  Test for process that upper cases the first name field of a users table record.
   testSuites:
     suite:  dataMart
@@ -31,7 +31,7 @@ testFirstNameUpper:
   result:  SARAH
 
 
-testUserValidBirthday:
+testName:  testUserValidBirthday
   desc:  Test for valid birth dates.
   testSuites:
     suite:  userDim

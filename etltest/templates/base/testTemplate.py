@@ -1,6 +1,10 @@
 __author__ = 'ameadows'
-from unittest import TestCase, main
+
+import unittest
 import sqlalchemy
 
-def set_up(self):
-    engine = sqlalchemy.create_engine()
+
+class {% %}test(unittest.TestCase):
+
+    def setUp(self):
+        engine = sqlalchemy.create_engine()

@@ -38,7 +38,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 settings_filename = SettingsManager.get_file_location() + '/.etltest-settings.yml'
 
-settings_fs_locs = ["{}/{}".format(os.path.expanduser("~"), settings_filename), "".join(settings_filename)]
+settings_fs_locs = ["{}/{}".format('', settings_filename), "".join(settings_filename)]
 
 settings_loaded = False
 for the_path in settings_fs_locs:

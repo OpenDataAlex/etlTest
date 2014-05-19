@@ -2,6 +2,7 @@ __author__ = 'coty, ameadows'
 
 import logging
 import yaml
+import json
 
 
 class YAMLParser():

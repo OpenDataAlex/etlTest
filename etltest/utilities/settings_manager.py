@@ -9,17 +9,20 @@ import logging
 from ConfigParser import SafeConfigParser
 from shutil import copyfile
 import inspect
+
 import re
 import os
 import appdirs
 
+
 class SettingsManager():
 
     def __init__(self):
-        from etltest.utilities.settings import etltest_config, console
         """
             This method initializes the log for SettingsManager as well as sets some static variables for file paths.
         """
+        from etltest.utilities.settings import etltest_config, console
+
         self.log = logging.getLogger(name="SettingsManager")
         self.log.setLevel(etltest_config['logging_level'])
         self.log.addHandler(console)
@@ -41,8 +44,8 @@ class SettingsManager():
             self.log.info('User settings directory does not exist.  Building now.')
             os.makedirs(self.user_settings)
 
-            self.log.info("Copying default settings file to user directory. (%s/%s)" % self.user_settings
-                          , self.settings_file)
+            self.log.info("Copying default settings file to user directory. (%s/%s)" % self.user_settings,
+                          self.settings_file)
             copyfile(self.get_file_location() + '/templates/settings/' + self.settings_file
                      , self.user_settings + '/' + self.settings_file)
 

@@ -44,8 +44,7 @@ class SettingsManager():
             self.log.info('User settings directory does not exist.  Building now.')
             os.makedirs(self.user_settings)
 
-            self.log.info("Copying default settings file to user directory. (%s/%s)" % self.user_settings,
-                          self.settings_file)
+            self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings), self.settings_file)
             copyfile(self.get_file_location() + '/templates/settings/' + self.settings_file
                      , self.user_settings + '/' + self.settings_file)
 

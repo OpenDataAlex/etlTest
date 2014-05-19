@@ -13,11 +13,10 @@ import re
 import os
 import appdirs
 
-from etltest.utilities.settings import etltest_config, console
-
 class SettingsManager():
 
     def __init__(self):
+        from etltest.utilities.settings import etltest_config, console
         """
             This method initializes the log for SettingsManager as well as sets some static variables for file paths.
         """
@@ -31,7 +30,6 @@ class SettingsManager():
 
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)
-
 
     def first_run_test(self):
         """
@@ -80,5 +78,5 @@ class SettingsManager():
     def get_file_location():
 
         file_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-        file_path = re.sub('/utilities', '', file_path)
+        file_path = re.sub('/etltest/utilities', '', file_path)
         return file_path

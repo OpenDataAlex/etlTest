@@ -1,13 +1,13 @@
 __author__ = 'coty, ameadows'
 
 import logging
-from etltest.utilities.settings import etltest_config, console
 import yaml
 
 
 class YAMLParser():
 
     def __init__(self):
+        from etltest.utilities.settings import etltest_config, console
         """
             Initialization of method to setup the logging.
         """

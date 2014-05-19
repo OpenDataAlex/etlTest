@@ -5,7 +5,7 @@ from etltest.utilities.settings_manager import SettingsManager
 validation_templates = SettingsManager.get_file_location() + "/templates/yaml"
 
 
-#class YamlValidateTest(unittest.TestCase):
+class YamlValidateTest(unittest.TestCase):
 
     #def test_single_test_file_validate(self):
 

@@ -3,7 +3,7 @@ __author__ = 'coty, ameadows'
 import sys
 import optparse
 
-import etltest.utilities.settings_manager as settingsManager
+from etltest.utilities.settings_manager import SettingsManager
 
 
 def main(argv):
@@ -18,7 +18,7 @@ def main(argv):
         3) Execute that code so that we can take advantage of the unittest libraries
     """
     parser = optparse.OptionParser("usage: %prog [options]")
-    settingsManager.first_run_test()
+    SettingsManager().first_run_test()
 
     # no arguments, print usage
     if len(argv) == 0:

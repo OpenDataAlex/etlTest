@@ -1,50 +1,50 @@
-testName:  testFirstNameLower
-  desc:  Test for process that lower cases the first name field of a users table record.
-  testSuites:
-    suite:  dataMart
-    suite:  userDim
-  dataset:
-    source:  etlUnitTest
-      #table:  users
-      #  records:
-      #    - 1
-  query:
-    select:  first_name
-    from:  users
-    where:  user_id = 2
-  result:  sarah
+testGroup:  dataMartUsers
+  testName:  testFirstNameLower
+    desc:  Test for process that lower cases the first name field of a users table record.
+    testSuites:
+      suite:  dataMart
+      suite:  userDim
+    dataset:
+      source:  etlUnitTest
+        #table:  users
+        #  records:
+        #    - 1
+    query:
+      select:  first_name
+      from:  users
+      where:  user_id = 2
+    result:  sarah
 
-testName:  testFirstNameUpper
-  desc:  Test for process that upper cases the first name field of a users table record.
-  testSuites:
-    suite:  dataMart
-    suite:  userDim
-  dataset:
-    source:  etlUnitTest
-      #table:  users
-      #  records:
-      #    - 1
-  query:
-    select:  first_name
-    from:  users
-    where:  user_id = 2
-  result:  SARAH
+  testName:  testFirstNameUpper
+    desc:  Test for process that upper cases the first name field of a users table record.
+    testSuites:
+      suite:  dataMart
+      suite:  userDim
+    dataset:
+      source:  etlUnitTest
+        #table:  users
+        #  records:
+        #    - 1
+    query:
+      select:  first_name
+      from:  users
+      where:  user_id = 2
+    result:  SARAH
 
-
-testName:  testUserValidBirthday
-  desc:  Test for valid birth dates.
-  testSuites:
-    suite:  userDim
-  dataset:
-    source:  etlUnitTest
-      #table:  users
-      #  records:
-      #    - 1
-      #    - 2
-  query:
-    select:  birthday
-    from:  users
-    where:  user_id IN (1, 2)
-  result:
-    1:  01-01-1900
-    2:  02-02-2000
+  testName:  testUserValidBirthday
+    desc:  Test for valid birth dates.
+    testSuites:
+      suite:  userDim
+    dataset:
+      source:  etlUnitTest
+        #table:  users
+        #  records:
+        #    - 1
+        #    - 2
+    query:
+      select:  birthday
+      from:  users
+      where:  user_id IN (1, 2)
+    result:
+      1:  01-01-1900
+      2:  02-02-2000

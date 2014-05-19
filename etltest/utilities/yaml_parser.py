@@ -43,6 +43,6 @@ class YAMLParser():
         for root, subFolders, files in walk(dirname):
             for file in files:
                 filename = root + "/" + file
-                tmp = self.read_file(filename)
-                yaml_results.extend(tmp)
+                self.log.debug("Processing file %s " % filename)
+                yaml_results.extend(self.read_file(filename))
         return yaml_results

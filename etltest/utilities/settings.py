@@ -11,6 +11,8 @@ import pprint
 import os
 import yaml
 
+from etltest.utilities.settings_manager import SettingsManager
+
 # Begin CustomLogging
 # this import adds the additional log levels I created
 import etltest.utilities.custom_logging
@@ -34,7 +36,7 @@ settings_log.addHandler(console)
 
 pp = pprint.PrettyPrinter(indent=4)
 
-settings_filename = 'PycharmProjects/etlTest/.etltest-settings.yml'
+settings_filename = SettingsManager.get_file_location() + '/.etltest-settings.yml'
 
 settings_fs_locs = ["{}/{}".format(os.path.expanduser("~"), settings_filename), "".join(settings_filename)]
 

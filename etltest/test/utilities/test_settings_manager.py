@@ -4,7 +4,7 @@ import unittest
 import os
 import appdirs
 
-from etltest.utilities.settings import etltest_config, console
+from etltest.utilities.settings import etltest_config
 from etltest.utilities.settings_manager import SettingsManager
 
 

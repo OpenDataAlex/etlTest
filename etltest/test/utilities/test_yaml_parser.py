@@ -27,12 +27,12 @@ class YamlParserTests(unittest.TestCase):
                           , 'desc': 'Test for process that lower cases the first name field of a users table record.'
                           , 'query': [{'from': 'users', 'where': 'user_id = 2', 'result': 'sarah'
                           , 'select': 'first_name'}], 'name': 'testFirstNameLower', 'dataset': [{'source': 'etlUnitTest'
-                          , 'table': 'users', 'records': [1]}]}, {'suites': [{'suite': 'dataMart'}
+                          , 'table': 'users', 'records': [2]}]}, {'suites': [{'suite': 'dataMart'}
                           , {'suite': 'userDim'}]
                           , 'desc': 'Test for process that upper cases the first name field of a users table record.'
                           , 'query': [{'from': 'users', 'where': 'user_id = 2', 'result': 'SARAH'
                           , 'select': 'first_name'}], 'name': 'testFirstNameUpper', 'dataset': [{'source': 'etlUnitTest'
-                          , 'table': 'users', 'records': [1]}]}, {'suites': [{'suite': 'userDim'}]
+                          , 'table': 'users', 'records': [2]}]}, {'suites': [{'suite': 'userDim'}]
                           , 'desc': 'Test for valid birth dates.', 'query': [{'from': 'users'
                           , 'where': 'user_id IN (1, 2)', 'result': [{1: '01-01-1900'}, {2: '02-02-2000'}]
                           , 'select': 'birthday'}], 'name': 'testUserValidBirthday'
@@ -56,11 +56,11 @@ class YamlParserTests(unittest.TestCase):
                         , 'desc': 'Test for process that lower cases the first name field of a users table record.'
                         , 'query': [{'from': 'users', 'where': 'user_id = 2', 'result': 'sarah'
                         , 'select': 'first_name'}], 'name': 'testFirstNameLower', 'dataset': [{'source': 'etlUnitTest'
-                        , 'table': 'users', 'records': [1]}]}, {'suites': [{'suite': 'dataMart'}, {'suite': 'userDim'}]
+                        , 'table': 'users', 'records': [2]}]}, {'suites': [{'suite': 'dataMart'}, {'suite': 'userDim'}]
                         , 'desc': 'Test for process that upper cases the first name field of a users table record.'
                         , 'query': [{'from': 'users', 'where': 'user_id = 2', 'result': 'SARAH'
                         , 'select': 'first_name'}], 'name': 'testFirstNameUpper', 'dataset': [{'source': 'etlUnitTest'
-                        , 'table': 'users', 'records': [1]}]}, {'suites': [{'suite': 'userDim'}]
+                        , 'table': 'users', 'records': [2]}]}, {'suites': [{'suite': 'userDim'}]
                         , 'desc': 'Test for valid birth dates.', 'query': [{'from': 'users'
                         , 'where': 'user_id IN (1, 2)', 'result': [{1: '01-01-1900'}, {2: '02-02-2000'}]
                         , 'select': 'birthday'}], 'name': 'testUserValidBirthday', 'dataset': [{'source': 'etlUnitTest'

@@ -7,7 +7,7 @@ DataMart\Users:
    dataset:
      - source:  etlUnitTest
        table:  users
-       records: [1]
+       records: [2]
    query:
      - select: first_name
        from: users
@@ -22,7 +22,7 @@ DataMart\Users:
    dataset:
       - source:  etlUnitTest
         table:  users
-        records: [1]
+        records: [2]
    query:
      - select:  first_name
        from:  users

@@ -14,7 +14,7 @@ class {{ testGroup }}Test(unittest.TestCase):
             {% endfor %}
         {% endfor %}
 {% for test in tests %}
-    def {{ testName }}(suite):
+    def {{ name }}(suite):
         test_suites = {
                       {% for suite in suites %}
                           "{{ suite }}",

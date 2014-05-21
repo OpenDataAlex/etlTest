@@ -42,15 +42,7 @@ class CodeGenerator():
 
         for test_group in self.test_list:
             self.log.debug(test_group)
-            i = 1
-            for test in test_group:
-                if i == 1:
-                    self.log.info("Working with the following test group: %s" % test)
-                else:
-                    self.log.info("Generating test from %s" % test)
-                     template.render(test)
-                i += 1
-
+            return template.render(test_group)
 
     def jinja_setup(self):
         from jinja2 import Environment, PackageLoader

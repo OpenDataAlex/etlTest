@@ -1,8 +1,11 @@
 __author__ = 'coty, ameadows'
 
+import logging
+
 from etltest.utilities.settings import etltest_config, console
-from etltest.utilities.settings_manager import find_setting
+from etltest.utilities.settings_manager import SettingsManager
 from etltest.utilities.yaml_parser import YAMLParser
+
 
 class CodeGenerator():
 
@@ -17,15 +20,15 @@ class CodeGenerator():
 
         self.in_file = in_file
         self.in_dir = in_dir
-        self.out_dir = find_setting('Locations', 'tests')
+        self.out_dir = SettingsManager().find_setting('Locations', 'tests')
 
 
         if self.in_file is not None:
-            self.test_list = YAMLParser.read_file(self.in_file)
+            self.test_list = YAMLParser().read_file(self.in_file)
         elif self.in_dir is not None:
-            self.test_list = YAMLParser.read_dir(self.in_dir)
+            self.test_list = YAMLParser().read_dir(self.in_dir)
         else:
-            test_loc = find_setting("Locations", "tests")
+            test_loc = SettingsManager().find_setting("Locations", "tests")
             self.test_list = YAMLParser.read_dir(test_loc)
 
     def generate_test(self):
@@ -35,10 +38,18 @@ class CodeGenerator():
         # TODO:  Continue working on YAML Validator.  Must be included either here or in the parser...
 
         self.jinja_setup()
+        template = self.jinja_env.get_template("output/test.jinja2")
 
-
-
-    def generate_data(self):
+        for test_group in self.test_list:
+            self.log.debug(test_group)
+            i = 1
+            for test in test_group:
+                if i == 1:
+                    self.log.info("Working with the following test group: %s" % test)
+                else:
+                    self.log.info("Generating test from %s" % test)
+                     template.render(test)
+                i += 1
 
 
     def jinja_setup(self):

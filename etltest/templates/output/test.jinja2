@@ -1,0 +1,24 @@
+{{ header }}
+
+import unittest
+import sqlalchemy
+
+class {{ testGroup }}Test(unittest.TestCase):
+
+    def setUp(self):
+        {% for test in tests %}
+            {% for source in dataset %}
+                {% if source not in sources %}
+                    self.{{ source }}engine = sqlalchemy.create_engine()
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+{% for test in tests %}
+    def {{ testName }}(suite):
+        test_suites = {
+                      {% for suite in suites %}
+                          "{{ suite }}",
+                      {% endfor %}
+                      }
+
+{% endfor %}

@@ -1,21 +1,23 @@
 __author__ = 'ameadows'
 
-from etltest.utilities.settings_manager import SettingsManager
+import unittest
 
-test_dir = SettingsManager.get_file_location() + '/samples/test/'
+from etltest.utilities.settings_manager import SettingsManager
+from etltest.code_generator import CodeGenerator
+
+test_dir = SettingsManager.get_file_location() + '/etltest/samples/test/'
+test_file = test_dir + 'dataMart/users.yml'
 
 
 # class CodeGeneratorTest(unittest.TestCase):
 #
 #     def test_generate_single_test_file(self):
-#         test_file = test_dir + 'dataMart/users.yml'
+#         given_result = CodeGenerator(in_file=test_file).generate_test()
+#         expected_result = ""
 #
-#         CodeGenerator(in_file=test_file)
+#         self.assertEqual(given_result, expected_result)
 
 #
 #
-# def test_generate_single_data_file():
 #
 # def test_generate_multiple_test_file():
-#
-# def test_generate_multiple_data_file():

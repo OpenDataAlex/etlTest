@@ -44,10 +44,10 @@ class SettingsManager():
             self.log.info('User settings directory does not exist.  Building now.')
             os.makedirs(self.user_settings)
 
-            self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self
-                                                                                                   .user_settings, self.settings_file))
+            self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings
+                         , self.settings_file))
             copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.settings_file, self.user_settings
-                                                                                                   + '/' + self.settings_file)
+                     + '/' + self.settings_file)
 
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
@@ -63,7 +63,9 @@ class SettingsManager():
         Gets all the settings from the primary settings file (etlTest.properties).
         """
         parser = SafeConfigParser()
-        return parser.read(self.user_settings + "/" + self.settings_file)
+        parser.read(self.user_settings + "/" + self.settings_file)
+        self.log.info(parser._sections)
+        return parser._sections
 
     def find_setting(self, setting_section, setting_name):
         """
@@ -75,7 +77,10 @@ class SettingsManager():
         """
         config = self.get_settings()
 
-        return config(setting_section)[setting_name]
+        try:
+            return config[setting_section][setting_name]
+        except Exception:
+            return False
 
     @staticmethod
     def get_file_location():

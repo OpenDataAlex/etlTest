@@ -45,12 +45,23 @@ class CodeGenerator():
             self.log.debug("Test Group Name: %s" % self.testGroup)
             self.log.debug("Tests for test group: %s" % self.tests)
 
+            self.data = self.generate_data(self.tests)
+
             variables = {
                 "header": self.header,
                 "tests": self.tests,
                 "testGroup": self.testGroup
             }
             print template.render(variables)
+
+    def generate_data(self, test_set):
+        """
+            This method takes in the dataset of a test and returns the record(s) needed to build the query.
+        """
+        data = []
+
+        for test in test_set:
+
 
     def jinja_setup(self):
         from jinja2 import Environment, PackageLoader

@@ -41,8 +41,16 @@ class CodeGenerator():
         template = self.jinja_env.get_template("output/test.jinja2")
 
         for test_group in self.test_list:
-            self.log.debug(test_group)
-            return template.render(test_group)
+            self.testGroup, self.tests = test_group.popitem()
+            self.log.debug("Test Group Name: %s" % self.testGroup)
+            self.log.debug("Tests for test group: %s" % self.tests)
+
+            variables = {
+                "header": self.header,
+                "tests": self.tests,
+                "testGroup": self.testGroup
+            }
+            print template.render(variables)
 
     def jinja_setup(self):
         from jinja2 import Environment, PackageLoader

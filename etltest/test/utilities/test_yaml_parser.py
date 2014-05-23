@@ -13,8 +13,8 @@ from etltest.utilities.settings_manager import SettingsManager
 tmp_path = SettingsManager().get_file_location()
 test_dir = tmp_path + "/etltest/samples/test/"
 data_dir = tmp_path + "/etltest/samples/data/"
-test_file = test_dir + "dataMart/users.yml"
-data_file = data_dir + "etlUnitTest/users.yml"
+test_file = test_dir + "dataMart/users_dim.yml"
+data_file = data_dir + "etlUnitTest/users_dim.yml"
 
 
 class YamlParserTests(unittest.TestCase):

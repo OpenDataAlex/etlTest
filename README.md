@@ -1,6 +1,8 @@
 #etlTest
 
-[![Build Status](https://travis-ci.org/OpenDataAlex/etlTest.png?branch=dev)](https://travis-ci.org/OpenDataAlex/etlTest) [![Coverage Status](https://coveralls.io/repos/OpenDataAlex/etlTest/badge.png?branch=dev)](https://coveralls.io/r/OpenDataAlex/etlTest?branch=dev)
+[![Build Status](https://travis-ci.org/OpenDataAlex/etlTest.png?branch=dev)](https://travis-ci.org/OpenDataAlex/etlTest)
+[![Coverage Status](https://coveralls.io/repos/OpenDataAlex/etlTest/badge.png?branch=dev)](https://coveralls.io/r/OpenDataAlex/etlTest?branch=dev)
+[![endorse](https://api.coderwall.com/dbaalex/endorsecount.png)](https://coderwall.com/dbaalex)
 
 ##Installation
 

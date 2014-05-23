@@ -1,0 +1,40 @@
+DataMart\UsersDim:
+   suites:
+     - suite: dataMart
+   processes:
+     - tool:  PDI
+       jobs:
+         - job:  data_mart/user_dim_jb.kjb
+   dataset:
+     - source:  etlUnitTest
+       table:  users
+       records:  [1, 2]
+   tests:
+     - name: testFirstNameLower
+       desc:  Test for process that lower cases the first name field of a users table record.
+       query:
+         select: first_name
+         from: users_dim
+         where: user_id = 2
+         source:  etlUnitTest
+         result: sarah
+
+     - name:  testFirstNameUpper
+       desc:  Test for process that upper cases the first name field of a users table record.
+       query:
+         select:  first_name
+         from:  users_dim
+         where:  user_id = 2
+         source:  etlUnitTest
+         result:  SARAH
+
+     - name: testUserValidBirthday
+       desc:  Test for valid birth dates.
+       query:
+         select:  birthday
+         from:  users_dim
+         where:  user_id IN (1, 2)
+         source:  etlUnitTest
+         result:
+            - 1:  01-01-1900
+            - 2:  02-02-2000

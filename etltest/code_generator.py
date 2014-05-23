@@ -1,7 +1,7 @@
 __author__ = 'coty, ameadows'
 
 import logging
-
+import os
 from etltest.utilities.settings import etltest_config, console
 from etltest.utilities.settings_manager import SettingsManager
 from etltest.utilities.yaml_parser import YAMLParser
@@ -38,21 +38,33 @@ class CodeGenerator():
         # TODO:  Continue working on YAML Validator.  Must be included either here or in the parser...
 
         self.jinja_setup()
-        template = self.jinja_env.get_template("output/test.jinja2")
+        self.template = self.jinja_env.get_template("output/test.jinja2")
 
-        for test_group in self.test_list:
-            self.testGroup, self.tests = test_group.popitem()
-            self.log.debug("Test Group Name: %s" % self.testGroup)
+        for group in self.test_list:
+            self.test_group, self.tests = group.popitem()
+            self.file_path = self.test_group                     # Using the testGroup as the folder structure for
+                                                                 # output.
+
+            self.test_group = self.test_group.replace("\\", '')  # Removing slashes so the test class is properly
+                                                                 # named.
+
+            self.log.debug("Test Group Name: %s" % self.test_group)
             self.log.debug("Tests for test group: %s" % self.tests)
+
 
             self.data = self.generate_data(self.tests)
 
-            variables = {
+            self.variables = {
                 "header": self.header,
                 "tests": self.tests,
-                "testGroup": self.testGroup
-            }
-            print template.render(variables)
+                "testGroup": self.test_group
+                         }
+
+            self.test_output = self.template.render(self.variables)
+            os.mkdir(self.out_dir + "\\" + self.file_path)
+            with open(self.out_dir + "\\" + self.file_path + ".py", 'w') as f:
+                f.write(self.test_output)
+                f.close()
 
     def generate_data(self, test_set):
         """
@@ -61,7 +73,7 @@ class CodeGenerator():
         data = []
 
         for test in test_set:
-
+            return True
 
     def jinja_setup(self):
         from jinja2 import Environment, PackageLoader

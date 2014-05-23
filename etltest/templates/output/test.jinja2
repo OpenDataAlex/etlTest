@@ -1,44 +1,47 @@
 {{ header }}
+# These tests are also run as part of the following suites:
+#
+{% for suite in tests.suites %}
+#    {{ suite.suite }}
+{% endfor %}
+#
+# The following processes are executed for these tests:
+#
+{% for proc in tests.processes %}
+#    {{ proc.tool }}:
+  {% for job in proc.jobs %}
+#      {{ job.job }}
+  {% endfor %}
+{% endfor %}
 
 import unittest
 import sqlalchemy
 from etltest.code_executor import CodeExecutor
+
+
 class {{ testGroup }}Test(unittest.TestCase):
 
     def setUp(self):
-        {% for test in tests %}
-            {% for set in test.dataset %}
-                #Create engines for loading test data.
-                {% if set not in sources %}
-                    self.{{ set.source }}Engine = sqlalchemy.create_engine()
-                {% endif %}
-            {% endfor %}
+        # Create engines and queries for loading test data.
 
-            {% for set in test.dataset %}
-                #Create queries for the insertion of test data.
-            {% endfor %}
-        {% endfor %}
+          {% for set in tests.dataset %}
+            self.{{ set.source }}Engine = sqlalchemy.create_engine()
+          {% endfor %}
 
-    def tearDown(self)
+          {% for set in tests.dataset %}
+          {% endfor %}
 
-{% for test in tests %}
+    def tearDown(self):
+       # Clean up testing environment.
+
+{% for test in tests.tests %}
     def {{ test.name }}(suite):
-        #{{ test.desc }}
-        test_suites = {
-                      {% for suite in test.suites %}
-                          "{{ suite.suite }}",
-                      {% endfor %}
-                      }
+        # {{ test.desc }}
 
-        tools = {
-                {% for procs in test.processes %}
-                    "{{ procs.tool }}":
-                            {% for job in procs.jobs %}
-                            "{{ job.job }}",
-                            {% endfor %}
-                {% endfor %}
-                }
+        given_result = self.{{ test.query.source }}Engine.execute("SELECT {{ test.query.select }} FROM {{ test.query.from }} WHERE {{ test.query.where }}")
 
-        given_result = self.{{ test.dataset.source }}Engine
+        expected_result = "{{ test.query.result }}"
+
+        self.assertEqual(given_result, expected_result)
 
 {% endfor %}

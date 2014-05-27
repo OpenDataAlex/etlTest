@@ -2,3 +2,4 @@ logging_level: 5
 app_name: etlTest
 app_author:  etlTest
 settings_file:  etlTest.properties
+connection_file: etlTest.connections

@@ -30,6 +30,7 @@ class SettingsManager():
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
         self.settings_file = etltest_config['settings_file']
+        self.connection_file = etltest_config['connection_file']
 
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)
@@ -48,6 +49,8 @@ class SettingsManager():
                          , self.settings_file))
             copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.settings_file, self.user_settings
                      + '/' + self.settings_file)
+            self.log.info(u"Copying sample connection file to user directory. ({0:s}/{1:s})").format(self.user_settings
+                          , self.connection_file)
 
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)

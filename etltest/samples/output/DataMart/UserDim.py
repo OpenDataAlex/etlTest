@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #
 # This file was created by etlTest.
-# Create date: Fri, 23 May 2014 17:05:26 +0000
+# Create date: Wed, 28 May 2014 20:14:17 +0000
 #
 
 # These tests are also run as part of the following suites:
@@ -16,6 +16,7 @@
 import unittest
 import sqlalchemy
 from etltest.code_executor import CodeExecutor
+from etltest.data_connector import DataConnector
 
 
 class DataMartUsersDimTest(unittest.TestCase):
@@ -23,7 +24,7 @@ class DataMartUsersDimTest(unittest.TestCase):
     def setUp(self):
         # Create engines and queries for loading test data.
 
-            self.etlUnitTestEngine = sqlalchemy.create_engine()
+            self.etlUnitTestEngine = DataConnector.build_engine()
 
 
     def tearDown(self):
@@ -55,4 +56,3 @@ class DataMartUsersDimTest(unittest.TestCase):
         expected_result = "[{1: '01-01-1900'}, {2: '02-02-2000'}]"
 
         self.assertEqual(given_result, expected_result)
-

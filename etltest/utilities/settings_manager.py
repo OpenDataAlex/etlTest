@@ -99,6 +99,7 @@ class SettingsManager():
 
         file_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
         file_path = re.sub('/etltest/utilities', '', file_path)
+
         return file_path
 
     def read_settings_file(self, settings_file):

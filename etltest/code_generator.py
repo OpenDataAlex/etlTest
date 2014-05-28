@@ -42,15 +42,16 @@ class CodeGenerator():
 
         for group in self.test_list:
             self.test_group, self.tests = group.popitem()
-            self.file_path = self.test_group                     # Using the testGroup as the folder structure for
-                                                                 # output.
-
+            self.file_path, self.filename = self.test_group.rsplit("\\", 1)      # Using the testGroup as the
+            self.filename = self.filename + ".py"                                # folder structure for output.
+            self.file_path = os.path.join(self.out_dir, self.file_path)
             self.test_group = self.test_group.replace("\\", '')  # Removing slashes so the test class is properly
                                                                  # named.
 
             self.log.debug("Test Group Name: %s" % self.test_group)
             self.log.debug("Tests for test group: %s" % self.tests)
-
+            self.log.debug("File path: %s" % self.file_path)
+            self.log.debug("File name: %s" % self.filename)
 
             self.data = self.generate_data(self.tests)
 
@@ -61,10 +62,17 @@ class CodeGenerator():
                          }
 
             self.test_output = self.template.render(self.variables)
-            os.mkdir("{}\\{}.py".format(self.out_dir, self.file_path))
-            with open(self.out_dir + "\\" + self.file_path + ".py", 'w') as f:
+
+            if not os.path.isdir(self.file_path):
+                os.makedirs(self.file_path, 0755)
+                self.log.debug("%s directory created." % self.file_path)
+
+            os.chdir(self.file_path)
+            with open(self.filename, 'w') as f:
                 f.write(self.test_output)
                 f.close()
+
+            self.log.info("%s test file generated." % self.filename)
 
     def generate_data(self, test_set):
         """

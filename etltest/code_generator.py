@@ -61,7 +61,7 @@ class CodeGenerator():
                          }
 
             self.test_output = self.template.render(self.variables)
-            os.mkdir(self.out_dir + "\\" + self.file_path)
+            os.mkdir("{}\\{}.py".format(self.out_dir, self.file_path))
             with open(self.out_dir + "\\" + self.file_path + ".py", 'w') as f:
                 f.write(self.test_output)
                 f.close()

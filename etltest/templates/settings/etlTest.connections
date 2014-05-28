@@ -1,5 +1,4 @@
-connections:
-  - source:  etlUnitTest
+etlUnitTest:
     hostname:  localhost
     username:  local_user
     password:  password

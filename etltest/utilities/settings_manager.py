@@ -37,8 +37,8 @@ class SettingsManager():
 
     def first_run_test(self):
         """
-        Tests if the directories used for user settings exist or not.
-          No parameters are passed from outside settingsManager.
+            Tests if the directories used for user settings exist or not.
+              No parameters are passed from outside settingsManager.
         """
 
         if not os.path.isdir(self.user_settings):
@@ -46,11 +46,14 @@ class SettingsManager():
             os.makedirs(self.user_settings)
 
             self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings
-                         , self.settings_file))
+                          , self.settings_file))
             copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.settings_file, self.user_settings
                      + '/' + self.settings_file)
-            self.log.info(u"Copying sample connection file to user directory. ({0:s}/{1:s})").format(self.user_settings
-                          , self.connection_file)
+
+            self.log.info(u"Copying default connection file to user directory. ({0:s}/{1:s})".format(self.user_settings
+                          , self.connection_file))
+            copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.connection_file,
+                     self.user_settings + '/' + self.connection_file)
 
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
@@ -61,22 +64,28 @@ class SettingsManager():
         else:
             self.log.info("User logging directory exists (%s)" % self.user_logging)
 
+
     def get_settings(self):
         """
-        Gets all the settings from the primary settings file (etlTest.properties).
+            Gets all the settings from the primary settings file (etlTest.properties).
         """
-        parser = SafeConfigParser()
-        parser.read(self.user_settings + "/" + self.settings_file)
-        self.log.info(parser._sections)
-        return parser._sections
+        return self.read_settings_file(self.settings_file)
+
+
+    def get_connections(self):
+        """
+            Gets all the connections from the primary connections file (etlTest.connections).
+        """
+
+        return self.read_settings_file(self.connection_file)
 
     def find_setting(self, setting_section, setting_name):
         """
-        Reads the config file and returns the given setting's value.
-        :param setting_section The properties file section name.
-        :type setting_section str
-        :param setting_name The property name
-        :type setting_name str
+            Reads the config file and returns the given setting's value.
+            :param setting_section: The properties file section name.
+            :type setting_section: str
+            :param setting_name: The property name
+            :type setting_name: str
         """
         config = self.get_settings()
 
@@ -91,3 +100,15 @@ class SettingsManager():
         file_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
         file_path = re.sub('/etltest/utilities', '', file_path)
         return file_path
+
+    def read_settings_file(self, settings_file):
+        """
+            Parses file using the SafeConfigParser.  Will return the file as an array.
+            :param settings_file: The file to be processed.
+            :type settings_file:  str
+            :returns: Array
+        """
+        parser = SafeConfigParser()
+        parser.read(self.user_settings + "/" + settings_file)
+        self.log.info(parser._sections)
+        return parser._sections

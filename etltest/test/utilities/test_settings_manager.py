@@ -18,6 +18,7 @@ class SettingsManagerTests(unittest.TestCase):
         self.data_dir = appdirs.user_data_dir(self.app_name, self.app_author)
         self.log_dir = appdirs.user_log_dir(self.app_name, self.app_author)
         self.settings_file = os.path.join(self.data_dir, etltest_config['settings_file'])
+        self.connection_file = os.path.join(self.data_dir, etltest_config['connection_file'])
 
     def test_data_dir_exists(self):
         assert os.path.exists(self.data_dir)

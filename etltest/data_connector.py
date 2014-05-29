@@ -28,7 +28,7 @@ class DataConnector():
         self.log.addHandler(console)
 
         from etltest.utilities.settings_manager import SettingsManager
-        connections = SettingsManager.get_connections()
+        connections = SettingsManager().get_connections()
         connection = connections[conn_name]
 
         if connection is None:

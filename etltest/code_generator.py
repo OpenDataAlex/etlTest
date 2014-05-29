@@ -43,7 +43,7 @@ class CodeGenerator():
         for group in self.test_list:
             self.test_group, self.tests = group.popitem()
             self.file_path, self.filename = self.test_group.rsplit("\\", 1)      # Using the testGroup as the
-            self.filename = self.filename + ".py"                                # folder structure for output.
+            self.filename += ".py"                                               # folder structure for output.
             self.file_path = os.path.join(self.out_dir, self.file_path)
             self.test_group = self.test_group.replace("\\", '')  # Removing slashes so the test class is properly
                                                                  # named.
@@ -61,15 +61,13 @@ class CodeGenerator():
                 "testGroup": self.test_group
                          }
 
-            self.test_output = self.template.render(self.variables)
-
             if not os.path.isdir(self.file_path):
                 os.makedirs(self.file_path, 0755)
                 self.log.debug("%s directory created." % self.file_path)
 
             os.chdir(self.file_path)
             with open(self.filename, 'w') as f:
-                f.write(self.test_output)
+                f.write(self.template.render(self.variables))
                 f.close()
 
             self.log.info("%s test file generated." % self.filename)

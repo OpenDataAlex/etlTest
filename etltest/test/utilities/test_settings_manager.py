@@ -2,7 +2,8 @@ __author__ = 'ameadows'
 
 import unittest
 from collections import OrderedDict
-
+import inspect
+import re
 import os
 import appdirs
 
@@ -41,6 +42,14 @@ class SettingsManagerTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_get_connections(self):
+        given_result = SettingsManager().get_connections()
+        expected_result = OrderedDict([('etlUnitTest', OrderedDict([('__name__', 'etlUnitTest'), ('hostname',
+                                        'localhost'), ('username', 'local_user'), ('password', 'password'),
+                                       ('port', '3306'), ('type', 'MySQL'), ('dbname', 'etlUnitTest')]))])
+
+        self.assertEqual(given_result, expected_result)
+
     def test_find_single_setting(self):
         given_result = SettingsManager().find_setting('Locations', 'tests')
         expected_result = "/Documents/etlTest/tests"
@@ -53,4 +62,10 @@ class SettingsManagerTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_get_file_location(self):
+        given_result = SettingsManager().get_file_location()
+        expected_result = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        expected_result = re.sub('/etltest/test/utilities', '', expected_result)
+
+        self.assertEqual(given_result, expected_result)
 

@@ -1,7 +1,7 @@
-etlUnitTest:
-    hostname:  localhost
-    username:  local_user
-    password:  password
-    port:  3306
-    type:  MySQL
-    dbname:  etlUnitTest
+[etlUnitTest]
+hostname:  localhost
+username:  local_user
+password:  password
+port:  3306
+type:  MySQL
+dbname:  etlUnitTest

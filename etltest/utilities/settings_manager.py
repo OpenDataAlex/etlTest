@@ -110,6 +110,6 @@ class SettingsManager():
             :returns: Array
         """
         parser = SafeConfigParser()
-        parser.read(self.user_settings + "/" + settings_file)
+        parser.read(os.path.join(self.user_settings, settings_file))
         self.log.info(parser._sections)
         return parser._sections

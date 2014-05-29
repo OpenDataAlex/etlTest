@@ -3,10 +3,13 @@ __author__ = 'coty, ameadows'
     This file contains all the logic to connect to data sources using SQLAlchemy.
 """
 
-import json
+import logging
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, MetaData, Table, inspect
-import logging
+
+from etltest.utilities.settings import etltest_config, console
+
 
 class DataConnector():
     #TODO:  Need to determine if a data validation tool is required.  For instance, does record set match the table

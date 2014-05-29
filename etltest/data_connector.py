@@ -7,7 +7,6 @@ import logging
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, MetaData, Table, inspect
-
 from etltest.utilities.settings import etltest_config, console
 
 

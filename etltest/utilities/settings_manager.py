@@ -97,7 +97,7 @@ class SettingsManager():
     @staticmethod
     def get_file_location():
 
-        file_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        file_path = os.path.dirname(os.path.abspath(__file__))
         file_path = re.sub('/etltest/utilities', '', file_path)
 
         return file_path

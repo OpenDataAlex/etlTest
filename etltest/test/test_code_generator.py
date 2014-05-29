@@ -13,8 +13,8 @@ class CodeGeneratorTest(unittest.TestCase):
     def setUp(self):
         self.out_dir = SettingsManager().find_setting('Locations', 'tests')
         self.main_path = SettingsManager().get_file_location()
-        self.test_dir = os.path.join(self.main_path, '/etltest/samples/test/')
-        self.test_file = os.path.join(self.test_dir, 'dataMart/users_dim.yml')
+        self.test_dir = self.main_path + '/etltest/samples/test/'
+        self.test_file = self.test_dir + '/dataMart/users_dim.yml'
 
     def test_generate_single_test_file(self):
 

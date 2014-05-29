@@ -8,5 +8,8 @@ install:
 script:
     - "coverage run --source=etltest setup.py test"
     - 'tox'
+before_script:
+  - mysql -e 'create database etlUnitTest;'
+services:  mysql
 after_success:
     coveralls

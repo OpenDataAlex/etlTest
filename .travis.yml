@@ -11,5 +11,6 @@ script:
 before_script:
   - mysql -e 'create database etlUnitTest;'
 services:  mysql
+env: ETL_TEST_ROOT=$TRAVIS_BUILD_DIR
 after_success:
     coveralls

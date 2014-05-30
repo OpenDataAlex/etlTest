@@ -91,12 +91,14 @@ class SettingsManager():
 
         try:
             config_var = config[setting_section][setting_name]
-            if "$TRAVIS_BUILD_DIR" in config_var:
-                config_var.replace("$ETL_TEST_ROOT", os.environ.get('ETL_TEST_ROOT'))
-                self.log.debug("Replacing ETL_TEST_ROOT with %s" % os.environ.get('ETL_TEST_ROOT'))
+            etl_test_root = str(os.environ.get('ETL_TEST_ROOT'))
+            if "$ETL_TEST_ROOT" in config_var:
+                config_var.replace("$ETL_TEST_ROOT", etl_test_root)
+                self.log.debug("Replacing ETL_TEST_ROOT with %s" % etl_test_root)
             return config_var
         except Exception:
             return False
+
 
     @staticmethod
     def get_file_location():

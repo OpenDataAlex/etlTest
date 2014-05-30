@@ -16,14 +16,17 @@ class CodeGeneratorTest(unittest.TestCase):
         self.test_dir = self.main_path + '/etltest/samples/test/'
         self.test_file = self.test_dir + '/dataMart/users_dim.yml'
 
-    def test_generate_single_test_file(self):
-
         CodeGenerator(in_file=self.test_file).generate_test()
-        sample_file = os.path.join(self.main_path, '/etltest/samples/output/DataMart/UserDim.py')
-        output_file = os.path.join(self.out_dir, 'DataMart/UserDim.py')
-        given_result = file.read(open(output_file, 'r'))
 
-        expected_result = file.read(open(sample_file, 'r'))
+    def test_generate_single_test_file(self):
+        sample_file = os.path.join(self.main_path, 'etltest/samples/output/DataMart/UsersDim.py')
+        output_file = os.path.join(self.out_dir, 'DataMart/UsersDim.py')
+
+        with open(output_file, 'r') as f:
+            given_result = f.read()
+
+        with open(sample_file, 'r') as f:
+            expected_result = f.read()
 
         self.assertEqual(given_result, expected_result)
 

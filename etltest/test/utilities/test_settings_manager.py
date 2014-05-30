@@ -34,8 +34,8 @@ class SettingsManagerTests(unittest.TestCase):
     def test_get_config_settings(self):
         given_result = SettingsManager().get_settings()
         expected_result = OrderedDict([('Locations', OrderedDict([('__name__', 'Locations'),
-                                       ('tests', '/Documents/etlTest/tests'), ('data'
-                                       , '/Documents/etlTest/data'), ('output',
+                                       ('tests', '/home/travis/build/OpenDataAlex/etlTest/Documents/etlTest/tests'), ('data'
+                                       , '/home/travis/build/OpenDataAlex/etlTest/Documents/etlTest/data'), ('output',
                                        '/Documents/etlTest/output')])), ('Results',
                                        OrderedDict([('__name__', 'Results'), ('verbose',
                                        'True'), ('failurerate', '10'), ('reporttype', 'Normal')]))])
@@ -52,7 +52,7 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_find_single_setting(self):
         given_result = SettingsManager().find_setting('Locations', 'tests')
-        expected_result = "/Documents/etlTest/tests"
+        expected_result = "/home/travis/build/OpenDataAlex/etlTest/Documents/etlTest/tests"
 
         self.assertEqual(given_result, expected_result)
 

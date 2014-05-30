@@ -93,9 +93,10 @@ class SettingsManager():
             config_var = config[setting_section][setting_name]
             etl_test_root = str(os.environ.get('ETL_TEST_ROOT'))
             if "$ETL_TEST_ROOT" in config_var:
-                config_var.replace("$ETL_TEST_ROOT", etl_test_root)
                 self.log.debug("Replacing ETL_TEST_ROOT with %s" % etl_test_root)
-            return config_var
+                return config_var.replace("$ETL_TEST_ROOT", etl_test_root)
+            else:
+                return config_var
         except Exception:
             return False
 

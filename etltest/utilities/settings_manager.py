@@ -93,6 +93,7 @@ class SettingsManager():
             config_var = config[setting_section][setting_name]
             if "$TRAVIS_BUILD_DIR" in config_var:
                 config_var.replace("$TRAVIS_BUILD_DIR", os.environ.get('HOME'))
+                self.log.debug("Replacing TRAVIS_BUILD_DIR with %s" % os.environ.get('HOME'))
             return config_var
         except Exception:
             return False

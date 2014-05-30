@@ -1,7 +1,6 @@
 #!/usr/bin/python
 #
 # This file was created by etlTest.
-# Create date: Fri, 30 May 2014 15:58:19 +0000
 #
 
 # These tests are also run as part of the following suites:
@@ -38,7 +37,6 @@ class DataMartUsersDimTest(unittest.TestCase):
         expected_result = "sarah"
 
         self.assertEqual(given_result, expected_result)
-
     def testFirstNameUpper(suite):
         # Test for process that upper cases the first name field of a users table record.
 
@@ -47,7 +45,6 @@ class DataMartUsersDimTest(unittest.TestCase):
         expected_result = "SARAH"
 
         self.assertEqual(given_result, expected_result)
-
     def testUserValidBirthday(suite):
         # Test for valid birth dates.
 

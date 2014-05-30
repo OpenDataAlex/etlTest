@@ -44,7 +44,7 @@ class CodeGenerator():
             self.test_group, self.tests = group.popitem()
             self.file_path, self.filename = self.test_group.rsplit("\\", 1)      # Using the testGroup as the
             self.filename += ".py"                                               # folder structure for output.
-            self.file_path = os.path.join(self.out_dir, self.file_path)
+            self.file_path = self.out_dir + "/" + self.file_path
             self.test_group = self.test_group.replace("\\", '')  # Removing slashes so the test class is properly
                                                                  # named.
 
@@ -90,7 +90,5 @@ class CodeGenerator():
         # Header lines created here and added to the templates as required
         self.header = "#!/usr/bin/python\n" \
                  "#\n" \
-                 "# This file was created by etlTest.\n#" \
-                 " Create date: %s\n" \
-                 "#\n" % \
-                 strftime("%a, %d %b %Y %X +0000", gmtime())
+                 "# This file was created by etlTest.\n" \
+                 "#\n"

@@ -11,7 +11,7 @@ from etltest.code_generator import CodeGenerator
 class CodeGeneratorTest(unittest.TestCase):
 
     def setUp(self):
-        SettingsManager.first_run_test()
+        SettingsManager().first_run_test()
         self.out_dir = SettingsManager().find_setting('Locations', 'tests')
         self.main_path = SettingsManager().get_file_location()
         self.test_dir = self.main_path + '/etltest/samples/test/'

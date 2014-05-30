@@ -52,7 +52,7 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_find_single_setting(self):
         given_result = SettingsManager().find_setting('Locations', 'tests')
-        expected_result = "$ETL_TEST_ROOT/Documents/etlTest/tests"
+        expected_result = os.environ.get('ETL_TEST_ROOT') + "/Documents/etlTest/tests"
 
         self.assertEqual(given_result, expected_result)
 

@@ -21,6 +21,7 @@ class CodeGenerator():
         self.in_file = in_file
         self.in_dir = in_dir
         self.out_dir = SettingsManager().find_setting('Locations', 'tests')
+        self.data_dir = SettingsManager().find_setting('Locations', 'data')
 
 
         if self.in_file is not None:
@@ -58,7 +59,8 @@ class CodeGenerator():
             self.variables = {
                 "header": self.header,
                 "tests": self.tests,
-                "testGroup": self.test_group
+                "testGroup": self.test_group,
+                "testData": self.data
                          }
 
             if not os.path.isdir(self.file_path):
@@ -77,9 +79,17 @@ class CodeGenerator():
             This method takes in the dataset of a test and returns the record(s) needed to build the query.
         """
         data = []
+        #
+        # for test in test_set:
+        #     self.log.debug("Finding dataset %s" % test)
+        #     for set in test.get('dataset'):
+        #         data_set = YAMLParser().read_file(self.data_dir + "/" + set['source'] + "/" + set['table'] + ".yml")
+        #         for record in set['records']:
+        #             data.extend(set['source'], set['table'], data_set[record])
 
-        for test in test_set:
-            return True
+        return data
+
+
 
     def jinja_setup(self):
         from jinja2 import Environment, PackageLoader

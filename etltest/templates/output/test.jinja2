@@ -25,15 +25,16 @@ class {{ testGroup }}Test(unittest.TestCase):
     def setUp(self):
         # Create engines and queries for loading test data.
 
-          {% for set in tests.dataset %}
-            self.{{ set.source }}Engine = DataConnector.build_engine()
-          {% endfor %}
-
-          {% for set in tests.dataset %}
-          {% endfor %}
+      {% for set in tests.dataset %}
+        DataConnector({{ set.source }}).insert_data({{ set.source }}, {{ testData[set.source][set.table] }})
+      {% endfor %}
 
     def tearDown(self):
        # Clean up testing environment.
+
+      {% for set in tests.dataset %}
+        DataConnector({{ set.source }}).delete_data({{ set.source }}, {{ testData[set.source][set.table] }})
+      {% endfor %}
 
 {% for test in tests.tests %}
     def {{ test.name }}(suite):

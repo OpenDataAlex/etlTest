@@ -2,6 +2,7 @@ __author__ = 'coty, ameadows'
 
 import logging
 import os
+import itertools
 from etltest.utilities.settings import etltest_config, console
 from etltest.utilities.settings_manager import SettingsManager
 from etltest.utilities.yaml_parser import YAMLParser
@@ -12,7 +13,11 @@ class CodeGenerator():
     def __init__(self, in_file=None, in_dir=None):
         """
         Generates full test code sets based on yaml files and the
-          Jinja2 templates.
+          Jinja2 templates.  in_file and in_dir are mutually exclusive.
+        :param in_file:  The single file to be processed.  Can not be set if in_dir is set.
+        :param in_file:  str
+        :param in_dir:  The directory to be processed.  Can not be set if in_file is set.
+        :param in_dir:  str
         """
         self.log = logging.getLogger(name="CodeGenerator")
         self.log.setLevel(etltest_config['logging_level'])
@@ -76,16 +81,21 @@ class CodeGenerator():
 
     def generate_data(self, test_set):
         """
-            This method takes in the dataset of a test and returns the record(s) needed to build the query.
+            This method takes in the dataset(s) of a test/suite and returns the record(s) needed to build the query.
+            :param test_set: Collection of tests as read by yaml reader.
+            :param test_set: Dictionary
         """
         data = []
-        #
-        # for test in test_set:
-        #     self.log.debug("Finding dataset %s" % test)
-        #     for set in test.get('dataset'):
-        #         data_set = YAMLParser().read_file(self.data_dir + "/" + set['source'] + "/" + set['table'] + ".yml")
-        #         for record in set['records']:
-        #             data.extend(set['source'], set['table'], data_set[record])
+        self.log.debug("Reviewing test set:  %s" % test_set)
+        for dataset in test_set['dataset']:
+            self.log.debug("Finding dataset %s" % dataset)
+            data_set = YAMLParser().read_file(self.data_dir + "/" + dataset['source'] + "/" + dataset[
+                'table'] + ".yml")
+            subset = [list(itertools.islice(data_set, record)) for record in dataset['records']]
+            for record in subset:
+                if record != []:
+                    self.log.debug("Adding record: %s" % record)
+                    data.append([dataset['table'], record])
 
         return data
 

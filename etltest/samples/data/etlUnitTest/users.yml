@@ -10,3 +10,9 @@
   last_name: Jenkins
   birthday:  02-02-2000
   zipcode:  12345
+#Record to verify only needed records are being added into tests.
+3:
+  first_name:  Frank
+  last_name: Williams
+  birthday:  03-03-1972
+  zipcode:  56789

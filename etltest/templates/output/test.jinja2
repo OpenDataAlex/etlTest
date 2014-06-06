@@ -23,25 +23,23 @@ from etltest.data_connector import DataConnector
 class {{ testGroup }}Test(unittest.TestCase):
 
     def setUp(self):
-        # Create engines and queries for loading test data.
+        # Queries for loading test data.
       {% for set in tests.dataset %}
-      {% for record in testData %}
-          DataConnector({{ set.source }}).insert_data({{ record[0] }}, {{ record[1] }} }})
-      {% endfor %}
+          DataConnector({{ set.source }}).insert_data({{ set.table }}, {{ set.records }})
       {% endfor %}
 
     def tearDown(self):
        # Clean up testing environment.
 
       {% for set in tests.dataset %}
-        DataConnector({{ set.source }}).truncate_data()
+        DataConnector({{ set.source }}).truncate_data({{ set.table }})
       {% endfor %}
 
 {% for test in tests.tests %}
     def {{ test.name }}(suite):
         # {{ test.desc }}
 
-        given_result = self.{{ test.query.source }}Engine.execute("SELECT {{ test.query.select }} FROM {{ test.query.from }} WHERE {{ test.query.where }}")
+        given_result = DataConnectory({{ test.query.source }}).select_data()
 
         expected_result = "{{ test.query.result }}"
 

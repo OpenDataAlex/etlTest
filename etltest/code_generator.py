@@ -59,13 +59,10 @@ class CodeGenerator():
             self.log.debug("File path: %s" % self.file_path)
             self.log.debug("File name: %s" % self.filename)
 
-            self.data = self.generate_data(self.tests)
-
             self.variables = {
                 "header": self.header,
                 "tests": self.tests,
-                "testGroup": self.test_group,
-                "testData": self.data
+                "testGroup": self.test_group
                          }
 
             if not os.path.isdir(self.file_path):
@@ -78,27 +75,6 @@ class CodeGenerator():
                 f.close()
 
             self.log.info("%s test file generated." % self.filename)
-
-    def generate_data(self, test_set):
-        """
-            This method takes in the dataset(s) of a test/suite and returns the record(s) needed to build the query.
-            :param test_set: Collection of tests as read by yaml reader.
-            :param test_set: Dictionary
-        """
-        data = []
-        self.log.debug("Reviewing test set:  %s" % test_set)
-        for dataset in test_set['dataset']:
-            self.log.debug("Finding dataset %s" % dataset)
-            data_set = YAMLParser().read_file(self.data_dir + "/" + dataset['source'] + "/" + dataset[
-                'table'] + ".yml")
-            subset = [list(itertools.islice(data_set, record)) for record in dataset['records']]
-            for record in subset:
-                if record != []:
-                    self.log.debug("Adding record: %s" % record)
-                    data.append([dataset['table'], record])
-
-        return data
-
 
 
     def jinja_setup(self):

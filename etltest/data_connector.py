@@ -8,6 +8,7 @@ import logging
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, MetaData, Table, inspect
 from etltest.utilities.settings import etltest_config, console
+from etltest.utilities.yaml_parser import YAMLParser
 
 
 class DataConnector():
@@ -21,14 +22,17 @@ class DataConnector():
                                 connection name from the connections settings file (default etlTest.connections).
             :type conn_name: str
         """
+        from etltest.utilities.settings_manager import SettingsManager
 
         self.log = logging.getLogger(name="DataConnector")
         self.log.setLevel(etltest_config['logging_level'])
         self.log.addHandler(console)
 
-        from etltest.utilities.settings_manager import SettingsManager
+        self.conn_name = conn_name
+        self.data_dir = SettingsManager().find_setting('Locations', 'data')
+
         connections = SettingsManager().get_connections()
-        connection = connections[conn_name]
+        connection = connections[self.conn_name]
 
         if connection is None:
             self.log.error("Connection %s does not exist, exiting." % conn_name)
@@ -69,12 +73,13 @@ class DataConnector():
             This method inserts records into the given table for the specified connection.
             :param table_name: Name of the table we want to insert data into.
             :param table_name: str
-            :param record_set: An array of records to insert.
+            :param record_set: An array of record keys to retrieve the records to insert.
             :param record_set: arr
         """
 
         table = self.get_table(table_name)
-        insert = table.insert().values(record_set)
+        data = self.generate_data(table_name, record_set)
+        insert = table.insert().values(data)
         self.log.debug("Inserting records for table %s (%s)" % table_name, record_set)
 
         self.conn.execute(insert)
@@ -111,6 +116,21 @@ class DataConnector():
         result = self.session.query(table).all()
 
         return self.to_json(result, table)
+
+    def generate_data(self, table_name, records):
+        """
+        :param table_name: Name of the table yaml file that will be retrieved.
+        :param table_name: str
+        :param records: The set of keys for the records that need to be retrieved and inserted into the connection.
+        :param records: arr
+        :return: Formatted data set for the the data connector method.
+        """
+
+        full_set = list(YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml"))
+        subset = []
+        for record in records:
+            subset.extend(full_set[record])
+        return subset
 
     def to_json(self, result_set, table):
         """

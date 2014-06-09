@@ -38,7 +38,7 @@ class DataConnector():
             self.log.error("Connection %s does not exist, exiting." % conn_name)
             exit()
 
-        self.engine = create_engine('{}://{}"{}@{}:{}/{}'.format(
+        self.engine = create_engine('{}://{}:{}@{}:{}/{}'.format(
             connection['type'],
             connection['username'],
             connection['password'],
@@ -131,6 +131,11 @@ class DataConnector():
         for record in records:
             subset.extend(full_set[record])
         return subset
+
+    def encrypt_password(self, plain_pass, salt):
+        from passlib.hash import sha256_crypt
+
+        return sha256_crypt.encrypt(plain_pass, salt)
 
     def to_json(self, result_set, table):
         """

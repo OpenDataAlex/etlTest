@@ -4,11 +4,13 @@ import unittest
 import datetime
 
 from etltest.data_connector import DataConnector
-
+from etltest.utilities.settings_manager import SettingsManager
 
 class DataConnectorTests(unittest.TestCase):
 
     def setUp(self):
+
+        SettingsManager().first_run_test()
 
         self.source = 'etlUnitTest'
         self.table = 'users'

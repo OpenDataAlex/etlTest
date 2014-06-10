@@ -7,6 +7,7 @@ import logging
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, MetaData, Table, inspect
+
 from etltest.utilities.settings import etltest_config, console
 from etltest.utilities.yaml_parser import YAMLParser
 
@@ -80,7 +81,7 @@ class DataConnector():
         table = self.get_table(table_name)
         data = self.generate_data(table_name, record_set)
         insert = table.insert().values(data)
-        self.log.debug("Inserting records for table %s (%s)" % table_name, record_set)
+        self.log.debug("Inserting records for table %s" % table_name)
 
         self.conn.execute(insert)
 
@@ -97,7 +98,7 @@ class DataConnector():
 
         self.conn.execute(delete)
 
-    def select_data(self, table_name, columns, filter):
+    def select_data(self, table_name):
         #TODO:  How to handle complex WHERE clauses?
         #TODO:  Should we support sub-selects?
         #TODO:  Should we support joins?
@@ -126,16 +127,15 @@ class DataConnector():
         :return: Formatted data set for the the data connector method.
         """
 
-        full_set = list(YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml"))
+        full_set = YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml")
         subset = []
-        for record in records:
-            subset.extend(full_set[record])
+        for item in full_set:
+            for record in records:
+                try:
+                    subset.append(item[record])
+                except Exception:
+                    self.log.info("Record %s is not in the full set." % record)
         return subset
-
-    def encrypt_password(self, plain_pass, salt):
-        from passlib.hash import sha256_crypt
-
-        return sha256_crypt.encrypt(plain_pass, salt)
 
     def to_json(self, result_set, table):
         """

@@ -13,6 +13,7 @@ import inspect
 import re
 import os
 import appdirs
+import shutil
 
 
 class SettingsManager():
@@ -29,6 +30,7 @@ class SettingsManager():
 
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
+        self.data_dir = 'samples/data/'
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
 
@@ -55,6 +57,10 @@ class SettingsManager():
             copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.connection_file,
                      self.user_settings + '/' + self.connection_file)
 
+            self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
+                          , self.data_dir))
+            shutil.copytree(self.get_file_location() + '/etltest/' + self.data_dir,
+                     self.user_settings + '/' + self.data_dir)
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
 

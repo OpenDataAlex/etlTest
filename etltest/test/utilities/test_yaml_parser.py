@@ -41,9 +41,9 @@ class YamlParserTests(unittest.TestCase):
     # Testing data yaml file for correct processing.
     def test_process_data_file(self):
         given_result = YAMLParser().read_file(data_file)
-        expected_result = [{1: {"first_name": "Bob", "last_name": "Richards", "birthday": "01-04-2000",
+        expected_result = [{1: {"first_name": "Bob", "last_name": "Richards", "birthday": datetime.date(2000, 1, 4),
                            "zipcode": 55555}, 2: {"first_name": "Sarah", "last_name": "Jenkins",
-                           "birthday": "02-02-2000", "zipcode": 12345}}]
+                           "birthday": datetime.date(2000, 2, 2), "zipcode": 12345}}]
         self.assertItemsEqual(given_result, expected_result)
 
 
@@ -68,8 +68,8 @@ class YamlParserTests(unittest.TestCase):
     # Testing a directory of data yaml files to verify they are processed correctly.
     def test_process_data_dir(self):
         given_result = YAMLParser().read_dir(data_dir)
-        expected_result = [{1: {"first_name": "Bob", "last_name": "Richards", "birthday": "01-04-2000",
+        expected_result = [{1: {"first_name": "Bob", "last_name": "Richards", "birthday": datetime.date(2000, 1, 4),
                            "zipcode": 55555}, 2: {"first_name": "Sarah", "last_name": "Jenkins",
-                           "birthday": "02-02-2000", "zipcode": 12345}}]
+                           "birthday": datetime.date(2000, 2, 2), "zipcode": 12345}}]
 
         self.assertEqual(given_result, expected_result)

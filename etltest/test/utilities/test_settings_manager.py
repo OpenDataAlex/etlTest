@@ -44,9 +44,10 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_get_connections(self):
         given_result = SettingsManager().get_connections()
-        expected_result = OrderedDict([('etlUnitTest', OrderedDict([('__name__', 'etlUnitTest'), ('hostname',
-                                        'localhost'), ('username', 'local_user'), ('password', 'password'),
-                                       ('port', '3306'), ('type', 'mysql+pymysql'), ('dbname', 'etlUnitTest')]))])
+        expected_result = OrderedDict([('etlUnitTest', OrderedDict([('__name__', 'etlUnitTest'),
+                                                        ('hostname', '127.0.0.1'), ('username', 'root')
+                                                        , ('password', ''), ('port', '3306'), ('type', 'mysql+pymysql')
+                                                        , ('dbname', 'etlUnitTest')]))])
 
         self.assertEqual(given_result, expected_result)
 

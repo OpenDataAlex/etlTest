@@ -21,18 +21,18 @@ from etltest.data_connector import DataConnector
 class DataMartUsersDimTest(unittest.TestCase):
 
     def setUp(self):
-        # Create engines and queries for loading test data.
-
-            self.etlUnitTestEngine = DataConnector.build_engine()
-
+        # Queries for loading test data.
+          DataConnector(etlUnitTest).insert_data(users, [1, 2])
 
     def tearDown(self):
        # Clean up testing environment.
 
+        DataConnector(etlUnitTest).truncate_data(users)
+
     def testFirstNameLower(suite):
         # Test for process that lower cases the first name field of a users table record.
 
-        given_result = self.etlUnitTestEngine.execute("SELECT first_name FROM users_dim WHERE user_id = 2")
+        given_result = DataConnectory(etlUnitTest).select_data()
 
         expected_result = "sarah"
 
@@ -40,7 +40,7 @@ class DataMartUsersDimTest(unittest.TestCase):
     def testFirstNameUpper(suite):
         # Test for process that upper cases the first name field of a users table record.
 
-        given_result = self.etlUnitTestEngine.execute("SELECT first_name FROM users_dim WHERE user_id = 2")
+        given_result = DataConnectory(etlUnitTest).select_data()
 
         expected_result = "SARAH"
 
@@ -48,7 +48,7 @@ class DataMartUsersDimTest(unittest.TestCase):
     def testUserValidBirthday(suite):
         # Test for valid birth dates.
 
-        given_result = self.etlUnitTestEngine.execute("SELECT birthday FROM users_dim WHERE user_id IN (1, 2)")
+        given_result = DataConnectory(etlUnitTest).select_data()
 
         expected_result = "[{1: '01-01-1900'}, {2: '02-02-2000'}]"
 

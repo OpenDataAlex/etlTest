@@ -10,6 +10,7 @@ script:
     - 'tox'
 before_script:
   - mysql -e 'create database etlUnitTest;'
+  - mysql -e 'source scripts/etlUnitTest_build.sql'
 services:  mysql
 env: ETL_TEST_ROOT=/home/travis/build/OpenDataAlex/etlTest/
 after_success:

@@ -30,7 +30,7 @@ class SettingsManager():
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
         self.data_dir = 'samples/data/'
-        self.data_location = SettingsManager().find_setting('Locations', 'data')
+        self.data_location = self.find_setting('Locations', 'data')
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
 
@@ -57,10 +57,6 @@ class SettingsManager():
             copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.connection_file,
                      self.user_settings + '/' + self.connection_file)
 
-            self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
-                          , self.data_dir))
-            shutil.copytree(self.get_file_location() + '/etltest/' + self.data_dir,
-                     self.data_location)
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
 
@@ -69,6 +65,17 @@ class SettingsManager():
             os.makedirs(self.user_logging)
         else:
             self.log.info("User logging directory exists (%s)" % self.user_logging)
+
+        if not os.path.isdir(self.data_location):
+            self.log.info("Data directory does not exist.  Building now.")
+            os.makedirs(self.data_location)
+
+            self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
+              , self.data_dir))
+            shutil.copytree(self.get_file_location() + '/etltest/' + self.data_dir,
+            self.data_location)
+        else:
+            self.log.info("Data directory exists (%s)" % self.data_location)
 
 
     def get_settings(self):

@@ -59,7 +59,7 @@ class SettingsManager():
             self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
                           , self.data_dir))
             shutil.copytree(self.get_file_location() + '/etltest/' + self.data_dir,
-                     self.user_settings + '/' + self.data_dir)
+                     self.user_settings + '/data/')
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
 

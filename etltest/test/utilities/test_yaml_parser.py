@@ -5,6 +5,7 @@
 __author__ = 'ameadows'
 
 import unittest
+from datetime import datetime
 
 from etltest.utilities.yaml_parser import YAMLParser
 from etltest.utilities.settings_manager import SettingsManager

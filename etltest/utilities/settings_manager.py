@@ -32,11 +32,12 @@ class SettingsManager():
         self.data_dir = 'samples/data/'
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
-        self.data_location = self.find_setting('Locations', 'data')
 
 
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)
+
+        self.data_location = self.find_setting('Locations', 'data')
 
     def first_run_test(self):
         """

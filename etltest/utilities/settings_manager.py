@@ -30,9 +30,10 @@ class SettingsManager():
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
         self.data_dir = 'samples/data/'
-        self.data_location = self.find_setting('Locations', 'data')
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
+        self.data_location = self.find_setting('Locations', 'data')
+
 
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)

@@ -12,6 +12,7 @@ from shutil import copyfile
 import re
 import os
 import appdirs
+import shutil
 
 
 class SettingsManager():

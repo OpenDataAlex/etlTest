@@ -8,12 +8,10 @@ from the settings files.
 import logging
 from ConfigParser import SafeConfigParser
 from shutil import copyfile
-import inspect
 
 import re
 import os
 import appdirs
-import shutil
 
 
 class SettingsManager():

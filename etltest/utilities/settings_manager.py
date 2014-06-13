@@ -29,7 +29,7 @@ class SettingsManager():
 
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
-        self.data_dir = 'samples/data/'
+        self.data_dir = 'etltest/samples/data/'
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
 
@@ -56,6 +56,7 @@ class SettingsManager():
 
             self.log.info(u"Copying default connection file to user directory. ({0:s}/{1:s})".format(self.user_settings
                           , self.connection_file))
+
             copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.connection_file,
                      self.user_settings + '/' + self.connection_file)
 
@@ -73,10 +74,11 @@ class SettingsManager():
             os.makedirs(self.data_location)
 
             self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
-              , self.data_dir))
-
-            shutil.copytree(self.get_file_location() + '/etltest/' + self.data_dir,
-            self.data_location)
+                          , self.data_dir))
+            try:
+                shutil.copytree(self.get_file_location() + '/etltest/' + self.data_dir, self.data_location)
+            except Exception:
+                self.log.info("Error copying sample data files.")
         else:
             self.log.info("Data directory exists (%s)" % self.data_location)
 

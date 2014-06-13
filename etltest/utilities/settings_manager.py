@@ -75,20 +75,18 @@ class SettingsManager():
 
             self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
                           , self.data_dir))
-            try:
-                source = self.get_file_location() + '/etltest/' + self.data_dir
-                dest = self.data_location
-                for item in os.listdir(source):
-                    s = os.path.join(source, item)
-                    d = os.path.join(dest, item)
-                    if os.path.isdir(s):
-                        self.log.info("Building directory %s" % d)
-                        os.mkdirs(d)
-                    else:
-                        self.log.info("Copying file %s" % d)
-                        copyfile(s, d)
-            except Exception:
-                self.log.info("Error copying sample data files.")
+
+            source = self.get_file_location() + '/etltest/' + self.data_dir
+            dest = self.data_location
+            for item in os.listdir(source):
+                s = os.path.join(source, item)
+                d = os.path.join(dest, item)
+                if os.path.isdir(s):
+                    self.log.info("Building directory %s" % d)
+                    os.mkdirs(d)
+                else:
+                    self.log.info("Copying file %s" % d)
+                    copyfile(s, d)
         else:
             self.log.info("Data directory exists (%s)" % self.data_location)
 

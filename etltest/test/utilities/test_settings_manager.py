@@ -21,6 +21,7 @@ class SettingsManagerTests(unittest.TestCase):
         self.log_dir = appdirs.user_log_dir(self.app_name, self.app_author)
         self.settings_file = os.path.join(self.data_dir, etltest_config['settings_file'])
         self.connection_file = os.path.join(self.data_dir, etltest_config['connection_file'])
+        self.data_location = SettingsManager().find_setting('Locations', 'data')
 
     def test_data_dir_exists(self):
         assert os.path.exists(self.data_dir)
@@ -30,6 +31,9 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_settings_file_exists(self):
         assert os.path.isfile(self.settings_file)
+
+    def test_data_samples_exists(self):
+        assert os.path.isdir(self.data_location)
 
     def test_get_config_settings(self):
         given_result = SettingsManager().get_settings()
@@ -59,7 +63,7 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_fail_find_single_setting(self):
         given_result = SettingsManager().find_setting('Location', 'tests')
-        expected_result = False
+        expected_result = ''
 
         self.assertEqual(given_result, expected_result)
 

@@ -74,6 +74,7 @@ class SettingsManager():
 
             self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
               , self.data_dir))
+
             shutil.copytree(self.get_file_location() + '/etltest/' + self.data_dir,
             self.data_location)
         else:
@@ -113,7 +114,7 @@ class SettingsManager():
             else:
                 return config_var
         except Exception:
-            return False
+            return ''
 
 
     @staticmethod

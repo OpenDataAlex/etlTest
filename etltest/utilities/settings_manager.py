@@ -82,9 +82,9 @@ class SettingsManager():
                     s = os.path.join(source, item)
                     d = os.path.join(dest, item)
                     if os.path.isdir(s):
-                        shutil.copytree(s, d, symlinks=False, ignore=None)
+                        os.mkdirs(d)
                     else:
-                        shutil.copy2(s, d)
+                        copyfile(s, d)
             except Exception:
                 self.log.info("Error copying sample data files.")
         else:

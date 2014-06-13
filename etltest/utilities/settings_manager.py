@@ -82,8 +82,10 @@ class SettingsManager():
                     s = os.path.join(source, item)
                     d = os.path.join(dest, item)
                     if os.path.isdir(s):
+                        self.log.info("Building directory %s" % d)
                         os.mkdirs(d)
                     else:
+                        self.log.info("Copying file %s" % d)
                         copyfile(s, d)
             except Exception:
                 self.log.info("Error copying sample data files.")

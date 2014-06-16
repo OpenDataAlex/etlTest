@@ -81,6 +81,7 @@ class SettingsManager():
             source = os.path.join(self.get_file_location(), 'etltest', self.data_dir)
             dest = self.data_location
             for item in os.listdir(source):
+                self.log.debug("Trying to copy %s" % item)
                 s = os.path.join(source, item)
                 d = os.path.join(dest, item)
                 if os.path.isdir(s):

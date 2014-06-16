@@ -7,11 +7,11 @@ from the settings files.
 """
 import logging
 from ConfigParser import SafeConfigParser
-from shutil import copyfile
 
 import re
 import os
 import appdirs
+from shutil import copyfile, copy
 
 
 class SettingsManager():
@@ -88,7 +88,7 @@ class SettingsManager():
                     os.makedirs(d)
                 else:
                     self.log.info("Copying file %s" % d)
-                    copyfile(s, d)
+                    copy(s, d)
         else:
             self.log.info("Data directory exists (%s)" % self.data_location)
 

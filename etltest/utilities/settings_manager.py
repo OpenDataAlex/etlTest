@@ -78,7 +78,7 @@ class SettingsManager():
             self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
                           , self.data_dir))
 
-            source = os.path.join(self.get_file_location(), 'etltest', self.data_dir)
+            source = os.path.join(self.get_file_location(), self.data_dir)
             dest = self.data_location
             for item in os.listdir(source):
                 self.log.debug("Trying to copy %s" % item)

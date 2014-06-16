@@ -86,7 +86,7 @@ class SettingsManager():
                 d = os.path.join(dest, item)
                 if os.path.isdir(s):
                     self.log.info("Building directory %s" % d)
-                    os.mkdirs(d)
+                    os.makedirs(d)
                 else:
                     self.log.info("Copying file %s" % d)
                     copyfile(s, d)

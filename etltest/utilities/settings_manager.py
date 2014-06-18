@@ -79,7 +79,7 @@ class SettingsManager():
 
         source = os.path.join(self.get_file_location(), self.data_dir)
         dest = self.data_location
-        for root, dirs, files in os.listdir(source):
+        for root, dirs, files in os.walk(source):
             for file in files:
                 self.log.debug("Trying to copy %s" % file)
                 s = os.path.join(source, file)

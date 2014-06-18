@@ -74,23 +74,24 @@ class SettingsManager():
 
             self.log.debug("Data directory is %s" % os.path.isdir(self.data_location))
 
-            self.log.info(u"Copying sample data files to user directory. ({0:s}/{1:s})".format(self.user_settings
-                          , self.data_dir))
+        else:
+            self.log.info("Data directory exists (%s)" % self.data_location)
 
-            source = os.path.join(self.get_file_location(), self.data_dir)
-            dest = self.data_location
-            for item in os.listdir(source):
-                self.log.debug("Trying to copy %s" % item)
-                s = os.path.join(source, item)
-                d = os.path.join(dest, item)
+        source = os.path.join(self.get_file_location(), self.data_dir)
+        dest = self.data_location
+        for item in os.listdir(source):
+            self.log.debug("Trying to copy %s" % item)
+            s = os.path.join(source, item)
+            d = os.path.join(dest, item)
+            if not os.path.exists(d):
                 if os.path.isdir(s):
                     self.log.info("Building directory %s" % d)
                     os.makedirs(d)
                 else:
                     self.log.info("Copying file %s" % d)
                     copy(s, d)
-        else:
-            self.log.info("Data directory exists (%s)" % self.data_location)
+            else:
+                self.log.debug("File exists.")
 
 
     def get_settings(self):

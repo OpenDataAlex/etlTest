@@ -28,7 +28,7 @@ class SettingsManager():
 
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
-        self.data_dir = 'etltest/data/'
+        self.data_dir = 'etltest/samples/data/'
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
 
@@ -73,18 +73,19 @@ class SettingsManager():
             os.makedirs(self.data_location)
 
             self.log.debug("Data directory is %s" % os.path.isdir(self.data_location))
-            source = os.path.join(self.get_file_location(), self.data_dir)
-            dest = self.data_location
-            for root, dirs, files in os.walk(source):
-                for file in files:
-                    self.log.debug("Trying to copy %s" % file)
-                    s = os.path.join(source, file)
-                    d = os.path.join(dest, file)
-                    self.log.info("Copying file %s" % d)
-                    copy(s, d)
 
         else:
             self.log.info("Data directory exists (%s)" % self.data_location)
+
+        source = os.path.join(self.get_file_location(), self.data_dir)
+        dest = self.data_location
+        for root, dirs, files in os.walk(source):
+            for file in files:
+                self.log.debug("Trying to copy %s" % file)
+                s = os.path.join(source, file)
+                d = os.path.join(dest, file)
+                self.log.info("Copying file %s" % d)
+                copy(s, d)
 
 
     def get_settings(self):

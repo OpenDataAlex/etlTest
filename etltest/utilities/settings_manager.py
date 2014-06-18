@@ -82,7 +82,7 @@ class SettingsManager():
         for root, dirs, files in os.walk(source):
             for file in files:
                 self.log.debug("Trying to copy %s" % file)
-                s = os.path.join(source, file)
+                s = os.path.join(root, file)
                 d = os.path.join(dest, file)
                 self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
                 copy(s, d)

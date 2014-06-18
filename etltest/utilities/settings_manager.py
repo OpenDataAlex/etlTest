@@ -79,19 +79,13 @@ class SettingsManager():
 
         source = os.path.join(self.get_file_location(), self.data_dir)
         dest = self.data_location
-        for item in os.listdir(source):
-            self.log.debug("Trying to copy %s" % item)
-            s = os.path.join(source, item)
-            d = os.path.join(dest, item)
-            if not os.path.exists(d):
-                if os.path.isdir(s):
-                    self.log.info("Building directory %s" % d)
-                    os.makedirs(d)
-                else:
-                    self.log.info("Copying file %s" % d)
-                    copy(s, d)
-            else:
-                self.log.debug("File exists.")
+        for root, dirs, files in os.listdir(source):
+            for file in files:
+                self.log.debug("Trying to copy %s" % file)
+                s = os.path.join(source, file)
+                d = os.path.join(dest, file)
+                self.log.info("Copying file %s" % d)
+                copy(s, d)
 
 
     def get_settings(self):

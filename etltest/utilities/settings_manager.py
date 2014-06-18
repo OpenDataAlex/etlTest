@@ -7,11 +7,11 @@ from the settings files.
 """
 import logging
 from ConfigParser import SafeConfigParser
+from shutil import copyfile, copy
 
 import re
 import os
 import appdirs
-from shutil import copyfile, copy
 
 
 class SettingsManager():
@@ -84,7 +84,7 @@ class SettingsManager():
                 self.log.debug("Trying to copy %s" % file)
                 s = os.path.join(source, file)
                 d = os.path.join(dest, file)
-                self.log.info("Copying file %s to %s" % s, d)
+                self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
                 copy(s, d)
 
 

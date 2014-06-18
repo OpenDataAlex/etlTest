@@ -84,7 +84,7 @@ class SettingsManager():
                 self.log.debug("Trying to copy %s" % file)
                 s = os.path.join(source, file)
                 d = os.path.join(dest, file)
-                self.log.info("Copying file %s" % d)
+                self.log.info("Copying file %s to %s" % s, d)
                 copy(s, d)
 
 

@@ -7,7 +7,7 @@ from the settings files.
 """
 import logging
 from ConfigParser import SafeConfigParser
-from shutil import copyfile, copy
+from shutil import copyfile, copy2
 
 import re
 import os
@@ -87,7 +87,7 @@ class SettingsManager():
                 d = os.path.join(dest, path_part, file)
                 if os.path.exists(d) is False:
                     self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
-                    copyfile(s, d)
+                    copy2(s, d)
 
 
     def get_settings(self):

@@ -87,7 +87,7 @@ class SettingsManager():
                 d = os.path.join(dest, path_part, file)
                 if os.path.exists(d) is False:
                     self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
-                    copy(s, d)
+                    copyfile(s, d)
 
 
     def get_settings(self):

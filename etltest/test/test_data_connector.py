@@ -15,6 +15,15 @@ class DataConnectorTests(unittest.TestCase):
         self.source = 'etlUnitTest'
         self.table = 'users'
 
+    def test_bad_connection(self):
+        #Testing to see if a non existant connection will fail gracefully.
+        records = [1, 2]
+
+        with self.assertRaises(KeyError) as raises:
+            DataConnector("BadConnection").generate_data(self.table, records)
+
+        self.assertEqual(raises.exception.message, "BadConnection")
+
     def test_generate_data_subset(self):
         #Testing to see if a subset of data is generated and not the full data set.
         records = [1, 2]

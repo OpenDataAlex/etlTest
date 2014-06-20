@@ -4,6 +4,7 @@ __author__ = 'coty, ameadows'
 """
 
 import logging
+import sys
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, MetaData, Table, inspect
@@ -33,11 +34,12 @@ class DataConnector():
         self.data_dir = SettingsManager().find_setting('Locations', 'data')
 
         connections = SettingsManager().get_connections()
-        connection = connections[self.conn_name]
-
-        if connection is None:
+        try:
+            connection = connections[self.conn_name]
+        except Exception:
             self.log.error("Connection %s does not exist, exiting." % conn_name)
-            exit()
+            self.log.error(sys.exc_info()[0])
+            raise
 
         self.engine = create_engine('{}://{}:{}@{}:{}/{}'.format(
             connection['type'],

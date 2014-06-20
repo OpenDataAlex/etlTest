@@ -84,8 +84,14 @@ class SettingsManager():
                 self.log.debug("Trying to copy %s" % file)
                 s = os.path.join(root, file)
                 path_part = root.replace(source, "")
-                d = os.path.join(dest, path_part, file)
-                if os.path.exists(d) is False:
+                dest_full = os.path.join(dest, path_part)
+                d = os.path.join(dest_full, file)
+
+                if not os.path.isdir(dest_full):
+                    self.log.debug("Building destination directory: %s" % dest_full)
+                    os.makedirs(dest_full)
+
+                if not os.path.exists(d):
                     self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
                     copy2(s, d)
 

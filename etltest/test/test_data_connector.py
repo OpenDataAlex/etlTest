@@ -25,7 +25,7 @@ class DataConnectorTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
-    def test_generate_data_subset_non_existant_records(self):
+    def test_generate_data_subset_non_existent_records(self):
         # Testing to see if a record doesn't exist, the data generator will only return valid records.
         records = [1, 2, 20]
         given_result = DataConnector(self.source).generate_data(self.table, records)

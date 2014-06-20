@@ -36,8 +36,6 @@ class SettingsManager():
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)
 
-        self.data_location = self.find_setting('Locations', 'data')
-
     def first_run_test(self):
         """
             Tests if the directories used for user settings exist or not.
@@ -68,17 +66,19 @@ class SettingsManager():
         else:
             self.log.info("User logging directory exists (%s)" % self.user_logging)
 
-        if not os.path.isdir(self.data_location):
-            self.log.info("Data directory does not exist.  Building now.")
-            os.makedirs(self.data_location)
+        data_location = self.find_setting('Locations', 'data')
 
-            self.log.debug("Data directory is %s" % os.path.isdir(self.data_location))
+        if not os.path.isdir(data_location):
+            self.log.info("Data directory does not exist.  Building now.")
+            os.makedirs(data_location)
+
+            self.log.debug("Data directory is %s" % data_location)
 
         else:
-            self.log.info("Data directory exists (%s)" % self.data_location)
+            self.log.info("Data directory exists (%s)" % data_location)
 
         source = os.path.join(self.get_file_location(), self.data_dir)
-        dest = self.data_location
+        dest = data_location
         for root, dirs, files in os.walk(source):
             for file in files:
                 self.log.debug("Trying to copy %s" % file)

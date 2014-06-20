@@ -83,9 +83,11 @@ class SettingsManager():
             for file in files:
                 self.log.debug("Trying to copy %s" % file)
                 s = os.path.join(root, file)
-                d = os.path.join(dest, file)
-                self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
-                copy(s, d)
+                path_part = root.replace(source, "")
+                d = os.path.join(dest, path_part, file)
+                if os.path.exists(d) is False:
+                    self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
+                    copy(s, d)
 
 
     def get_settings(self):

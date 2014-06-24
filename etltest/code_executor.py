@@ -1,7 +1,6 @@
 __author__ = 'ameadows'
 """
-    This file contains all the logic necessary to execute ETL code based on the settings stored in the tools settings
-    file.  Code execution should occur after the test data is loaded and before the unit tests are run.
+    This file contains all the logic necessary to execute the unit test code based on the parameters passed by the user.
 """
 
 from etltest.utilities.settings import etltest_config, console
@@ -10,8 +9,8 @@ class CodeExecutor():
 
     def __init__(self):
         """
-            Here we initialize the CodeExecutor object, setting up the executor per the settings in the tool settings
-            file.
+            Here we initialize the CodeExecutor object, setting up the executor with custom logging and other
+            parameters required.
         """
 
         self.log = logging.getLogger(name="CodeExecutor")

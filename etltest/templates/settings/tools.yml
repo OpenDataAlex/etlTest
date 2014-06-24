@@ -1,0 +1,10 @@
+PDI:
+  tool_path:  $ETL_TEST_ROOT/data-integration
+  code_path:  $ETL_TEST_ROOT/etltest/samples/etl/
+  params:  "/level: Detailed"
+  logging_filename_format:  ${name}_%Y-%m-%d
+  script_types:
+    - type: job
+      script:  kitchen.sh
+    - type: trans
+      script:  pan.sh

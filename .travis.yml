@@ -11,7 +11,7 @@ script:
 before_script:
   - mysql -e 'create database etlUnitTest;'
   - mysql -e 'source scripts/etlUnitTest_build.sql'
-  - wget http://sourceforge.net/projects/pentaho/files/Data%20Integration/5.0.1-stable/pdi-ce-5.0.1.A-stable.zip/download
+  - wget http://sourceforge.net/projects/pentaho/files/Data%20Integration/5.0.1-stable/pdi-ce-5.0.1.A-stable.zip/download > pdi-ce-5.0.1.A-stable.zip
   - unzip pdi-ce-5.0.1.A-stable.zip
 services:  mysql
 env: ETL_TEST_ROOT=/home/travis/build/OpenDataAlex/etlTest/

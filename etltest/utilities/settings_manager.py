@@ -31,10 +31,13 @@ class SettingsManager():
         self.data_dir = 'etltest/samples/data/'
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
+        self.tools_file = etltest_config['tools_file']
 
 
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)
+
+        self.path_loc = '/etltest/templates/settings/'
 
     def first_run_test(self):
         """
@@ -48,14 +51,20 @@ class SettingsManager():
 
             self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings
                           , self.settings_file))
-            copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.settings_file, self.user_settings
+            copyfile(self.get_file_location() + self.path_loc + self.settings_file, self.user_settings
                      + '/' + self.settings_file)
 
             self.log.info(u"Copying default connection file to user directory. ({0:s}/{1:s})".format(self.user_settings
                           , self.connection_file))
 
-            copyfile(self.get_file_location() + '/etltest/templates/settings/' + self.connection_file,
+            copyfile(self.get_file_location() + self.path_loc + self.connection_file,
                      self.user_settings + '/' + self.connection_file)
+
+            self.log.info(u"Copying default tools file to user directory. ({0:s}/{1:s})".format(self.user_settings,
+                                                                                                self.tools_file))
+
+            copyfile(self.get_file_location() + self.path_loc + self.tools_file,
+                     self.user_settings + '/' + self.tools_file)
 
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
@@ -98,17 +107,37 @@ class SettingsManager():
 
     def get_settings(self):
         """
-            Gets all the settings from the primary settings file (etlTest.properties).
+            Gets all the settings from the primary settings file (properties.cfg).
         """
         return self.read_settings_file(self.settings_file)
 
 
     def get_connections(self):
         """
-            Gets all the connections from the primary connections file (etlTest.connections).
+            Gets all the connections from the primary connections file (connections.cfg).
         """
 
         return self.read_settings_file(self.connection_file)
+
+    def get_tools(self):
+        """
+            Gets all the tools from the primary tools file (tools.yml)
+        """
+
+        from etltest.utilities.yaml_parser import YAMLParser
+
+        return YAMLParser().read_file(os.path.join(self.user_settings, self.tools_file))
+
+    def get_tool(self, tool_name):
+
+        tools = self.get_tools()
+
+        tool = tools[tool_name]
+
+        for item in tool:
+            tool[item] = self.system_variable_replace('ETL_TEST_ROOT', item)
+
+        return tool
 
     def find_setting(self, setting_section, setting_name):
         """
@@ -122,15 +151,9 @@ class SettingsManager():
 
         try:
             config_var = config[setting_section][setting_name]
-            etl_test_root = str(os.environ.get('ETL_TEST_ROOT'))
-            if "$ETL_TEST_ROOT" in config_var:
-                self.log.debug("Replacing ETL_TEST_ROOT with %s" % etl_test_root)
-                return config_var.replace("$ETL_TEST_ROOT", etl_test_root)
-            else:
-                return config_var
+            return self.system_variable_replace('ETL_TEST_ROOT', config_var)
         except Exception:
             return ''
-
 
     @staticmethod
     def get_file_location():
@@ -151,3 +174,23 @@ class SettingsManager():
         parser.read(os.path.join(self.user_settings, settings_file))
         self.log.info(parser._sections)
         return parser._sections
+
+    def system_variable_replace(self, system_variable, parameter):
+        """
+            Takes the given parameter and checks to see if the system_variable exists on the system and then replaces the
+             variable name with the value of the variable.
+            :param system_variable: The name of the system variable
+            :type system_variable: str
+            :param parameter: The parameter needing to have a system variable replaced in (i.e. tool_path, code_path, etc.)
+            :return: String of the replaced variable.
+        """
+        try:
+            variable_value = str(os.environ.get(system_variable))
+
+            if "$" + system_variable in parameter:
+                self.log.debug("Replacing $" + system_variable + " with %s" % system_variable, variable_value)
+                return parameter.replace("$" + system_variable, variable_value)
+            else:
+                return parameter
+        except Exception:
+            self.log.error("The system variable either does not exist or has a bad value. System variable: %s" % system_variable)

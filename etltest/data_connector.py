@@ -21,7 +21,7 @@ class DataConnector():
             This function initializes the data source connection so that data can be CRUDed.
 
             :param conn_name:  The name of the connection that the test suites reference.  This should match a
-                                connection name from the connections settings file (default etlTest.connections).
+                                connection name from the connections settings file (default connections.cfg).
             :type conn_name: str
         """
         from etltest.utilities.settings_manager import SettingsManager

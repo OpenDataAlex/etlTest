@@ -3,8 +3,8 @@ DataMart\UsersDim:
      - suite: dataMart
    processes:
      - tool:  PDI
-       jobs:
-         - job:  data_mart/user_dim_jb.kjb
+       processes:
+         - name:  data_mart/user_dim_jb.kjb
    dataset:
      - source:  etlUnitTest
        table:  users

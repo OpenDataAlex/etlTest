@@ -22,6 +22,7 @@ class SettingsManagerTests(unittest.TestCase):
         self.settings_file = os.path.join(self.data_dir, etltest_config['settings_file'])
         self.connection_file = os.path.join(self.data_dir, etltest_config['connection_file'])
         self.data_location = SettingsManager().find_setting('Locations', 'data')
+        self.tools_file = os.path.join(self.data_dir, etltest_config['tools_file'])
 
     def test_data_dir_exists(self):
         assert os.path.exists(self.data_dir)
@@ -31,6 +32,9 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_settings_file_exists(self):
         assert os.path.isfile(self.settings_file)
+
+    def test_tools_file_exists(self):
+        assert os.path.isfile(self.tools_file)
 
     def test_data_samples_exists(self):
         assert os.path.isdir(self.data_location)
@@ -55,6 +59,21 @@ class SettingsManagerTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_get_tools(self):
+        given_result = list(SettingsManager().get_tools())
+        expected_result = [{'PDI': {'tool_path': '$ETL_TEST_ROOT/data-integration', 'script_types':
+                          [{'type': 'job', 'script': 'kitchen.sh'}, {'type': 'trans', 'script': 'pan.sh'}],
+                          'params': '/level: Detailed', 'code_path': '$ETL_TEST_ROOT/etltest/samples/etl/',
+                          'logging_filename_format': '${name}_%Y-%m-%d'}}]
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_get_tool(self):
+        given_result = list(SettingsManager().get_tool('PDI'))
+        expected_result = ""
+
+        self.assertEqual(given_result, expected_result)
+
     def test_find_single_setting(self):
         given_result = SettingsManager().find_setting('Locations', 'tests')
         expected_result = os.environ.get('ETL_TEST_ROOT') + "/Documents/etlTest/tests"
@@ -74,3 +93,9 @@ class SettingsManagerTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_system_variable_replace(self):
+        parameter = "$ETL_TEST_ROOT/this_is_a_test/file.txt"
+        given_result = SettingsManager().system_variable_replace('ETL_TEST_ROOT', parameter)
+        expected_result = os.environ.get('ETL_TEST_ROOT') + "/this_is_a_test/file.txt"
+
+        self.assertEqual(given_result, expected_result)

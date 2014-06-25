@@ -5,6 +5,7 @@ DataMart\UsersDim:
      - tool:  PDI
        processes:
          - name:  data_mart/user_dim_jb.kjb
+           type:  job
    dataset:
      - source:  etlUnitTest
        table:  users

@@ -48,23 +48,9 @@ class SettingsManager():
         if not os.path.isdir(self.user_settings):
             self.log.info('User settings directory does not exist.  Building now.')
             os.makedirs(self.user_settings)
-
-            self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings
-                          , self.settings_file))
-            copyfile(self.get_file_location() + self.path_loc + self.settings_file, self.user_settings
-                     + '/' + self.settings_file)
-
-            self.log.info(u"Copying default connection file to user directory. ({0:s}/{1:s})".format(self.user_settings
-                          , self.connection_file))
-
-            copyfile(self.get_file_location() + self.path_loc + self.connection_file,
-                     self.user_settings + '/' + self.connection_file)
-
-            self.log.info(u"Copying default tools file to user directory. ({0:s}/{1:s})".format(self.user_settings,
-                                                                                                self.tools_file))
-
-            copyfile(self.get_file_location() + self.path_loc + self.tools_file,
-                     self.user_settings + '/' + self.tools_file)
+            self.copy_settings_file(self.settings_file)
+            self.copy_settings_file(self.connection_file)
+            self.copy_settings_file(self.tools_file)
 
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
@@ -132,12 +118,12 @@ class SettingsManager():
 
         tools = self.get_tools()
 
-        tool = tools[tool_name]
+        while True:
+            tool = tools.next()
 
-        for item in tool:
-            tool[item] = self.system_variable_replace('ETL_TEST_ROOT', item)
+            if tool[tool_name]:
+                return tool[tool_name]
 
-        return tool
 
     def find_setting(self, setting_section, setting_name):
         """
@@ -194,3 +180,16 @@ class SettingsManager():
                 return parameter
         except Exception:
             self.log.error("The system variable either does not exist or has a bad value. System variable: %s" % system_variable)
+
+    def copy_settings_file(self, filename):
+        """
+            Adds an alert to the log and then copies the file to the setting directory.
+        :param filename:  The name of the file to be copied.
+        :type filename: str
+        """
+
+        self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings,
+                                                                                    filename))
+
+        copyfile(self.get_file_location() + self.path_loc + filename,
+                 self.user_settings + '/' + filename)

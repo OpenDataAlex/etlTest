@@ -9,16 +9,15 @@
 #
 {% for proc in tests.processes %}
 #    {{ proc.tool }}:
-  {% for job in proc.jobs %}
-#      {{ job.job }}
+  {% for p in proc.processes %}
+#      {{ p.name }}
   {% endfor %}
 {% endfor %}
 
 import unittest
 import sqlalchemy
-from etltest.code_executor import CodeExecutor
 from etltest.data_connector import DataConnector
-
+from etltest.process_executor import ProcessExecutor
 
 class {{ testGroup }}Test(unittest.TestCase):
 
@@ -26,6 +25,11 @@ class {{ testGroup }}Test(unittest.TestCase):
         # Queries for loading test data.
       {% for set in tests.dataset %}
           DataConnector({{ set.source }}).insert_data({{ set.table }}, {{ set.records }})
+      {% endfor %}
+
+      {% for tool in tests.processes %}
+      {% for job in tool.processes %}
+          ProcessExecutor({{ tool.tool }}).execute_process({{ job.name }})
       {% endfor %}
 
     def tearDown(self):

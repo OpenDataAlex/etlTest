@@ -23,6 +23,7 @@ class SettingsManagerTests(unittest.TestCase):
         self.connection_file = os.path.join(self.data_dir, etltest_config['connection_file'])
         self.data_location = SettingsManager().find_setting('Locations', 'data')
         self.tools_file = os.path.join(self.data_dir, etltest_config['tools_file'])
+        self.copy_file = os.path.join(self.data_dir, 'copy.test')
 
     def test_data_dir_exists(self):
         assert os.path.exists(self.data_dir)
@@ -70,7 +71,7 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_get_tool(self):
         given_result = list(SettingsManager().get_tool('PDI'))
-        expected_result = ""
+        expected_result = ['tool_path', 'script_types', 'params', 'code_path', 'logging_filename_format']
 
         self.assertEqual(given_result, expected_result)
 
@@ -99,3 +100,11 @@ class SettingsManagerTests(unittest.TestCase):
         expected_result = os.environ.get('ETL_TEST_ROOT') + "/this_is_a_test/file.txt"
 
         self.assertEqual(given_result, expected_result)
+
+    def test_copy_settings_file(self):
+        SettingsManager().copy_settings_file('copy.test')
+        given_result = os.path.isfile(self.copy_file)
+        expected_result = True
+
+        self.assertEqual(given_result, expected_result)
+

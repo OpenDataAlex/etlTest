@@ -25,7 +25,7 @@ class YamlParserTests(unittest.TestCase):
     def test_process_test_file(self):
         given_result = YAMLParser().read_file(test_file)
         expected_result = [{'DataMart\\UsersDim': {'suites': [{'suite': 'dataMart'}], 'processes': [{'tool': 'PDI'
-                            , 'jobs': [{'job': 'data_mart/user_dim_jb.kjb'}]}], 'tests': [{'query':
+                            , 'processes': [{'name': 'data_mart/user_dim_jb.kjb'}]}], 'tests': [{'query':
                             {'from': 'users_dim', 'where': 'user_id = 2', 'result': 'sarah', 'select': 'first_name'
                             , 'source': 'etlUnitTest'}, 'name': 'testFirstNameLower'
                             , 'desc': 'Test for process that lower cases the first name field of a users table record.'}

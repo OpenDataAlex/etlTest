@@ -14,7 +14,6 @@
 
 import unittest
 import sqlalchemy
-from etltest.code_executor import CodeExecutor
 from etltest.data_connector import DataConnector
 
 

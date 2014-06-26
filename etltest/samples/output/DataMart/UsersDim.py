@@ -17,7 +17,6 @@ import sqlalchemy
 from etltest.data_connector import DataConnector
 from etltest.process_executor import ProcessExecutor
 
-
 class DataMartUsersDimTest(unittest.TestCase):
 
     def setUp(self):

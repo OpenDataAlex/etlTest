@@ -23,8 +23,7 @@ class ProcessExecutor():
 
         self.tool_name = tool_name
         self.tool = SettingsManager().get_tool(tool_name)
-        self.log.info("Setting up tool %s:  %s" % tool_name, self.tool)
-
+        self.log.info(u"Setting up tool {0:s}: {1:s}".format(tool_name, self.tool))
 
     def execute_process(self, process_name):
 

@@ -15,6 +15,7 @@
 import unittest
 import sqlalchemy
 from etltest.data_connector import DataConnector
+from etltest.process_executor import ProcessExecutor
 
 
 class DataMartUsersDimTest(unittest.TestCase):
@@ -22,6 +23,8 @@ class DataMartUsersDimTest(unittest.TestCase):
     def setUp(self):
         # Queries for loading test data.
           DataConnector(etlUnitTest).insert_data(users, [1, 2])
+
+          ProcessExecutor(PDI).execute_process(data_mart/user_dim_jb.kjb)
 
     def tearDown(self):
        # Clean up testing environment.

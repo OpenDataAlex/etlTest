@@ -28,5 +28,5 @@ class ProcessExecutor():
 
     def execute_process(self, process_name):
 
-        self.log.info("Attempting to run %s with %s..." % process_name, self.tool_name)
+        self.log.info(u"Attempting to run {0:s} with {1:s}".format(process_name, self.tool_name))
 

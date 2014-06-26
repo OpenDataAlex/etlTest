@@ -31,6 +31,7 @@ class {{ testGroup }}Test(unittest.TestCase):
       {% for job in tool.processes %}
           ProcessExecutor({{ tool.tool }}).execute_process({{ job.name }})
       {% endfor %}
+      {% endfor %}
 
     def tearDown(self):
        # Clean up testing environment.

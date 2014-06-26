@@ -73,7 +73,7 @@ class SettingsManagerTests(unittest.TestCase):
         given_result = list(SettingsManager().get_tool('PDI'))
         expected_result = ['tool_path', 'script_types', 'params', 'code_path', 'logging_filename_format']
 
-        self.assertEqual(given_result, expected_result)
+        self.assertItemsEqual(given_result, expected_result)
 
     def test_find_single_setting(self):
         given_result = SettingsManager().find_setting('Locations', 'tests')

@@ -10,9 +10,9 @@ class ProcessExecutorTests(unittest.TestCase):
         SettingsManager().first_run_test()
         self.executor = ProcessExecutor('PDI')
         self.process_job = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
-                                                                 '$ETL_TEST_ROOT/samples/etl/data_mart/user_dim_jb.kjb')
+                                                                 '$ETL_TEST_ROOT/etltest/samples/etl/data_mart/user_dim_jb.kjb')
         self.process_trans = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
-                                                                       '$ETL_TEST_ROOT/samples/etl/data_mart/user_dim_load_tr.ktr')
+                                                                       '$ETL_TEST_ROOT/etltest/samples/etl/data_mart/user_dim_load_tr.ktr')
 
         self.tool_path = SettingsManager().system_variable_replace('ETL_TEST_ROOT', '$ETL_TEST_ROOT/data-integration')
 

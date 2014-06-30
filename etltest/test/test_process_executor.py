@@ -20,9 +20,9 @@ class ProcessExecutorTests(unittest.TestCase):
         self.tool_path = SettingsManager().system_variable_replace('ETL_TEST_ROOT', '$ETL_TEST_ROOT/data-integration')
 
         shared_file = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
-                                                                '$ETL_TEST_ROOT/etltest/samples/etl/shared.xml')
+                                                               '$ETL_TEST_ROOT/etltest/samples/etl/shared.xml')
         shared_file_target = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
-                                                                       '$ETL_TEST_ROOT/.kettle/shared.xml')
+                                                                      '$ETL_TEST_ROOT/.kettle/shared.xml')
 
         copyfile(shared_file, shared_file_target)
 
@@ -33,6 +33,10 @@ class ProcessExecutorTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_sample_trans_exists(self):
+        given_result = os.path.isfile(self.process_trans)
+        expected_result = True
+
+        self.assertEqual(given_result, expected_result)
 
     def test_process_executor_job(self):
         given_result = self.executor.execute_process('job', self.process_job)

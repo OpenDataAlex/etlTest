@@ -61,7 +61,7 @@
     </dependencies>
     <partitionschemas>
     </partitionschemas>
-    <slaveservers>
+    <slaveservers/>
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>

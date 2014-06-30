@@ -67,7 +67,7 @@ class SettingsManagerTests(unittest.TestCase):
                                     'script': 'pan.sh'}], 'params': '/level: Detailed', 'logging_filename_format':
                                     '${name}_%Y-%m-%d', 'code_path': '$ETL_TEST_ROOT/etltest/samples/etl/'}}]
 
-        self.assertEqual(given_result, expected_result)
+        self.assertItemsEqual(given_result, expected_result)
 
     def test_get_tool(self):
         given_result = list(SettingsManager().get_tool('PDI'))

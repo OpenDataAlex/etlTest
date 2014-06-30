@@ -19,12 +19,12 @@ class ProcessExecutorTests(unittest.TestCase):
 
         self.tool_path = SettingsManager().system_variable_replace('ETL_TEST_ROOT', '$ETL_TEST_ROOT/data-integration')
 
-        # shared_file = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
-        #                                                        '$ETL_TEST_ROOT/etltest/samples/etl/shared.xml')
-        # shared_file_target = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
-        #                                                               '$ETL_TEST_ROOT/.kettle/shared.xml')
-        #
-        # copyfile(shared_file, shared_file_target)
+        shared_file = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
+                                                               '$ETL_TEST_ROOT/etltest/samples/etl/shared.xml')
+        shared_file_target = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
+                                                                      '$ETL_TEST_ROOT/.kettle/shared.xml')
+
+        copyfile(shared_file, shared_file_target)
 
     def test_sample_job_exists(self):
         given_result = os.path.isfile(self.process_job)

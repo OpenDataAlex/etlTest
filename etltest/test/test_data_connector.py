@@ -48,17 +48,34 @@ class DataConnectorTests(unittest.TestCase):
         # Testing to see if the data set will be inserted correctly.
         records = [1, 2]
         DataConnector(self.source).insert_data(self.table, records)
-        given_result = DataConnector(self.source).select_data(self.table)
-        expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': '55555'
+        given_result = DataConnector(self.source).select_data("all_columns", self.table, "user_id = 1")
+        expected_result = {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': '55555'
                             , 'birthday': datetime.date(2000, 1, 4)}, {'first_name': 'Sarah', 'last_name': 'Jenkins'
-                            , 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}]
+                            , 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}
 
-        self.assertEqual(given_result, expected_result)
+        self.assertItemsEqual(given_result, expected_result)
 
     def test_truncate_data(self):
         # Testing to see if the data set will be removed completely.
         DataConnector(self.source).truncate_data(self.table)
         given_result = DataConnector(self.source).select_data(self.table)
         expected_result = []
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_select_all_data(self):
+        # Testing to see if the full data set will be selected correctly.
+        given_result = DataConnector(self.source).select_data("all_columns", self.table, "user_id = 1")
+        expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': '55555'
+                            , 'birthday': datetime.date(2000, 1, 4)}, {'first_name': 'Sarah', 'last_name': 'Jenkins'
+                            , 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}]
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_select_single_column_data(self):
+        # Testing to see if the data set will be selected correctly.
+        DataConnector(self.source).insert_data(self.table, records)
+        given_result = DataConnector(self.source).select_data("[first_name, last_name]", self.table, "user_id = 1")
+        expected_result = [{'first_name': 'Bob', 'last_name': 'Richards'}]
 
         self.assertEqual(given_result, expected_result)

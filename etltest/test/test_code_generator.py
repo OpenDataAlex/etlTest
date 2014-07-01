@@ -31,7 +31,8 @@ class CodeGeneratorTest(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
-#
-#
-#
-# def test_generate_multiple_test_file():
+    # def test_generate_multiple_test_file(self):
+    #     sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
+    #     output_dir = os.path.join(self.out_dir, 'DataMart')
+    #
+    #

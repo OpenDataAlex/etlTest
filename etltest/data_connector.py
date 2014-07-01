@@ -100,23 +100,27 @@ class DataConnector():
 
         self.conn.execute(delete)
 
-    def select_data(self, table_name):
+    def select_data(self, select_stmt, from_stmt, where_stmt):
         #TODO:  How to handle complex WHERE clauses?
         #TODO:  Should we support sub-selects?
         #TODO:  Should we support joins?
         """
             This method queries records from the given table based on particular columns desired and the required
-            filter criteria.
-            :param table_name:  Name of the table to be queried (FROM clause).
-            :param table_name: str
-            :param columns:  Names of the columns to be returned from the query (SELECT clause).
-            :param columns: arr
-            :param filter:  The filter criteria for the query (WHERE clause)
-            :param filter:  arr
+            filter criteria.  Currently only supports simple select queries.
+            :param select_stmt:  Names of the columns to be returned from the query (SELECT clause).
+            :param select_stmt: arr
+            :param from_stmt:  Name of the table to be queried (FROM clause).
+            :param from_stmt: str
+            :param where_stmt:  The filter criteria for the query (WHERE clause)
+            :param where_stmt:  arr
         """
 
-        table = self.get_table(table_name)
-        result = self.session.query(table).all()
+        table = self.get_table(from_stmt)
+
+        if select_stmt != "all_columns":
+            result = self.session.query(table).add_columns(select_stmt).filter(where_stmt)
+        else:
+            result = self.session.query(table).filter(where_stmt)
 
         return self.to_json(result, table)
 

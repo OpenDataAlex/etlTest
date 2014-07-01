@@ -44,7 +44,8 @@ class {{ testGroup }}Test(unittest.TestCase):
     def {{ test.name }}(suite):
         # {{ test.desc }}
 
-        given_result = DataConnector({{ test.query.source }}).select_data()
+        given_result = DataConnector({{ test.query.source }}).select_data({{ test.query.select }},
+                        {{ test.query.from }}, "{{ test.query.where }}")
 
         expected_result = "{{ test.query.result }}"
 

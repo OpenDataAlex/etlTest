@@ -1,4 +1,4 @@
-Author:  Coty Sutherland
+Author:  Coty Sutherland, Alex Meadows
 
 # How to contribute
 
@@ -11,7 +11,7 @@ What to participate/contribute to etlTest?  Feel free to  along and enhancements
         $ pip install -r requirements.txt
 
 * Make sure you have a [GitHub account](https://github.com/signup/free)
-* Submit issues/suggestions to the [Github issue tracker](https://github.com/dbaAlex/etlTest/issues)
+* Submit issues/suggestions to the [Github issue tracker](https://github.com/OpenDataAlex/etlTest/issues)
   * For bugs, clearly describe the issue including steps to reproduce
   * For enhancement requests, be sure to indicate if you are willing to work on implementing the enhancement
     * Fork the repository on GitHub if you want to contribute code/docs
@@ -27,7 +27,7 @@ What to participate/contribute to etlTest?  Feel free to  along and enhancements
 * Make commits of logical units with complete documentation.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Make sure you have added the necessary tests for your changes.
-  * Test coverage is currently tracked via [coveralls.io](https://coveralls.io/r/dbaAlex/etlTest?branch=develop)
+  * Test coverage is currently tracked via [coveralls.io](https://coveralls.io/r/OpenDataAlex/etlTest?branch=develop)
   * Aim for 100% coverage on your code
     * If this is not possible, explain why in your commit message. This may be an indication that your code should be refactored.
 * Run `python setup.py test` to make sure your tests pass

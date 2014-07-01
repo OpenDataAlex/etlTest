@@ -56,3 +56,4 @@ class DataMartUsersDimTest(unittest.TestCase):
         expected_result = "[{1: '01-01-1900'}, {2: '02-02-2000'}]"
 
         self.assertEqual(given_result, expected_result)
+

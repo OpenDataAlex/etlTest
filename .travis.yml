@@ -13,6 +13,9 @@ before_script:
   - mysql -e 'source scripts/etlUnitTest_build.sql'
   - wget http://sourceforge.net/projects/pentaho/files/Data%20Integration/5.0.1-stable/pdi-ce-5.0.1.A-stable.zip/download
   - unzip download
+  - wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.31.zip
+  - unzip mysql-connector-java-5.1.31.zip
+  - cp mysql-connector-java-5.1.31/mysql-connector-java-5.1.31-bin.jar data-integration/lib/
 services:  mysql
 env: ETL_TEST_ROOT=/home/travis/build/OpenDataAlex/etlTest TOOL_PATH=/home/travis/build/OpenDataAlex/etlTest
 after_success:

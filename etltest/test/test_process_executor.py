@@ -21,6 +21,10 @@ class ProcessExecutorTests(unittest.TestCase):
 
         shared_file = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
                                                                '$ETL_TEST_ROOT/etltest/samples/etl/shared.xml')
+
+        os.mkdir(SettingsManager().system_variable_replace('ETL_TEST_ROOT',
+                                                                      '$ETL_TEST_ROOT/.kettle'))
+
         shared_file_target = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
                                                                       '$ETL_TEST_ROOT/.kettle/shared.xml')
 

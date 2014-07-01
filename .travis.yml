@@ -14,7 +14,6 @@ before_script:
   - wget http://sourceforge.net/projects/pentaho/files/Data%20Integration/5.0.1-stable/pdi-ce-5.0.1.A-stable.zip/download
   - unzip download
 services:  mysql
-env: ETL_TEST_ROOT=/home/travis/build/OpenDataAlex/etlTest
-env: TOOL_PATH=/home/travis/build/OpenDataAlex/etlTest
+env: ETL_TEST_ROOT=/home/travis/build/OpenDataAlex/etlTest TOOL_PATH=/home/travis/build/OpenDataAlex/etlTest
 after_success:
     coveralls

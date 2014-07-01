@@ -98,7 +98,7 @@ class SettingsManagerTests(unittest.TestCase):
     def test_system_variable_replace(self):
         parameter = "$ETL_TEST_ROOT/this_is_a_test/file.txt"
         given_result = SettingsManager().system_variable_replace('ETL_TEST_ROOT', parameter)
-        expected_result = os.environ.get('ETL_TEST_ROOT') + "/this_is_a_test/file.txt"
+        expected_result = os.path.join(os.environ.get('ETL_TEST_ROOT'), "/this_is_a_test/file.txt")
 
         self.assertEqual(given_result, expected_result)
 

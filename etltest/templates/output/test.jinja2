@@ -49,4 +49,5 @@ class {{ testGroup }}Test(unittest.TestCase):
         expected_result = "{{ test.query.result }}"
 
         self.assertEqual(given_result, expected_result)
+
 {% endfor %}

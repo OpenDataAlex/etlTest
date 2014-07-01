@@ -38,6 +38,7 @@ class DataMartUsersDimTest(unittest.TestCase):
         expected_result = "sarah"
 
         self.assertEqual(given_result, expected_result)
+
     def testFirstNameUpper(suite):
         # Test for process that upper cases the first name field of a users table record.
 
@@ -46,6 +47,7 @@ class DataMartUsersDimTest(unittest.TestCase):
         expected_result = "SARAH"
 
         self.assertEqual(given_result, expected_result)
+
     def testUserValidBirthday(suite):
         # Test for valid birth dates.
 

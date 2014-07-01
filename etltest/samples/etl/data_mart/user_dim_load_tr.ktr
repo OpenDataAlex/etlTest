@@ -62,8 +62,6 @@
     <partitionschemas>
     </partitionschemas>
     <slaveservers>
-         <slaveserver><name>Dev</name><hostname>pdi01.dw.dev0.int.phx1.redhat.com</hostname><port>8088</port><webAppName/><username>pdidev</username><password>Encrypted 2be98afc86aa7f2e49b1da754db84fe9b</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master></slaveserver>
-         <slaveserver><name>QA</name><hostname>pdi01.dw.qa.int.phx1.redhat.com</hostname><port>8088</port><webAppName/><username>pdiqa</username><password>Encrypted 2be98afc86aa7f2e4cb29aa79ef93fdfa</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master></slaveserver>
     </slaveservers>
     <clusterschemas>
     </clusterschemas>
@@ -76,13 +74,13 @@
   </notepads>
   <connection>
     <name>etlUnitTest</name>
-    <server>192.168.56.102</server>
+    <server>127.0.0.1</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>etlUnitTest</database>
     <port>3306</port>
-    <username>etl_test</username>
-    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
+    <username>root</username>
+    <password>Encrypted</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>

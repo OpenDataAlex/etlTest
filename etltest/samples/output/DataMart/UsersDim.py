@@ -33,7 +33,7 @@ class DataMartUsersDimTest(unittest.TestCase):
     def testFirstNameLower(suite):
         # Test for process that lower cases the first name field of a users table record.
 
-        given_result = DataConnectory(etlUnitTest).select_data()
+        given_result = DataConnector(etlUnitTest).select_data()
 
         expected_result = "sarah"
 
@@ -42,7 +42,7 @@ class DataMartUsersDimTest(unittest.TestCase):
     def testFirstNameUpper(suite):
         # Test for process that upper cases the first name field of a users table record.
 
-        given_result = DataConnectory(etlUnitTest).select_data()
+        given_result = DataConnector(etlUnitTest).select_data()
 
         expected_result = "SARAH"
 
@@ -51,7 +51,7 @@ class DataMartUsersDimTest(unittest.TestCase):
     def testUserValidBirthday(suite):
         # Test for valid birth dates.
 
-        given_result = DataConnectory(etlUnitTest).select_data()
+        given_result = DataConnector(etlUnitTest).select_data()
 
         expected_result = "[{1: '01-01-1900'}, {2: '02-02-2000'}]"
 

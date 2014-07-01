@@ -80,7 +80,7 @@
     <database>etlUnitTest</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted</password>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>

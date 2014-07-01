@@ -1,5 +1,5 @@
 PDI:
-  tool_path:  $TOOL_PATH/data-integration
+  tool_path:  $TOOL_PATH
   code_path:  $ETL_TEST_ROOT/etltest/samples/etl/
   process_param:  "/file:"
   params:  "/level: Detailed"

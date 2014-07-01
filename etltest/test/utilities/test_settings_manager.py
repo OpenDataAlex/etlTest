@@ -62,7 +62,7 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_get_tools(self):
         given_result = list(SettingsManager().get_tools())
-        expected_result = [{'PDI': {'process_param': '/file:', 'tool_path': '$ETL_TEST_ROOT/data-integration',
+        expected_result = [{'PDI': {'process_param': '/file:', 'tool_path': '$TOOL_PATH/data-integration',
                                     'script_types': [{'type': 'job', 'script': 'kitchen.sh'}, {'type': 'trans',
                                     'script': 'pan.sh'}], 'params': '/level: Detailed', 'logging_filename_format':
                                     '${name}_%Y-%m-%d', 'code_path': '$ETL_TEST_ROOT/etltest/samples/etl/'}}]

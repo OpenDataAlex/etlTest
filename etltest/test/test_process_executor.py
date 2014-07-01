@@ -17,18 +17,21 @@ class ProcessExecutorTests(unittest.TestCase):
         self.process_trans = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
                                                                        '$ETL_TEST_ROOT/etltest/samples/etl/data_mart/user_dim_load_tr.ktr')
 
-        self.tool_path = SettingsManager().system_variable_replace('ETL_TEST_ROOT', '$ETL_TEST_ROOT/data-integration')
+        self.tool_path = SettingsManager().system_variable_replace('TOOL_PATH', '$TOOL_PATH/data-integration')
 
         shared_file = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
                                                                '$ETL_TEST_ROOT/etltest/samples/etl/shared.xml')
 
-        os.mkdir(SettingsManager().system_variable_replace('ETL_TEST_ROOT',
-                                                                      '$ETL_TEST_ROOT/.kettle'))
+        kettle_settings = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
+                                                                      '$ETL_TEST_ROOT/.kettle')
+
+        if os.path.isdir(kettle_settings) is False:
+            os.mkdir(kettle_settings)
 
         shared_file_target = SettingsManager().system_variable_replace('ETL_TEST_ROOT',
                                                                       '$ETL_TEST_ROOT/.kettle/shared.xml')
-
-        copyfile(shared_file, shared_file_target)
+        if os.path.isfile(shared_file_target) is False:
+            copyfile(shared_file, shared_file_target)
 
     def test_sample_job_exists(self):
         given_result = os.path.isfile(self.process_job)

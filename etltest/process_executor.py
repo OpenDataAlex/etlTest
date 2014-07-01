@@ -32,7 +32,7 @@ class ProcessExecutor():
 
         from subprocess import call
 
-        tool_path = SettingsManager().system_variable_replace('ETL_TEST_ROOT', self.tool['tool_path'])
+        tool_path = SettingsManager().system_variable_replace('TOOL_PATH', self.tool['tool_path'])
 
         process_param = self.tool['process_param']
         params = self.tool['params']

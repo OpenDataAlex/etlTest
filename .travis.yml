@@ -15,5 +15,6 @@ before_script:
   - unzip download
 services:  mysql
 env: ETL_TEST_ROOT=/home/travis/build/OpenDataAlex/etlTest
+env: TOOL_PATH=/home/travis/build/OpenDataAlex/etlTest
 after_success:
     coveralls

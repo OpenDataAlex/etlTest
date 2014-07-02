@@ -58,16 +58,23 @@ class DataConnector():
 
         self.conn = self.engine.connect()
 
-    def get_table(self, table_name):
+    def get_table(self, table_name, select_stmt=None):
         """
-            This method gets a table from the data connection using SQLAlchemy's reflection capability.
+            This method gets a table from the data connection using SQLAlchemy's reflection capability. Columns in the
+            select_stmt are included, with all other table columns excluded.
             :param table_name: The name of the table being reflected.
-            :param table_name: str
+            :type table_name: str
+            :param select_stmt: The fields being included in the query. Default None.
+            :type select_stmt:  str
             :returns:  SQLAlchemy Table object
         """
         table = Table(table_name, self.meta)
         self.log.debug("Reflecting table %s" % table_name)
-        self.insp.reflecttable(table, None)
+
+        if select_stmt == "all_columns":
+            select_stmt = None
+
+        self.insp.reflecttable(table, select_stmt)
 
         return table
 
@@ -100,7 +107,7 @@ class DataConnector():
 
         self.conn.execute(delete)
 
-    def select_data(self, select_stmt, from_stmt, where_stmt):
+    def select_data(self, select_stmt, from_stmt, where_stmt=None):
         #TODO:  How to handle complex WHERE clauses?
         #TODO:  Should we support sub-selects?
         #TODO:  Should we support joins?
@@ -115,12 +122,17 @@ class DataConnector():
             :param where_stmt:  arr
         """
 
-        table = self.get_table(from_stmt)
+        if select_stmt == "all_columns":
+            table = self.get_table(from_stmt)
+        else:
+            table = self.get_table(from_stmt, select_stmt)
 
-        if select_stmt != "all_columns":
-            result = self.session.query(table).add_columns(select_stmt).filter(where_stmt)
+        if where_stmt is None:
+            result = self.session.query(table)
         else:
             result = self.session.query(table).filter(where_stmt)
+
+        self.log.debug(u"Executing query {0:s}".format(result))
 
         return self.to_json(result, table)
 
@@ -157,6 +169,8 @@ class DataConnector():
             col_types = dict()
             for result in result_set:
                 table_json = {}
+                self.log.debug(u"Processing {0:s}".format(result))
+                self.log.debug(u"Table results consists of {0:s}".format(table._columns))
                 for col in table._columns:
                     value = getattr(result, col.name)
                     if col.type in col_types.keys() and value is not None:

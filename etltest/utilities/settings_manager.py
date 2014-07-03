@@ -174,7 +174,8 @@ class SettingsManager():
             variable_value = str(os.environ.get(system_variable))
 
             if "$" + system_variable in parameter:
-                self.log.debug("Replacing $" + system_variable + " with %s" % system_variable, variable_value)
+                self.log.debug(u"Replacing $ {0:s} with {1:s}".format(system_variable,
+                               variable_value))
                 return parameter.replace("$" + system_variable, variable_value)
             else:
                 return parameter

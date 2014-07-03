@@ -20,6 +20,7 @@ class CodeGeneratorTest(unittest.TestCase):
         CodeGenerator(in_file=self.test_file).generate_test()
 
     def test_generate_single_test_file(self):
+        # Testing the in_file option of code_generator
         sample_file = os.path.join(self.main_path, 'etltest/samples/output/DataMart/UsersDim.py')
         output_file = os.path.join(self.out_dir, 'DataMart/UsersDim.py')
 
@@ -31,8 +32,25 @@ class CodeGeneratorTest(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
-    # def test_generate_multiple_test_file(self):
-    #     sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
-    #     output_dir = os.path.join(self.out_dir, 'DataMart')
-    #
-    #
+    def test_generate_multiple_test_file(self):
+        # Testing the in_dir option of code_generator.
+        CodeGenerator(in_dir=self.test_dir).generate_test()
+        sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
+        output_dir = os.path.join(self.out_dir, 'DataMart')
+
+        given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
+        expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_generate_code_no_option(self):
+        # Testing if neither in_file or in_dir are provided.
+
+        CodeGenerator().generate_test()
+        sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
+        output_dir = os.path.join(self.out_dir, 'DataMart')
+
+        given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
+        expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
+
+        self.assertEqual(given_result, expected_result)

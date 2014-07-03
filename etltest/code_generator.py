@@ -35,7 +35,7 @@ class CodeGenerator():
             self.test_list = YAMLParser().read_dir(self.in_dir)
         else:
             test_loc = SettingsManager().find_setting("Locations", "tests")
-            self.test_list = YAMLParser.read_dir(test_loc)
+            self.test_list = YAMLParser().read_dir(test_loc)
 
     def generate_test(self):
         """

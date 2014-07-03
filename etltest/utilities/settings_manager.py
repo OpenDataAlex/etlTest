@@ -34,6 +34,8 @@ class SettingsManager():
         self.tools_file = etltest_config['tools_file']
 
 
+        self.variable_pattern = "\$\{.{0,10000}\}"
+
         self.user_settings = appdirs.user_data_dir(self.app_name, self.app_author)
         self.user_logging = appdirs.user_log_dir(self.app_name, self.app_author)
 
@@ -90,13 +92,11 @@ class SettingsManager():
                     self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
                     copy2(s, d)
 
-
     def get_settings(self):
         """
             Gets all the settings from the primary settings file (properties.cfg).
         """
         return self.read_settings_file(self.settings_file)
-
 
     def get_connections(self):
         """
@@ -124,7 +124,6 @@ class SettingsManager():
             if tool[tool_name]:
                 return tool[tool_name]
 
-
     def find_setting(self, setting_section, setting_name):
         """
             Reads the config file and returns the given setting's value.
@@ -137,9 +136,9 @@ class SettingsManager():
 
         try:
             config_var = config[setting_section][setting_name]
-            return self.system_variable_replace('ETL_TEST_ROOT', config_var)
+            return self.system_variable_replace(config_var)
         except Exception:
-            return ''
+            return "Setting does not exist or something went wrong."
 
     @staticmethod
     def get_file_location():
@@ -161,26 +160,35 @@ class SettingsManager():
         self.log.info(parser._sections)
         return parser._sections
 
-    def system_variable_replace(self, system_variable, parameter):
+    def system_variable_replace(self, parameter):
         """
-            Takes the given parameter and checks to see if the system_variable exists on the system and then replaces the
-             variable name with the value of the variable.
-            :param system_variable: The name of the system variable
-            :type system_variable: str
+            Takes the given parameter and checks to see if any system_variable in it exists on the system and then
+            replaces the variable name with the value of the variable.
             :param parameter: The parameter needing to have a system variable replaced in (i.e. tool_path, code_path, etc.)
-            :return: String of the replaced variable.
+            :type parameter: str
+            :return: Value of the parameter with all variables replaced.
         """
-        try:
+        variable_list = re.findall(self.variable_pattern, parameter)
+        self.log.debug(u"Variable list:  {0:s}".format(variable_list))
+        modified_param = str()
+        for system_variable in variable_list:
+            system_variable = re.sub('[\$\{\}]', '', system_variable)
             variable_value = str(os.environ.get(system_variable))
 
-            if "$" + system_variable in parameter:
+            self.log.debug(u"Found {0:s} and it has a value of {1:s}".format(system_variable, variable_value))
+
+            if variable_value == "None":
+                raise Exception(u"The system variable either does not exist or has a bad value. System variable: "
+                                 u"{0:s}".format(system_variable))
+            else:
                 self.log.debug(u"Replacing $ {0:s} with {1:s}".format(system_variable,
                                variable_value))
-                return parameter.replace("$" + system_variable, variable_value)
-            else:
-                return parameter
-        except Exception:
-            self.log.error("The system variable either does not exist or has a bad value. System variable: %s" % system_variable)
+                modified_param = parameter.replace("${" + system_variable + "}", variable_value)
+            self.log.debug(u"Final parameter value is: {0:s}".format(modified_param))
+        if modified_param == '':
+            return parameter
+        else:
+            return modified_param
 
     def copy_settings_file(self, filename):
         """

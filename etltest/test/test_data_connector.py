@@ -90,3 +90,12 @@ class DataConnectorTests(unittest.TestCase):
         expected_result = [{'first_name': 'Bob'}]
 
         self.assertEqual(given_result, expected_result)
+
+    def test_select_null_column_data(self):
+        # Testing to see if the data set that has a null in it will be selected correctly.
+        records = [1, 4]
+        DataConnector(self.source).insert_data(self.table, records)
+        given_result = DataConnector(self.source).select_data("first_name", self.table, "user_id IN (1, 4)")
+        expected_result = [{'first_name': 'Bob'}, {'first_name': ''}]
+
+        self.assertItemsEqual(given_result, expected_result)

@@ -43,9 +43,9 @@ class SettingsManagerTests(unittest.TestCase):
     def test_get_config_settings(self):
         given_result = SettingsManager().get_settings()
         expected_result = OrderedDict([('Locations', OrderedDict([('__name__', 'Locations'),
-                                       ('tests', '$ETL_TEST_ROOT/Documents/etlTest/tests'), ('data'
-                                       , '$ETL_TEST_ROOT/Documents/etlTest/data'), ('output',
-                                       '$ETL_TEST_ROOT/Documents/etlTest/output')])), ('Results',
+                                       ('tests', '${ETL_TEST_ROOT}/Documents/etlTest/tests'), ('data'
+                                       , '${ETL_TEST_ROOT}/Documents/etlTest/data'), ('output',
+                                       '${ETL_TEST_ROOT}/Documents/etlTest/output')])), ('Results',
                                        OrderedDict([('__name__', 'Results'), ('verbose',
                                        'True'), ('failurerate', '10'), ('reporttype', 'Normal')]))])
 
@@ -62,10 +62,10 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_get_tools(self):
         given_result = list(SettingsManager().get_tools())
-        expected_result = [{'PDI': {'process_param': '/file:', 'tool_path': '$TOOL_PATH',
+        expected_result = [{'PDI': {'process_param': '/file:', 'tool_path': '${TOOL_PATH}',
                                     'script_types': [{'type': 'job', 'script': 'kitchen.sh'}, {'type': 'trans',
                                     'script': 'pan.sh'}], 'params': '/level: Detailed', 'logging_filename_format':
-                                    '${name}_%Y-%m-%d', 'code_path': '$ETL_TEST_ROOT/etltest/samples/etl/'}}]
+                                    '${name}_%Y-%m-%d', 'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/'}}]
 
         self.assertItemsEqual(given_result, expected_result)
 
@@ -84,7 +84,7 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_fail_find_single_setting(self):
         given_result = SettingsManager().find_setting('Location', 'tests')
-        expected_result = ''
+        expected_result = 'Setting does not exist or something went wrong.'
 
         self.assertEqual(given_result, expected_result)
 
@@ -96,11 +96,20 @@ class SettingsManagerTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_system_variable_replace(self):
-        parameter = "$ETL_TEST_ROOT/this_is_a_test/file.txt"
-        given_result = SettingsManager().system_variable_replace('ETL_TEST_ROOT', parameter)
+        parameter = "${ETL_TEST_ROOT}/this_is_a_test/file.txt"
+        given_result = SettingsManager().system_variable_replace(parameter)
         expected_result = str(os.environ.get('ETL_TEST_ROOT')) + "/this_is_a_test/file.txt"
 
         self.assertEqual(given_result, expected_result)
+
+    def test_bad_system_variable_replace(self):
+        parameter = "${ETL_TEST_TOOT}/this_is_a_test/file.txt"
+        expected_result = "The system variable either does not exist or has a bad value. System variable: ETL_TEST_TOOT"
+
+        with self.assertRaises(Exception) as raises:
+            SettingsManager().system_variable_replace(parameter)
+
+        self.assertEqual(raises.exception.message, expected_result)
 
     def test_copy_settings_file(self):
         SettingsManager().copy_settings_file('copy.test')

@@ -5,6 +5,7 @@ __author__ = 'coty, ameadows'
 
 import logging
 import sys
+import json
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, MetaData, Table, inspect
@@ -164,25 +165,19 @@ class DataConnector():
             :param table:  SQLAlchemy Table Object.
             :returns:  Jsonified SQLAlchemy ResultSet.
         """
-        results = []
-        if type(result_set) is list:
-            col_types = dict()
-            for result in result_set:
-                table_json = {}
-                self.log.debug(u"Processing {0:s}".format(result))
-                self.log.debug(u"Table results consists of {0:s}".format(table._columns))
-                for col in table._columns:
-                    value = getattr(result, col.name)
-                    if col.type in col_types.keys() and value is not None:
-                        try:
-                            table_json[col.name] = col_types[col.type](value)
-                        except:
-                            table_json[col.name] = "Error:  Failed to convert using ", str(col_types[col.type])
-                    elif value is None:
-                        table_json[col.name] = str()
-                    else:
-                        table_json[col.name] = value
-                results.append(table_json)
-            return results
-        else:
-            return self.to_json([result_set], table)
+        results = [] # In the event nothing is in the set, return empty set.
+        col_types = dict()
+        for result in result_set:
+            self.log.debug(u"Processing record: {0:s}".format(result))
+            table_json = {}
+            i = 0
+            for column in table._columns:
+                value = result[i]
+                if value is None:
+                    table_json[column.name] = str()
+                else:
+                    table_json[column.name] = value
+                i += 1
+            results.append(table_json)
+
+        return results

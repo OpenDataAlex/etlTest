@@ -31,7 +31,7 @@ class YamlParserTests(unittest.TestCase):
     # Testing data yaml file for correct processing.
     def test_process_data_file(self):
         given_result = YAMLParser().read_file(data_file)
-        expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555, 'birthday': datetime.date(2000, 1, 4)}, 2: {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2)}, 3: {'first_name': 'Frank', 'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789, 'birthday': datetime.date(1972, 3, 3)}}]
+        expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555, 'birthday': datetime.date(2000, 1, 4)}, 2: {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2)}, 3: {'first_name': 'Frank', 'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789, 'birthday': datetime.date(1972, 3, 3)}, 4: {'first_name': None, 'last_name': 'Thomas', 'user_id': 4, 'zipcode': 44444, 'birthday': datetime.date(1923, 1, 4)}}]
         self.assertItemsEqual(given_result, expected_result)
 
 
@@ -59,6 +59,13 @@ class YamlParserTests(unittest.TestCase):
     # Testing a directory of data yaml files to verify they are processed correctly.
     def test_process_data_dir(self):
         given_result = YAMLParser().read_dir(data_dir)
-        expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555, 'birthday': datetime.date(2000, 1, 4)}, 2: {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2)}, 3: {'first_name': 'Frank', 'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789, 'birthday': datetime.date(1972, 3, 3)}}]
+        expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
+                                'birthday': datetime.date(2000, 1, 4)}, 2: {'first_name': 'Sarah',
+                                'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
+                                'birthday': datetime.date(2000, 2, 2)}, 3: {'first_name': 'Frank',
+                                'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789,
+                                'birthday': datetime.date(1972, 3, 3)}, 4: {'first_name': None,
+                                'last_name': 'Thomas', 'user_id': 4, 'zipcode': 44444,
+                                'birthday': datetime.date(1923, 1, 4)}}]
 
         self.assertEqual(given_result, expected_result)

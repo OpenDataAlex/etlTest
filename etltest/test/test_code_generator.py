@@ -45,8 +45,6 @@ class CodeGeneratorTest(unittest.TestCase):
 
     def test_generate_code_no_option(self):
         # Testing if neither in_file or in_dir are provided.
-
-        CodeGenerator().generate_test()
         sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
         output_dir = os.path.join(self.out_dir, 'DataMart')
 

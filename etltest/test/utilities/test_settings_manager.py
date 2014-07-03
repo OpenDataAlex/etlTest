@@ -118,3 +118,10 @@ class SettingsManagerTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_no_system_variable_replace(self):
+        parameter = "no_parameter/this_is_a_test/file.txt"
+        given_result = SettingsManager().system_variable_replace(parameter)
+        expected_result = "no_parameter/this_is_a_test/file.txt"
+
+        self.assertEqual(given_result, expected_result)
+

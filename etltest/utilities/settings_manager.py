@@ -57,7 +57,7 @@ class SettingsManager():
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
 
-        self.make_dir(self.data_dir)
+        self.make_dir(self.user_logging)
 
         data_location = self.find_setting('Locations', 'data')
         self.make_dir(data_location)
@@ -95,9 +95,7 @@ class SettingsManager():
         if not os.path.isdir(dir):
             self.log.info("Directory does not exist.  Building now.")
             os.makedirs(dir)
-
-            self.log.debug("Directory is %s" % dir)
-
+            self.log.debug("Dirctory is %s" % dir)
         else:
             self.log.info("Directory exists (%s)" % dir)
 

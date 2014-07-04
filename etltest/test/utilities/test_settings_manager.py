@@ -3,6 +3,7 @@ __author__ = 'ameadows'
 import unittest
 from collections import OrderedDict
 import inspect
+
 import re
 import os
 import appdirs
@@ -24,6 +25,8 @@ class SettingsManagerTests(unittest.TestCase):
         self.data_location = SettingsManager().find_setting('Locations', 'data')
         self.tools_file = os.path.join(self.data_dir, etltest_config['tools_file'])
         self.copy_file = os.path.join(self.data_dir, 'copy.test')
+        self.tests_location = SettingsManager().find_setting('Locations', 'tests')
+        self.output_location = SettingsManager().find_setting('Locations', 'output')
 
     def test_data_dir_exists(self):
         assert os.path.exists(self.data_dir)
@@ -39,6 +42,12 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_data_samples_exists(self):
         assert os.path.isdir(self.data_location)
+
+    def test_tests_dir_exists(self):
+        assert os.path.isdir(self.tests_location)
+
+    def test_output_dir_exists(self):
+        assert os.path.isdir(self.output_location)
 
     def test_get_config_settings(self):
         given_result = SettingsManager().get_settings()

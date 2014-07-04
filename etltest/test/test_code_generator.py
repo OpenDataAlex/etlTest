@@ -47,12 +47,12 @@ class CodeGeneratorTest(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
-    def test_generate_code_no_option(self):
-        # Testing if neither in_file or in_dir are provided.
-        sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
-        output_dir = os.path.join(self.out_dir, 'DataMart')
-
-        given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
-        expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
-
-        self.assertEqual(given_result, expected_result)
+    # def test_generate_code_no_option(self):
+    #     # Testing if neither in_file or in_dir are provided.
+    #     sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
+    #     output_dir = os.path.join(self.out_dir, 'DataMart')
+    #
+    #     given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
+    #     expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
+    #
+    #     self.assertEqual(given_result, expected_result)

@@ -1,6 +1,7 @@
 __author__ = 'ameadows'
 
 import unittest
+import shutil
 
 import os
 
@@ -18,7 +19,7 @@ class CodeGeneratorTest(unittest.TestCase):
         self.test_file = self.test_dir + '/dataMart/users_dim.yml'
 
     def tearDown(self):
-        os.rmdir(self.out_dir)
+        shutil.rmtree(self.out_dir)
 
     def test_generate_single_test_file(self):
         CodeGenerator(in_file=self.test_file).generate_test()

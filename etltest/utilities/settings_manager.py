@@ -181,7 +181,7 @@ class SettingsManager():
                 raise Exception(u"The system variable either does not exist or has a bad value. System variable: "
                                  u"{0:s}".format(system_variable))
             else:
-                self.log.debug(u"Replacing $ {0:s} with {1:s}".format(system_variable,
+                self.log.debug(u"Replacing ${0:s} with {1:s}".format(system_variable,
                                variable_value))
                 modified_param = parameter.replace("${" + system_variable + "}", variable_value)
             self.log.debug(u"Final parameter value is: {0:s}".format(modified_param))

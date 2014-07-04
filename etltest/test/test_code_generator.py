@@ -1,7 +1,7 @@
 __author__ = 'ameadows'
 
 import unittest
-import shutil
+
 import os
 
 from etltest.utilities.settings_manager import SettingsManager
@@ -17,6 +17,8 @@ class CodeGeneratorTest(unittest.TestCase):
         self.test_dir = self.main_path + '/etltest/samples/test/'
         self.test_file = self.test_dir + '/dataMart/users_dim.yml'
 
+    def tearDown(self):
+        os.rmdir(self.out_dir)
 
     def test_generate_single_test_file(self):
         CodeGenerator(in_file=self.test_file).generate_test()
@@ -46,6 +48,7 @@ class CodeGeneratorTest(unittest.TestCase):
 
     def test_generate_code_no_option(self):
         # Testing if neither in_file or in_dir are provided.
+        CodeGenerator().generate_test()
         sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
         output_dir = os.path.join(self.out_dir, 'DataMart')
 

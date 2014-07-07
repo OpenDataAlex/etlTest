@@ -5,7 +5,7 @@ __author__ = 'ameadows'
 
 import logging
 
-from etltest.utilities.settings import etltest_config, console
+from utilities.settings import etltest_config, console
 
 class CodeExecutor():
 

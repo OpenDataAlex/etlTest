@@ -134,3 +134,9 @@ class SettingsManagerTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_copy_files(self):
+
+        given_result = os.path.isfile(os.path.join(self.data_location, "etlUnitTest/users.yml"))
+        expected_result = True
+
+        self.assertEqual(given_result, expected_result)

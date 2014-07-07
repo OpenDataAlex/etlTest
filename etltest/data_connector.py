@@ -5,7 +5,6 @@ __author__ = 'coty, ameadows'
 
 import logging
 import sys
-import json
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, MetaData, Table, inspect

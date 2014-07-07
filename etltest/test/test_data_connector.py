@@ -104,6 +104,6 @@ class DataConnectorTests(unittest.TestCase):
         records = [1, 4]
         DataConnector(self.source).insert_data(self.table, records)
         given_result = DataConnector(self.source).select_data("first_name", self.table, "user_id IN (1, 4)")
-        expected_result = [{'first_name': 'Bob'}, {'first_name': ''}]
+        expected_result = [{'first_name': 'Bob'}]
 
         self.assertItemsEqual(given_result, expected_result)

@@ -11,11 +11,11 @@ import pprint
 import os
 import yaml
 
-from etltest.utilities.settings_manager import SettingsManager
+from settings_manager import SettingsManager
 
 # Begin CustomLogging
 # this import adds the additional log levels I created
-import etltest.utilities.custom_logging
+import custom_logging
 
 # create console handler and set level to info
 console = logging.StreamHandler()

@@ -2,10 +2,10 @@ __author__ = 'coty, ameadows'
 
 import logging
 import os
-import itertools
-from etltest.utilities.settings import etltest_config, console
-from etltest.utilities.settings_manager import SettingsManager
-from etltest.utilities.yaml_parser import YAMLParser
+
+from utilities.settings import etltest_config, console
+from utilities.settings_manager import SettingsManager
+from utilities.yaml_parser import YAMLParser
 
 
 class CodeGenerator():

@@ -20,7 +20,7 @@ class SettingsManager():
         """
             This method initializes the log for SettingsManager as well as sets some static variables for file paths.
         """
-        from etltest.utilities.settings import etltest_config, console
+        from settings import etltest_config, console
 
         self.log = logging.getLogger(name="SettingsManager")
         self.log.setLevel(etltest_config['logging_level'])
@@ -29,6 +29,7 @@ class SettingsManager():
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
         self.data_dir = 'etltest/samples/data/'
+        self.test_dir = 'etltest/samples/test/'
         self.settings_file = etltest_config['settings_file']
         self.connection_file = etltest_config['connection_file']
         self.tools_file = etltest_config['tools_file']
@@ -68,8 +69,25 @@ class SettingsManager():
         output_location = self.find_setting('Locations', 'output')
         self.make_dir(output_location)
 
-        source = os.path.join(self.get_file_location(), self.data_dir)
-        dest = data_location
+        data_source = os.path.join(self.get_file_location(), self.data_dir)
+        data_dest = data_location
+        #Copying sample data files.
+        self.copy_files(data_source, data_dest)
+
+        test_source = os.path.join(self.get_file_location(), self.test_dir)
+        test_dest = test_location
+        #Copying sample test files.
+        self.copy_files(test_source, test_dest)
+
+    def copy_files(self, source, dest):
+        """
+        Takes files from the source and copies them to the destination directory.
+        :param source: The source directory of the files.
+        :type source: str
+        :param dest:  Where the files need to be copied to.
+        :type dest:  str
+        """
+
         for root, dirs, files in os.walk(source):
             for file in files:
                 self.log.debug("Trying to copy %s" % file)

@@ -1,9 +1,10 @@
+#!/usr/bin/python
 __author__ = 'coty, ameadows'
 
 import sys
 import optparse
 
-from etltest.utilities.settings_manager import SettingsManager
+from utilities.settings_manager import SettingsManager
 
 
 def main(argv):
@@ -41,9 +42,15 @@ def main(argv):
         parser.error("Options infile and indir are mutually exclusive. Please choose one.")
 
     if options.gen_code:
-        from etltest.utilities.yaml_parser import YAMLReader
-        r = YAMLReader(in_file=options.in_file, in_dir=options.in_dir)
-        resource_data = r.readTests()
+        from utilities.yaml_parser import YAMLParser
+        if options.in_file:
+            print(u"Attempting to process: {0:s}".format(options.in_file))
+            YAMLParser(in_file=options.in_file)
+
+        if options.in_dir:
+            print(u"Attempting to process: {0:s}".format(options.in_dir))
+            YAMLParser(in_dir=options.in_dir)
+
 
         from etltest.code_generator import CodeGenerator
         g = CodeGenerator(options.out_dir, resource_data, options.test_run)

@@ -2,13 +2,12 @@ __author__ = 'coty, ameadows'
 
 import logging
 import yaml
-import json
 
 
 class YAMLParser():
 
-    def __init__(self):
-        from etltest.utilities.settings import etltest_config, console
+    def __init__(self, in_file=None, in_dir=None):
+        from settings import etltest_config, console
         """
             Initialization of method to setup the logging.
         """
@@ -16,6 +15,15 @@ class YAMLParser():
         self.log = logging.getLogger(name="YAMLParser")
         self.log.setLevel(etltest_config['logging_level'])
         self.log.addHandler(console)
+
+        self.in_file = in_file
+        self.in_dir = in_dir
+
+        if in_file != None:
+            self.read_file(self.in_file)
+
+        if in_dir != None:
+            self.read_dir(self.in_dir)
 
     def read_file(self, filename):
         """

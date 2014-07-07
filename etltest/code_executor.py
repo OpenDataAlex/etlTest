@@ -3,6 +3,8 @@ __author__ = 'ameadows'
     This file contains all the logic necessary to execute the unit test code based on the parameters passed by the user.
 """
 
+import logging
+
 from etltest.utilities.settings import etltest_config, console
 
 class CodeExecutor():

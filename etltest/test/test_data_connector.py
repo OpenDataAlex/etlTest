@@ -6,6 +6,7 @@ import datetime
 from etltest.data_connector import DataConnector
 from etltest.utilities.settings_manager import SettingsManager
 
+
 class DataConnectorTests(unittest.TestCase):
 
     def setUp(self):
@@ -74,6 +75,13 @@ class DataConnectorTests(unittest.TestCase):
         expected_result = [{'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}]
 
         self.assertEqual(given_result, expected_result)
+
+    # def test_select_all_data_no_columns(self):
+    #     # Testing that when all columns are selected, None value is passed.
+    #     given_result = DataConnector(self.source).get_table(self.table, "all_columns")
+    #     expected_result = DataConnector(self.source).get_table(self.table)
+    #
+    #     self.assertEquals(given_result, expected_result)
 
     def test_select_multiple_column_data(self):
         # Testing to see if the data set will be selected correctly.

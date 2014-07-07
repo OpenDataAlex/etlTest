@@ -57,22 +57,16 @@ class SettingsManager():
         else:
             self.log.info("User settings directory exists (%s)" % self.user_settings)
 
-        if not os.path.isdir(self.user_logging):
-            self.log.info('Logging directory does not exist.  Building now.')
-            os.makedirs(self.user_logging)
-        else:
-            self.log.info("User logging directory exists (%s)" % self.user_logging)
+        self.make_dir(self.user_logging)
 
         data_location = self.find_setting('Locations', 'data')
+        self.make_dir(data_location)
 
-        if not os.path.isdir(data_location):
-            self.log.info("Data directory does not exist.  Building now.")
-            os.makedirs(data_location)
+        test_location = self.find_setting('Locations', 'tests')
+        self.make_dir(test_location)
 
-            self.log.debug("Data directory is %s" % data_location)
-
-        else:
-            self.log.info("Data directory exists (%s)" % data_location)
+        output_location = self.find_setting('Locations', 'output')
+        self.make_dir(output_location)
 
         source = os.path.join(self.get_file_location(), self.data_dir)
         dest = data_location
@@ -91,6 +85,19 @@ class SettingsManager():
                 if not os.path.exists(d):
                     self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
                     copy2(s, d)
+
+    def make_dir(self, dir):
+        """
+        Takes the given directory path and ensures that it exists.  If not, it will create it.
+        :param dir: Directory path needing to be tested/created.
+        :type dir: str
+        """
+        if not os.path.isdir(dir):
+            self.log.info("Directory does not exist.  Building now.")
+            os.makedirs(dir)
+            self.log.debug("Dirctory is %s" % dir)
+        else:
+            self.log.info("Directory exists (%s)" % dir)
 
     def get_settings(self):
         """
@@ -181,7 +188,7 @@ class SettingsManager():
                 raise Exception(u"The system variable either does not exist or has a bad value. System variable: "
                                  u"{0:s}".format(system_variable))
             else:
-                self.log.debug(u"Replacing $ {0:s} with {1:s}".format(system_variable,
+                self.log.debug(u"Replacing ${0:s} with {1:s}".format(system_variable,
                                variable_value))
                 modified_param = parameter.replace("${" + system_variable + "}", variable_value)
             self.log.debug(u"Final parameter value is: {0:s}".format(modified_param))

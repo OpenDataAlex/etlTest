@@ -1,7 +1,6 @@
 __author__ = 'ameadows'
 
 import unittest
-import shutil
 import os
 
 from etltest.utilities.settings_manager import SettingsManager
@@ -25,10 +24,10 @@ class CodeGeneratorTest(unittest.TestCase):
         output_file = os.path.join(self.out_dir, 'DataMart/UsersDim.py')
 
         with open(output_file, 'r') as f:
-            given_result = f.read()
+            expected_result = f.read()
 
         with open(sample_file, 'r') as f:
-            expected_result = f.read()
+            given_result = f.read()
 
 
         self.assertEqual(given_result, expected_result)

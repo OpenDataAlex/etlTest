@@ -13,50 +13,57 @@
 #      data_mart/user_dim_jb.kjb
 
 import unittest
-import sqlalchemy
+import datetime
+from os import path
+
 from etltest.data_connector import DataConnector
 from etltest.process_executor import ProcessExecutor
+from etltest.utilities.settings_manager import SettingsManager
+
 
 class DataMartUsersDimTest(unittest.TestCase):
 
     def setUp(self):
-        # Queries for loading test data.
-          DataConnector(etlUnitTest).insert_data(users, [1, 2])
+          # Queries for loading test data.
+            DataConnector("etlUnitTest").insert_data("users", [1, 2])
 
-          ProcessExecutor(PDI).execute_process(data_mart/user_dim_jb.kjb)
+            PDI_settings = SettingsManager().get_tool("PDI")
+            PDI_code_path = SettingsManager().system_variable_replace(PDI_settings["code_path"])
+            ProcessExecutor("PDI").execute_process("job",
+            path.join(PDI_code_path, "data_mart/user_dim_jb.kjb"))
 
     def tearDown(self):
        # Clean up testing environment.
 
-        DataConnector(etlUnitTest).truncate_data(users)
+        DataConnector("etlUnitTest").truncate_data("users")
 
-    def testFirstNameLower(suite):
+    def testFirstNameLower(self):
         # Test for process that lower cases the first name field of a users table record.
 
-        given_result = DataConnector(etlUnitTest).select_data(first_name,
-                        users_dim, "user_id = 2")
+        given_result = DataConnector("etlUnitTest").select_data("first_name",
+                        "user_dim", "user_id = 2")
 
-        expected_result = "sarah"
+        expected_result = [{'first_name': 'sarah'}]
 
         self.assertEqual(given_result, expected_result)
 
-    def testFirstNameUpper(suite):
+    def testFirstNameUpper(self):
         # Test for process that upper cases the first name field of a users table record.
 
-        given_result = DataConnector(etlUnitTest).select_data(first_name,
-                        users_dim, "user_id = 2")
+        given_result = DataConnector("etlUnitTest").select_data("first_name",
+                        "user_dim", "user_id = 2")
 
-        expected_result = "SARAH"
+        expected_result = [{'first_name': 'SARAH'}]
 
         self.assertEqual(given_result, expected_result)
 
-    def testUserValidBirthday(suite):
+    def testUserValidBirthday(self):
         # Test for valid birth dates.
 
-        given_result = DataConnector(etlUnitTest).select_data(birthday,
-                        users_dim, "user_id IN (1, 2)")
+        given_result = DataConnector("etlUnitTest").select_data("birthday",
+                        "user_dim", "user_id IN (1, 2)")
 
-        expected_result = "[{1: '01-01-1900'}, {2: '02-02-2000'}]"
+        expected_result = [{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}]
 
         self.assertEqual(given_result, expected_result)
 

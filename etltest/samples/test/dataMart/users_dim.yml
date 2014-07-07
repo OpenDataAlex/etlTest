@@ -15,27 +15,25 @@ DataMart\UsersDim:
        desc:  Test for process that lower cases the first name field of a users table record.
        query:
          select: first_name
-         from: users_dim
+         from: user_dim
          where: user_id = 2
          source:  etlUnitTest
-         result: sarah
+         result: {'first_name': 'sarah'}
 
      - name:  testFirstNameUpper
        desc:  Test for process that upper cases the first name field of a users table record.
        query:
          select:  first_name
-         from:  users_dim
+         from:  user_dim
          where:  user_id = 2
          source:  etlUnitTest
-         result:  SARAH
+         result:  {'first_name': 'SARAH'}
 
      - name: testUserValidBirthday
        desc:  Test for valid birth dates.
        query:
          select:  birthday
-         from:  users_dim
+         from:  user_dim
          where:  user_id IN (1, 2)
          source:  etlUnitTest
-         result:
-            - 1:  01-01-1900
-            - 2:  02-02-2000
+         result:  "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}"

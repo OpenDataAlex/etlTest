@@ -21,6 +21,10 @@ def main(argv):
     parser = optparse.OptionParser("usage: %prog [options]")
     SettingsManager().first_run_test()
 
+    # no arguments, print usage
+    if len(argv) == 0:
+        parser.print_usage()
+
     # all available options are defined here
     parser.add_option("-f", "--infile", dest="in_file", type="string", help="Specify the input file.")
     parser.add_option("-d", "--indir", dest="in_dir", type="string", help="Specify the input directory.")
@@ -33,9 +37,7 @@ def main(argv):
                       help="Run app as tests. Does not persist generated code or execute code.")
     (options, args) = parser.parse_args()
 
-    # no arguments, print usage
-    if len(argv) == 0:
-        parser.print_usage()
+
 
     # validating options
     if options.in_file and options.in_dir:

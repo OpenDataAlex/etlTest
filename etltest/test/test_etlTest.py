@@ -10,6 +10,7 @@ from etltest.utilities.settings_manager import SettingsManager
 class etlTestTests(unittest.TestCase):
 
     def setUp(self):
+        SettingsManager().first_run_test()
         self.process = os.path.join(SettingsManager().get_file_location(), "etltest/etlTest.py")
         self.in_file = SettingsManager().system_variable_replace("${"
                                                                  "ETL_TEST_ROOT}/etltest/samples/test/dataMart/users_dim.yml")

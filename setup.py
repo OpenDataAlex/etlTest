@@ -33,6 +33,7 @@ setup(
         'Jinja2==2.7.2',
         'MarkupSafe==0.19',
         'MySQL-python==1.2.5',
+        'PyMySQL==0.6.2',
         'PyYAML==3.11',
         'Pygments==1.6',
         'SQLAlchemy==0.9.3',
@@ -50,6 +51,8 @@ setup(
         'Programming Language :: Python',
         'Development Status :: 4 - Beta'
         'Natural Language :: English',
+        'Environment :: Console',
+        'Intended Audience :: Developers'
     ],
     cmdclass = {'tox': Tox},
     test_suite='etltest.test'

@@ -11,7 +11,7 @@ class CodeGeneratorTest(unittest.TestCase):
 
     def setUp(self):
         SettingsManager().first_run_test()
-        self.out_dir = SettingsManager().find_setting('Locations', 'tests')
+        self.out_dir = SettingsManager().find_setting('Locations', 'output')
         self.main_path = SettingsManager().get_file_location()
         self.test_dir = self.main_path + '/etltest/samples/test/'
         self.test_file = self.test_dir + '/dataMart/users_dim.yml'

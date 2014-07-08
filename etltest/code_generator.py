@@ -10,7 +10,7 @@ from utilities.yaml_parser import YAMLParser
 
 class CodeGenerator():
 
-    def __init__(self, in_file=None, in_dir=None):
+    def __init__(self, in_file=None, in_dir=None, out_dir=None, test_run=None):
         """
         Generates full test code sets based on yaml files and the
           Jinja2 templates.  in_file and in_dir are mutually exclusive.
@@ -25,7 +25,9 @@ class CodeGenerator():
 
         self.in_file = in_file
         self.in_dir = in_dir
-        self.out_dir = SettingsManager().find_setting('Locations', 'tests')
+        self.out_dir = out_dir
+
+        self.test_dir = SettingsManager().find_setting('Locations', 'tests')
         self.data_dir = SettingsManager().find_setting('Locations', 'data')
 
 
@@ -36,6 +38,9 @@ class CodeGenerator():
         else:
             test_loc = SettingsManager().find_setting("Locations", "tests")
             self.test_list = YAMLParser().read_dir(test_loc)
+
+        if self.out_dir is None:
+            self.out_dir = SettingsManager().find_setting('Locations', 'output')
 
     def generate_test(self):
         """
@@ -74,7 +79,7 @@ class CodeGenerator():
                 f.write(self.template.render(self.variables))
                 f.close()
 
-            self.log.info("%s test file generated." % self.filename)
+            self.log.info(u"{0:s} test file generated.".format(self.filename))
 
 
     def jinja_setup(self):

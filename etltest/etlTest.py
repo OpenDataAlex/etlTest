@@ -21,10 +21,6 @@ def main(argv):
     parser = optparse.OptionParser("usage: %prog [options]")
     SettingsManager().first_run_test()
 
-    # no arguments, print usage
-    if len(argv) == 0:
-        parser.print_usage()
-
     # all available options are defined here
     parser.add_option("-f", "--infile", dest="in_file", type="string", help="Specify the input file.")
     parser.add_option("-d", "--indir", dest="in_dir", type="string", help="Specify the input directory.")
@@ -37,25 +33,34 @@ def main(argv):
                       help="Run app as tests. Does not persist generated code or execute code.")
     (options, args) = parser.parse_args()
 
+    # no arguments, print usage
+    if len(argv) == 0:
+        parser.print_usage()
+
     # validating options
     if options.in_file and options.in_dir:
         parser.error("Options infile and indir are mutually exclusive. Please choose one.")
 
     if options.gen_code:
-        from utilities.yaml_parser import YAMLParser
+        from etltest.code_generator import CodeGenerator
+
+        # Has a custom output directory been set?  If not, use default.
+        if options.out_dir:
+            output = options.outdir
+        else:
+            output = SettingsManager().find_setting('Locations', 'output')
+
+
         if options.in_file:
             print(u"Attempting to process: {0:s}".format(options.in_file))
-            YAMLParser(in_file=options.in_file)
+            CodeGenerator(in_file=options.in_file, out_dir=output).generate_test()
 
         if options.in_dir:
             print(u"Attempting to process: {0:s}".format(options.in_dir))
-            YAMLParser(in_dir=options.in_dir)
+            CodeGenerator(in_dir=options.in_dir, out_dir=output).generate_test()
 
-
-        from etltest.code_generator import CodeGenerator
-        g = CodeGenerator(options.out_dir, resource_data, options.test_run)
         # TODO: Decide if there should be a way to check if generated code should be updated or not.
-        g.generateCode()
+        # TODO: Fully enable test run capability.
 
     if options.exec_code:
         from etltest.code_executor import CodeExecutor

@@ -27,8 +27,6 @@ class DataConnectorTests(unittest.TestCase):
         with self.assertRaises(KeyError) as raises:
             DataConnector("BadConnection").generate_data(self.table, records)
 
-        self.assertEqual(raises.exception.message, "BadConnection")
-
     def test_generate_data_subset(self):
         #Testing to see if a subset of data is generated and not the full data set.
         given_result = DataConnector(self.source).generate_data(self.table, self.records)

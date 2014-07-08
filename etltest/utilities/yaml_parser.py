@@ -32,7 +32,7 @@ class YAMLParser():
         :type filename str
         """
 
-        with open(filename, 'r') as f:
+        with open(filename.strip(), 'r') as f:
             data = yaml.safe_load_all(f.read())
             self.log.debug("Reading file %s." % filename)
             return data

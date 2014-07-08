@@ -35,7 +35,7 @@ setup(
         'MySQL-python==1.2.5',
         'PyYAML==3.11',
         'Pygments==1.6',
-        'SQLAlchemy==0.9.4',
+        'SQLAlchemy==0.9.3',
         'Sphinx==1.2.2',
         'docutils==0.11',
         'py==1.4.20',

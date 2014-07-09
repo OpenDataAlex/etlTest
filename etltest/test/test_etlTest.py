@@ -82,8 +82,8 @@ class etlTestTests(unittest.TestCase):
 
     def test_parser_no_options(self):
         # Test if optparser is being created.
-        mode = []
-        given_result = etlTest.main(mode)
+        sys.argv = [""]
+        given_result = etlTest.main(sys.argv)
         expected_result = None
 
         self.assertEqual(given_result, expected_result)

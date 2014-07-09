@@ -17,7 +17,7 @@ class etlTestTests(unittest.TestCase):
         self.in_dir = SettingsManager().system_variable_replace("${ETL_TEST_ROOT}/etltest/samples/test/dataMart/")
 
     def test_with_empty_args(self):
-        given_result = subprocess.check_output(self.process)
+        given_result = subprocess.check_output(args=['python', self.process])
         output_file = os.path.join(SettingsManager().get_file_location(), 'etltest/samples/output/main/no_args.txt')
 
         with open(output_file, 'r') as f:

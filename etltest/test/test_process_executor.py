@@ -20,8 +20,6 @@ class ProcessExecutorTests(unittest.TestCase):
                                                                        '${'
                                                                        'ETL_TEST_ROOT}/etltest/samples/etl/data_mart/user_dim_load_tr.ktr')
 
-        self.tool_path = SettingsManager().system_variable_replace('${TOOL_PATH}/data-integration')
-
         shared_file = SettingsManager().system_variable_replace(
                                                                '${ETL_TEST_ROOT}/etltest/samples/etl/shared.xml')
 

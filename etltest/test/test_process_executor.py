@@ -34,8 +34,7 @@ class ProcessExecutorTests(unittest.TestCase):
         if os.path.isfile(shared_file_target) is False:
             copyfile(shared_file, shared_file_target)
 
-        self.mysql_driver = SettingsManager().system_variable_replace('${'
-                                                                      'TOOL_PATH}/lib/mysql-connector-java-5.1.31-bin.jar')
+        self.mysql_driver = os.path.join(self.tool_path, 'lib/mysql-connector-java-5.1.31-bin.jar')
 
     def test_sample_job_exists(self):
         given_result = os.path.isfile(self.process_job)

@@ -3,9 +3,19 @@ __author__ = 'ameadows'
 import unittest
 import subprocess32 as subprocess
 import os
+import sys
 
 from etltest.utilities.settings_manager import SettingsManager
+from etltest import etlTest
 
+class etlTestMock(object):
+    def __init__(self, in_file, in_dir, out_dir, gen, execute, test):
+        self.in_file = in_file
+        self.in_dir = in_dir
+        self.out_dir = out_dir
+        self.gen = gen
+        self.execute = execute
+        self.test = test
 
 class etlTestTests(unittest.TestCase):
 
@@ -15,6 +25,8 @@ class etlTestTests(unittest.TestCase):
         self.in_file = SettingsManager().system_variable_replace("${"
                                                                  "ETL_TEST_ROOT}/etltest/samples/test/dataMart/users_dim.yml")
         self.in_dir = SettingsManager().system_variable_replace("${ETL_TEST_ROOT}/etltest/samples/test/dataMart/")
+
+
 
     def test_with_empty_args(self):
         given_result = subprocess.check_output(args=['python', self.process])
@@ -65,5 +77,13 @@ class etlTestTests(unittest.TestCase):
 
         with open(output_file, 'r') as f:
             expected_result = f.read()
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_parser_options(self):
+        # Test if optparser is being created.
+        mode = ["-f file.yml", "-g"]
+        given_result = etlTest.main(mode)
+        expected_result = None
 
         self.assertEqual(given_result, expected_result)

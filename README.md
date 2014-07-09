@@ -18,12 +18,23 @@ Once you have done that, its ready to run!
 
 ### So what is etlTest?
 
+Having come from software development and working with data integration tools, we always wondered why there wasn't 
+some kind of uniform unit and integration testing tool specific to data integration.  etlTest aims to fill that gap 
+by providing an easy to use tool and data source agnostic testing tool.  Testing is designed to be "black box" - 
+which means that we aren't diving into the actual data integration code.  Rather, 
+we are executing the data integration process based on test data sets provided by the test writer and comparing the 
+results using Python's unittest framework.
 
 ### Quickstart
 
-To actually use etlTest, you need a resource file for it to act on. A most basic resource file can be found in the [res](https://github.com/OpenDataAlex/etlTest/tree/develop/res) directory of the project (testsuite.yml). Executing the following will take that resource, generate some python code in the output directory specified, and run the code which will display the output of the tests executed to your terminal.
+To actually use etlTest, you need a data and test file for it to act on. A most basic resource file can be 
+found in 
+the [samples](https://github.com/OpenDataAlex/etlTest/tree/dev/etltest/samples) directory of the project 
+(data/etlUnitTest/users.yml and test/dataMart/users_dim.yml). 
+Executing the
+ following will take that resource, generate some python code in the output directory specified, and run the code which will display the output of the tests executed to your terminal.
 
-    $ python etlTest/etlTest.py -f res/testsuite.yml -o /tmp/ -g -e
+    $ python etlTest/etltest/etlTest.py -f <path to users_dim.yml test file> -o /tmp/ -g -e
 
 ### Documentation
 

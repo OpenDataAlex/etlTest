@@ -1,7 +1,7 @@
 __author__ = 'ameadows'
 
 import unittest
-import subprocess
+import subprocess32 as subprocess
 import os
 
 from etltest.utilities.settings_manager import SettingsManager

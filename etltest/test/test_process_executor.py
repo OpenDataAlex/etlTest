@@ -7,6 +7,7 @@ from shutil import copyfile
 from etltest.process_executor import ProcessExecutor
 from etltest.utilities.settings_manager import SettingsManager
 
+
 class ProcessExecutorTests(unittest.TestCase):
 
     def setUp(self):

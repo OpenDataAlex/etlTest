@@ -40,6 +40,7 @@ setup(
         'Sphinx==1.2.2',
         'docutils==0.11',
         'py==1.4.20',
+        'subprocess==3.2.6',
         'tox==1.7.1',
         'unittest-xml==0.2.2',
         'unittest-xml-reporting==1.7.0',

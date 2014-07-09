@@ -83,9 +83,13 @@ class CodeGenerator():
 
 
     def jinja_setup(self):
-        from jinja2 import Environment, PackageLoader
+        from jinja2 import Environment, FileSystemLoader
         from time import strftime, gmtime
-        self.jinja_env = Environment(loader=PackageLoader('etltest', 'templates'),
+        template_dir = os.path.join(SettingsManager().get_file_location(), 'etltest/templates')
+
+        self.log.debug(u"Attempting to process templates from {0:s}".format(template_dir))
+
+        self.jinja_env = Environment(loader=FileSystemLoader(template_dir),
                                      trim_blocks=True, lstrip_blocks=True)
 
         # Header lines created here and added to the templates as required

@@ -55,3 +55,15 @@ class etlTestTests(unittest.TestCase):
 
         with self.assertRaises(subprocess.CalledProcessError) as raises:
             subprocess.check_output(args=['python', self.process, file_param, dir_param, "-g"])
+
+    def test_in_file_custom_output_generation(self):
+        file_param = "-f {0:s}".format(self.in_file)
+        output_file = os.path.join(SettingsManager().get_file_location(),
+                                       'etltest/samples/output/main/in_file_generation.txt')
+
+        given_result = subprocess.check_output(args=['python', self.process, file_param, "-g"])
+
+        with open(output_file, 'r') as f:
+            expected_result = f.read()
+
+        self.assertEqual(given_result, expected_result)

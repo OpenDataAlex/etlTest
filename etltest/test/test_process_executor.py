@@ -2,6 +2,7 @@ __author__ = 'ameadows'
 
 import unittest
 import os
+
 from shutil import copyfile
 
 from etltest.process_executor import ProcessExecutor
@@ -34,8 +35,6 @@ class ProcessExecutorTests(unittest.TestCase):
         if os.path.isfile(shared_file_target) is False:
             copyfile(shared_file, shared_file_target)
 
-        self.mysql_driver = os.path.join(self.tool_path, 'lib/mysql-connector-java-5.1.31-bin.jar')
-
     def test_sample_job_exists(self):
         given_result = os.path.isfile(self.process_job)
         expected_result = True
@@ -44,12 +43,6 @@ class ProcessExecutorTests(unittest.TestCase):
 
     def test_sample_trans_exists(self):
         given_result = os.path.isfile(self.process_trans)
-        expected_result = True
-
-        self.assertEqual(given_result, expected_result)
-
-    def test_mysql_driver_exists(self):
-        given_result = os.path.isfile(self.mysql_driver)
         expected_result = True
 
         self.assertEqual(given_result, expected_result)

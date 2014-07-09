@@ -44,7 +44,7 @@ def main(argv):
         parser.error("Options infile and indir are mutually exclusive. Please choose one.")
 
     if options.gen_code:
-        from etltest.code_generator import CodeGenerator
+        from code_generator import CodeGenerator
 
         # Has a custom output directory been set?  If not, use default.
         if options.out_dir:
@@ -65,7 +65,7 @@ def main(argv):
         # TODO: Fully enable test run capability.
 
     if options.exec_code:
-        from etltest.code_executor import CodeExecutor
+        from code_executor import CodeExecutor
         e = CodeExecutor(options.out_dir)
         e.execute(options.test_run)
 

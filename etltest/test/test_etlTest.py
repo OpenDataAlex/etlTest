@@ -30,7 +30,7 @@ class etlTestTests(unittest.TestCase):
         output_file = os.path.join(SettingsManager().get_file_location(),
                                        'etltest/samples/output/main/in_file_generation.txt')
 
-        given_result = subprocess.check_output(args=[self.process, file_param, "-g"])
+        given_result = subprocess.check_output(args=['python', self.process, file_param, "-g"])
 
         with open(output_file, 'r') as f:
             expected_result = f.read()
@@ -42,7 +42,7 @@ class etlTestTests(unittest.TestCase):
         output_file = os.path.join(SettingsManager().get_file_location(),
                                    'etltest/samples/output/main/in_dir_generation.txt')
 
-        given_result = subprocess.check_output(args=[self.process, file_param, "-g"])
+        given_result = subprocess.check_output(args=['python', self.process, file_param, "-g"])
 
         with open(output_file, 'r') as f:
             expected_result = f.read()
@@ -54,4 +54,4 @@ class etlTestTests(unittest.TestCase):
         dir_param = "-d {0:s}".format(self.in_dir)
 
         with self.assertRaises(subprocess.CalledProcessError) as raises:
-            subprocess.check_output(args=[self.process, file_param, dir_param, "-g"])
+            subprocess.check_output(args=['python', self.process, file_param, dir_param, "-g"])

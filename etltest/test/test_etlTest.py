@@ -80,10 +80,18 @@ class etlTestTests(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
-    def test_parser_options(self):
+    def test_parser_no_options(self):
         # Test if optparser is being created.
-        mode = ["-f file.yml", "-g"]
+        mode = []
         given_result = etlTest.main(mode)
+        expected_result = None
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_parser_in_file_in_dir_exclusivity(self):
+        #Test if in_file and in_dir are mutually exclusive.
+        sys.argv = ["-f file.yml".split(), "-d /this/dir/".split(), "-g"]
+        given_result = etlTest.main(sys.argv)
         expected_result = None
 
         self.assertEqual(given_result, expected_result)

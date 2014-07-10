@@ -2,7 +2,7 @@ Author:  Coty Sutherland, Alex Meadows
 
 # How to contribute
 
-What to participate/contribute to etlTest?  Feel free to add any enhancements, feature requests, etc.
+Want to participate/contribute to etlTest?  Feel free to add any enhancements, feature requests, etc.
 
 ## Getting Started
 

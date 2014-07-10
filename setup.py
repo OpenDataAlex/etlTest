@@ -50,7 +50,7 @@ setup(
     ],
     classifiers=[
         'Programming Language :: Python',
-        'Development Status :: 4 - Beta'
+        'Development Status :: 4 - Beta',
         'Natural Language :: English',
         'Environment :: Console',
         'Intended Audience :: Developers'

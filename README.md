@@ -25,6 +25,8 @@ which means that we aren't diving into the actual data integration code.  Rather
 we are executing the data integration process based on test data sets provided by the test writer and comparing the 
 results using Python's unittest framework.
 
+etlTest is based on the work and discussions that were started with etlUnit.
+
 ### Quickstart
 
 To actually use etlTest, you need a data and test file for it to act on. A most basic resource file can be 

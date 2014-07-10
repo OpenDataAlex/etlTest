@@ -8,14 +8,6 @@ import sys
 from etltest.utilities.settings_manager import SettingsManager
 from etltest import etlTest
 
-class etlTestMock(object):
-    def __init__(self, in_file, in_dir, out_dir, gen, execute, test):
-        self.in_file = in_file
-        self.in_dir = in_dir
-        self.out_dir = out_dir
-        self.gen = gen
-        self.execute = execute
-        self.test = test
 
 class etlTestTests(unittest.TestCase):
 

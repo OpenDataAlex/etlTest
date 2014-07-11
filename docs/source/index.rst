@@ -27,4 +27,5 @@ please refer to our :doc:`Contributing <./contributing>` page.
    Introduction <intro/intro.rst>
    setup.rst
    develop.rst
+   settings/settings.rst
    Contributing <contributing.rst>

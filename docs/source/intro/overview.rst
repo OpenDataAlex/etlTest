@@ -123,4 +123,4 @@ Which will generate something similar to: ::
             self.assertEqual(given_result, expected_result)
 
 Notice that etlTest generates actual Python code so that you can leverage a full blown testing framework without
-writing a single line of code!  We'll go over the various components of the test suites in :doc:`Test Components <../develop/test_components>`
+writing a single line of code!  We'll go over the various components of the test suites in :doc:`Test Components <../standards/test_components>`

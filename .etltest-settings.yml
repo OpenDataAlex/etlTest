@@ -1,5 +1,5 @@
 app_name: etlTest
-logging_level: 5
+logging_level: 20
 app_author:  etlTest
 settings_file:  properties.cfg
 connection_file: connections.cfg

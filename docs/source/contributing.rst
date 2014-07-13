@@ -13,10 +13,10 @@ Getting Started
 * Make sure you have a `GitHub account <https://github.com/signup/free>`_
 * Submit issues/suggestions to the `Github issue tracker <https://github.com/OpenDataAlex/etlTest/issues>`_
   * For bugs, clearly describe the issue including steps to reproduce.  Please include stack traces, logs,
-  screenshots, etc. to help us identify and address the issue.
-    * For text based artifacts, please use:  `Gist <https://gist.github.com/>`_ or `Pastebin <http://pastebin.com/>`_
+  screen shots, etc. to help us identify and address the issue.
+  * For text based artifacts, please use:  `Gist <https://gist.github.com/>`_ or `Pastebin <http://pastebin.com/>`_
   * For enhancement requests, be sure to indicate if you are willing to work on implementing the enhancement
-    * Fork the repository on GitHub if you want to contribute code/docs
+  * Fork the repository on GitHub if you want to contribute code/docs
 
 Making Changes
 ``````````````
@@ -34,6 +34,7 @@ Making Changes
 
   * Test coverage is currently tracked via `coveralls.io <https://coveralls.io/r/OpenDataAlex/etlTest?branch=dev>`_
   * Aim for 100% coverage on your code
+
     * If this is not possible, explain why in your commit message. This may be an indication that your code should be refactored.
 * To make sure your tests pass, run::
 
@@ -57,5 +58,5 @@ Submitting Changes
 Additional Resources
 ````````````````````
 
-* [General GitHub documentation](http://help.github.com/)
-* [GitHub pull request documentation](http://help.github.com/send-pull-requests/)
+* `General GitHub documentation <http://help.github.com/>`_
+* `GitHub pull request documentation <http://help.github.com/send-pull-requests/>`_

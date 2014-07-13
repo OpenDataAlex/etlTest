@@ -23,9 +23,9 @@ class Tox(TestCommand):
 setup(
     name='etlTest',
     version=etltest.__version__,
-    url='',
+    url='https://github.com/OpenDataAlex/etlTest',
     license='GNU GENERAL PUBLIC LICENSE Version 3',
-    description='',
+    description='Automated and tool agnostic data integration testing tool.',
     author='Alex Meadows, Coty Sutherland',
     packages=find_packages(),
     install_requires=[
@@ -55,6 +55,12 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers'
     ],
-    cmdclass = {'tox': Tox},
-    test_suite='etltest.test'
+    cmdclass={'tox': Tox},
+    keywords='etl data_integration testing automation',
+    test_suite='etltest.test',
+    entry_points={
+        'console_scripts': [
+            'etlTest = etltest:main',
+        ]
+    }
 )

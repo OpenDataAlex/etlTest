@@ -1,2 +1,2 @@
-Data Integration Tool Settings
-==============================
+Data Connections
+================

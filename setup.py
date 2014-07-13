@@ -43,7 +43,7 @@ setup(
         'subprocess32==3.2.6',
         'tox==1.7.1',
         'unittest-xml==0.2.2',
-        'unittest-xml-reporting==1.7.0',
+        'unittest-xml-reporting==1.9.0',
         'virtualenv==1.11.5',
         'wsgiref==0.1.2',
         'xmlunittest==0.2.0'

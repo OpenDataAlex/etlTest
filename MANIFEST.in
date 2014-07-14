@@ -6,3 +6,4 @@ recursive-include scripts *.*
 include CHANGES.txt
 include *.md
 include .etltest-settings.yml
+include LICENSE

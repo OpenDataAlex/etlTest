@@ -7,7 +7,7 @@ import optparse
 from utilities.settings_manager import SettingsManager
 
 
-def main(argv):
+def main():
 
     """
         This class is the entry point for the application. It takes the arguments, validates them, and passes
@@ -22,7 +22,7 @@ def main(argv):
     SettingsManager().first_run_test()
 
     # no arguments, print usage
-    if len(argv) == 0:
+    if len(sys.argv[1:]) == 0:
         parser.print_usage()
 
     # all available options are defined here
@@ -70,4 +70,4 @@ def main(argv):
         e.execute(options.test_run)
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()

@@ -44,7 +44,7 @@ class CodeExecutor():
             file_path = "{0:s}/{1:s}".format(self.out_dir, f)
 
             if test_exec:
-                self.log.testing("Would execute {0:s}".format(file_path))
+                self.log.debug("Would execute {0:s}".format(file_path))
                 return 0
             else:
                 self.log.debug(file_path)

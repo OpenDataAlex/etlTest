@@ -38,7 +38,7 @@ settings_log.addHandler(console)
 
 pp = pprint.PrettyPrinter(indent=4)
 
-settings_filename = os.path.join(SettingsManager.get_file_location(), 'etltest/templates/settings', '.etltest-settings.yml')
+settings_filename = os.path.join(SettingsManager.get_file_location(), '.etltest-settings.yml')
 
 settings_fs_locs = ["{}/{}".format('', settings_filename), "".join(settings_filename)]
 

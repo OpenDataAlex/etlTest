@@ -7,7 +7,7 @@ import optparse
 from utilities.settings_manager import SettingsManager
 
 
-def main(argv):
+def main():
 
     """
         This class is the entry point for the application. It takes the arguments, validates them, and passes
@@ -19,10 +19,11 @@ def main(argv):
         3) Execute that code so that we can take advantage of the unittest libraries
     """
     parser = optparse.OptionParser("usage: %prog [options]")
+    argv = sys.argv[1:]
     SettingsManager().first_run_test()
 
     # no arguments, print usage
-    if len(argv) == 0:
+    if len(parser.parse_args()) == 0:
         parser.print_usage()
 
     # all available options are defined here
@@ -70,4 +71,4 @@ def main(argv):
         e.execute(options.test_run)
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()

@@ -60,7 +60,8 @@ setup(
     test_suite='etltest.test',
     entry_points={
         'console_scripts': [
-            'etlTest = etltest:main',
+            'etlTest = etltest.etlTest:main',
+            'etltest = etltest.etlTest:main',
         ]
     }
 )

@@ -8,14 +8,16 @@ __author__ = 'coty'
 
 import logging
 import pprint
+
 import os
 import yaml
 
 from settings_manager import SettingsManager
 
+
+
 # Begin CustomLogging
 # this import adds the additional log levels I created
-import custom_logging
 
 # create console handler and set level to info
 console = logging.StreamHandler()
@@ -36,7 +38,7 @@ settings_log.addHandler(console)
 
 pp = pprint.PrettyPrinter(indent=4)
 
-settings_filename = os.path.join(SettingsManager.get_file_location(), '.etltest-settings.yml')
+settings_filename = os.path.join(SettingsManager.get_file_location(), 'etltest/templates/settings', '.etltest-settings.yml')
 
 settings_fs_locs = ["{}/{}".format('', settings_filename), "".join(settings_filename)]
 

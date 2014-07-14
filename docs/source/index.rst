@@ -17,7 +17,7 @@ etlTest
 
 etlTest is a testing framework for data integration code.
 
-The home for etlTest is on `GitHub <https://github.com/OpenDataAlex/etlTest/>`_.
+The home for etlTest is on `GitHub <https://github.com/OpenDataAlex/etlTest/>`_ .
 
 The goal of etlTest is to make creating and executing tests for data integration code as simple as possible.  We
  have achieved this through the use of `YAML <http://www.yaml.org/>`_ files to store test data sets and the actual

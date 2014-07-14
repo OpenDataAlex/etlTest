@@ -63,5 +63,10 @@ setup(
             'etlTest = etltest.etlTest:main',
             'etltest = etltest.etlTest:main',
         ]
-    }
+    },
+    package_data={'etlTest': [
+        'samples/*',
+        'templates/*',
+        '.etltest-settings.yml',
+    ]},
 )

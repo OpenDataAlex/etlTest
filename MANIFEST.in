@@ -1,3 +1,8 @@
 include *.rst
 recursive-include docs *.rst
-recursive-include etltest/*.*
+recursive-include etltest/samples *.*
+recursive-include etltest/templates *.*
+recursive-include scripts *.*
+include CHANGES.txt
+include *.md
+include .etltest-settings.yml

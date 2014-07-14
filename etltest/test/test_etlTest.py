@@ -21,7 +21,7 @@ class etlTestTests(unittest.TestCase):
 
 
     def test_with_empty_args(self):
-        given_result = subprocess.check_output(args=[self.process])
+        given_result = subprocess.check_output(args=['python', self.process])
         output_file = os.path.join(SettingsManager().get_file_location(), 'etltest/samples/output/main/no_args.txt')
 
         with open(output_file, 'r') as f:
@@ -34,7 +34,7 @@ class etlTestTests(unittest.TestCase):
         output_file = os.path.join(SettingsManager().get_file_location(),
                                        'etltest/samples/output/main/in_file_generation.txt')
 
-        given_result = subprocess.check_output(args=[self.process, file_param, "-g"])
+        given_result = subprocess.check_output(args=['python', self.process, file_param, "-g"])
 
         with open(output_file, 'r') as f:
             expected_result = f.read()
@@ -46,7 +46,7 @@ class etlTestTests(unittest.TestCase):
         output_file = os.path.join(SettingsManager().get_file_location(),
                                    'etltest/samples/output/main/in_dir_generation.txt')
 
-        given_result = subprocess.check_output(args=[self.process, file_param, "-g"])
+        given_result = subprocess.check_output(args=['python', self.process, file_param, "-g"])
 
         with open(output_file, 'r') as f:
             expected_result = f.read()
@@ -58,14 +58,14 @@ class etlTestTests(unittest.TestCase):
         dir_param = "-d {0:s}".format(self.in_dir)
 
         with self.assertRaises(subprocess.CalledProcessError) as raises:
-            subprocess.check_output(args=[self.process, file_param, dir_param, "-g"])
+            subprocess.check_output(args=['python', self.process, file_param, dir_param, "-g"])
 
     def test_in_file_custom_output_generation(self):
         file_param = "-f {0:s}".format(self.in_file)
         output_file = os.path.join(SettingsManager().get_file_location(),
                                        'etltest/samples/output/main/in_file_generation.txt')
 
-        given_result = subprocess.check_output(args=[self.process, file_param, "-g"])
+        given_result = subprocess.check_output(args=['python', self.process, file_param, "-g"])
 
         with open(output_file, 'r') as f:
             expected_result = f.read()

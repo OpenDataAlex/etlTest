@@ -81,3 +81,9 @@ class etlTestTests(CommandLineTestCase):
 
         with self.assertRaises(subprocess.CalledProcessError):
             subprocess.check_output(args=['python', self.process, file_param, dir_param, "-g"])
+
+    def test_file_dir_exclusivity(self):
+        #Test if in_file and in_dir are mutually exclusive.
+        args = self.parser.parse_args(['-f', 'file.yml', '-d', '/not/real/dir/', '-g'])
+        with self.assertRaises(SystemExit):
+            etlTest.main(args)

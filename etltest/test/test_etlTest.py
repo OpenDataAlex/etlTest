@@ -26,7 +26,7 @@ class etlTestTests(CommandLineTestCase):
                                                                          "ETL_TEST_ROOT}/etltest/samples/output/DataMart/UsersDim.py")
         self.process = os.path.join(SettingsManager().get_file_location(), "etltest/etlTest.py")
 
-    def test_in_file_generation(self):
+    def test_in_file_generation_output(self):
         file_param = "-f {0:s}".format(self.in_file)
         output_file = os.path.join(SettingsManager().get_file_location(),
                                        'etltest/samples/output/main/in_file_generation.txt')
@@ -38,7 +38,7 @@ class etlTestTests(CommandLineTestCase):
 
         self.assertEqual(given_result, expected_result)
 
-    def test_in_dir_generation(self):
+    def test_in_dir_generation_output(self):
         file_param = "-d {0:s}".format(self.in_dir)
         output_file = os.path.join(SettingsManager().get_file_location(),
                                    'etltest/samples/output/main/in_dir_generation.txt')
@@ -50,7 +50,7 @@ class etlTestTests(CommandLineTestCase):
 
         self.assertEqual(given_result, expected_result)
 
-    def test_in_file_custom_output_generation(self):
+    def test_in_file_custom_output_generation_output(self):
         file_param = "-f {0:s}".format(self.in_file)
         output_file = os.path.join(SettingsManager().get_file_location(),
                                        'etltest/samples/output/main/in_file_generation.txt')
@@ -82,8 +82,21 @@ class etlTestTests(CommandLineTestCase):
         with self.assertRaises(subprocess.CalledProcessError):
             subprocess.check_output(args=['python', self.process, file_param, dir_param, "-g"])
 
-    def test_file_dir_exclusivity(self):
+    def test_parser_in_file_in_dir_exclusivity(self):
         #Test if in_file and in_dir are mutually exclusive.
         args = self.parser.parse_args(['-f', 'file.yml', '-d', '/not/real/dir/', '-g'])
         with self.assertRaises(SystemExit):
             etlTest.main(args)
+
+    def test_parser_no_args(self):
+        #Test if no args returns help options.
+        with self.assertRaises(SystemExit):
+            etlTest.main()
+
+    # def test_parser_in_file_generation(self):
+    #     #Test if in_file generation exits appropriately.
+    #     args = self.parser.parse_args(['-f', self.in_file, '-g'])
+    #     given_result = etlTest.main(args)
+    #     expected_result = ""
+    #
+    #     self.assertEqual(given_result, expected_result)

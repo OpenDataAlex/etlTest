@@ -43,13 +43,15 @@ def main(argv=None):
     """
     parser = create_parser()
     if argv is None:
-        args = sys.argv
+        args = parser.parse_args(sys.argv)
     else:
         args = argv
 
+
     # no arguments, print usage
-    if not len(sys.argv) > 1:
+    if len(sys.argv) < 3:
         parser.print_help()
+        exit()
 
     # validating args
     if args.in_file and args.in_dir:

@@ -113,9 +113,9 @@ class SettingsManager():
         if not os.path.isdir(dir):
             self.log.info("Directory does not exist.  Building now.")
             os.makedirs(dir)
-            self.log.debug("Dirctory is %s" % dir)
+            self.log.debug("Directory is %s" % dir)
         else:
-            self.log.info("Directory exists (%s)" % dir)
+            self.log.debug("Directory exists (%s)" % dir)
 
     def get_settings(self):
         """

@@ -1,2 +1,19 @@
-Usage: etlTest.py [options]
+usage: etlTest.py [-h] [-f [IN_FILE]] [-d [IN_DIR]] [-o [OUT_DIR]] [-g] [-e]
+                  [-t]
 
+Automated data integration test generator and executor.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f [IN_FILE], --infile [IN_FILE]
+                        Specify the input file
+  -d [IN_DIR], --indir [IN_DIR]
+                        Specify the input directory
+  -o [OUT_DIR], --outdir [OUT_DIR]
+                        Specify the output directory
+  -g, --gen             Generate new test code
+  -e, --exec            Execute test code
+  -t, --test            Run app as tests. Does not persist the generated or
+                        executed code.
+
+etlTest -d /your/test_file/directory/ -g

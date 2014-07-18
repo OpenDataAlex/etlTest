@@ -5,6 +5,7 @@ __author__ = 'ameadows'
 """
 import logging
 import os
+import paramiko
 from etltest.utilities.settings_manager import SettingsManager
 
 class ProcessExecutor():

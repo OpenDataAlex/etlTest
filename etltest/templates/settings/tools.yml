@@ -1,4 +1,7 @@
 PDI:
+  host_name:  localhost
+  user_name:
+  password:
   tool_path:  ${TOOL_PATH}
   code_path:  ${ETL_TEST_ROOT}/etltest/samples/etl/
   process_param:  "/file:"

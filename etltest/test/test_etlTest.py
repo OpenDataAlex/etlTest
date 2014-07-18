@@ -96,31 +96,23 @@ class etlTestTests(CommandLineTestCase):
     def test_parser_in_file_generation(self):
         #Test if in_file generation exits appropriately.
         args = self.parser.parse_args(['-f', self.in_file, '-g'])
-        given_result = etlTest.main(args)
-        expected_result = None
-
-        self.assertEqual(given_result, expected_result)
+        with self.assertRaises(SystemExit):
+            etlTest.main(args)
 
     def test_parser_in_dir_generation(self):
         #Test if in_dir generation exits appropriately.
         args = self.parser.parse_args(['-d', self.in_dir, '-g'])
-        given_result = etlTest.main(args)
-        expected_result = None
-
-        self.assertEqual(given_result, expected_result)
+        with self.assertRaises(SystemExit):
+            etlTest.main(args)
 
     def test_parser_in_file_custom_output_generation(self):
         #Test if custom output generation exits appropriately.
         output_loc = SettingsManager().find_setting('Locations', 'output')
         args = self.parser.parse_args(['-f', self.in_file, '-g', '-o', str(output_loc)])
-        given_result = etlTest.main(args)
-        expected_result = None
-
-        self.assertEqual(given_result, expected_result)
+        with self.assertRaises(SystemExit):
+            etlTest.main(args)
 
     def test_parser_test_execution(self):
         args = self.parser.parse_args(['-e'])
-        given_result = etlTest.main(args)
-        expected_result = None
-
-        self.assertEqual(given_result, expected_result)
+        with self.assertRaises(SystemExit):
+            etlTest.main(args)

@@ -90,8 +90,7 @@ class etlTestTests(CommandLineTestCase):
 
     def test_parser_no_args(self):
         #Test if no args returns help options.
-        with self.assertRaises(SystemExit):
-            etlTest.main()
+        etlTest.main(self.parser.parse_args([]))
 
     def test_parser_in_file_generation(self):
         #Test if in_file generation exits appropriately.

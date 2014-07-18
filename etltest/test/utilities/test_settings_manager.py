@@ -71,16 +71,15 @@ class SettingsManagerTests(unittest.TestCase):
 
     def test_get_tools(self):
         given_result = list(SettingsManager().get_tools())
-        expected_result = [{'PDI': {'process_param': '/file:', 'tool_path': '${TOOL_PATH}',
-                                    'script_types': [{'type': 'job', 'script': 'kitchen.sh'}, {'type': 'trans',
-                                    'script': 'pan.sh'}], 'params': '/level: Detailed', 'logging_filename_format':
-                                    '${name}_%Y-%m-%d', 'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/'}}]
-
+        expected_result = [{'PDI': {'process_param': '/file:', 'script_types': [{'type': 'job', 'script': 'kitchen.sh'}, {'type': 'trans', 'script': 'pan.sh'}], 'tool_path': '${TOOL_PATH}/data-integration', 'params': '/level: Detailed', 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d', 'password': None, 'user_name': None, 'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/'}}]
+        print given_result
         self.assertItemsEqual(given_result, expected_result)
 
     def test_get_tool(self):
         given_result = list(SettingsManager().get_tool('PDI'))
-        expected_result = ['tool_path', 'script_types', 'params', 'process_param', 'code_path',
+        expected_result = ['host_name', 'user_name', 'password', 'tool_path', 'script_types', 'params',
+                           'process_param',
+                           'code_path',
                            'logging_filename_format']
 
         self.assertItemsEqual(given_result, expected_result)

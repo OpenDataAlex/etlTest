@@ -49,7 +49,6 @@ def main(argv=None):
     # no arguments, print usage
     if len(sys.argv) < 3:
         parser.print_help()
-        exit()
 
     # validating args
     if args.in_file and args.in_dir:

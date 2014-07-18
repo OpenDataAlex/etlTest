@@ -2,7 +2,6 @@
 __author__ = 'coty, ameadows'
 
 import sys
-import optparse
 import argparse
 from utilities.settings_manager import SettingsManager
 
@@ -47,7 +46,6 @@ def main(argv=None):
     else:
         args = argv
 
-
     # no arguments, print usage
     if len(sys.argv) < 3:
         parser.print_help()
@@ -57,34 +55,33 @@ def main(argv=None):
     if args.in_file and args.in_dir:
         parser.error("Options infile and indir are mutually exclusive. Please choose one.")
 
+    # Has a custom output directory been set?  If not, use default.
+    if args.out_dir:
+        out_dir = args.out_dir
+    else:
+        out_dir = SettingsManager().find_setting('Locations', 'output')
+
     if args.gen_code:
         from code_generator import CodeGenerator
 
-        # Has a custom output directory been set?  If not, use default.
-        if args.out_dir:
-            output = args.outdir
-        else:
-            output = SettingsManager().find_setting('Locations', 'output')
-
-
         if args.in_file:
             print(u"Attempting to process: {0:s}".format(args.in_file))
-            CodeGenerator(in_file=args.in_file, out_dir=output).generate_test()
+            CodeGenerator(in_file=args.in_file, out_dir=out_dir).generate_test()
 
         if args.in_dir:
             print(u"Attempting to process: {0:s}".format(args.in_dir))
-            CodeGenerator(in_dir=args.in_dir, out_dir=output).generate_test()
+            CodeGenerator(in_dir=args.in_dir, out_dir=out_dir).generate_test()
 
         # TODO: Decide if there should be a way to check if generated code should be updated or not.
         # TODO: Fully enable test run capability.
 
     if args.exec_code:
         from code_executor import CodeExecutor
-        e = CodeExecutor(args.out_dir)
+        e = CodeExecutor(out_dir)
         e.execute(args.test_run)
 
 if __name__ == "__main__":
     SettingsManager().first_run_test()
-    parser = create_parser()
-    argv = parser.parse_args()
-    main(argv)
+    p = create_parser()
+    arg = p.parse_args()
+    main(arg)

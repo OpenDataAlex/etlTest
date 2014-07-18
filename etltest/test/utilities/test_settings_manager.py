@@ -28,6 +28,8 @@ class SettingsManagerTests(unittest.TestCase):
         self.tests_location = SettingsManager().find_setting('Locations', 'tests')
         self.output_location = SettingsManager().find_setting('Locations', 'output')
 
+        self.maxDiff = None
+
     def test_data_dir_exists(self):
         assert os.path.exists(self.data_dir)
 
@@ -70,7 +72,6 @@ class SettingsManagerTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_get_tools(self):
-        self.MaxDiff = None
         given_result = list(SettingsManager().get_tools())
         expected_result = [{'PDI': {'process_param': '/file:', 'script_types': [{'type': 'job', 'script': 'kitchen.sh'}, {'type': 'trans', 'script': 'pan.sh'}], 'tool_path': '${TOOL_PATH}/data-integration', 'params': '/level: Detailed', 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d', 'password': None, 'user_name': None, 'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/'}}]
 

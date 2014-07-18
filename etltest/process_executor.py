@@ -27,6 +27,15 @@ class ProcessExecutor():
         self.tool = SettingsManager().get_tool(tool_name)
         self.log.info(u"Setting up tool {0:s}: {1:s}".format(tool_name, self.tool))
 
+        self.local_names = ['localhost', '127.0.0.1']
+
+    @staticmethod
+    def create_secure_shell():
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.WarningPolicy)
+
+        return ssh
+
     def execute_process(self, process_type, process_name):
 
         self.log.info(u"Attempting to run {0:s} with {1:s}".format(process_name, self.tool_name))
@@ -50,5 +59,14 @@ class ProcessExecutor():
 
         tool_path_script = os.path.join(tool_path, tool_script)
 
-        return call([tool_path_script, process])
+        if self.tool['host_name'] is not None and self.tool['host_name'] not in self.local_names:
+            ssh = self.create_secure_shell()
+            ssh.connect(self.tool['host_name'], port=self.tool['port'], username=self.tool['user_name'],
+                            password=self.tool['password'])
+            stdin, stdout, stderr = ssh.exec_command("cd " + tool_path)
+            stdin, stdout, stderr = ssh.exec_command(tool_script, process)
+
+        else:
+
+            return call([tool_path_script, process])
 

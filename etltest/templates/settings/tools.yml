@@ -1,5 +1,6 @@
 PDI:
   host_name:  localhost
+  port:
   user_name:
   password:
   tool_path:  ${TOOL_PATH}

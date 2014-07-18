@@ -72,7 +72,7 @@ class SettingsManagerTests(unittest.TestCase):
     def test_get_tools(self):
         given_result = list(SettingsManager().get_tools())
         expected_result = [{'PDI': {'process_param': '/file:', 'script_types': [{'type': 'job', 'script': 'kitchen.sh'}, {'type': 'trans', 'script': 'pan.sh'}], 'tool_path': '${TOOL_PATH}/data-integration', 'params': '/level: Detailed', 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d', 'password': None, 'user_name': None, 'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/'}}]
-        print given_result
+
         self.assertItemsEqual(given_result, expected_result)
 
     def test_get_tool(self):

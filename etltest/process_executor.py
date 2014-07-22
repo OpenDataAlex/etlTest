@@ -29,12 +29,46 @@ class ProcessExecutor():
 
         self.local_names = ['localhost', '127.0.0.1']
 
-    @staticmethod
-    def create_secure_shell():
+    def create_secure_shell(self):
+        """
+        Create a secured shell connection to the data integration server, based on the connection info provided from
+        the tool configuration file.
+        :return: ssh connection.
+        """
         ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.WarningPolicy)
+
+        if ('private_key' in self.tool and self.tool['private_key'] is None) or 'private_key' not in self.tool:
+            ssh.connect(self.tool['host_name'], port=self.tool['port'],
+                        username=self.tool['user_name'], password=self.tool['password'])
+        elif self.tool['host_name'] is not None:
+            pkey = paramiko.RSAKey.from_private_key_file(self.tool['private_key'])
+            ssh.set_missing_host_key_policy(paramiko.WarningPolicy())
+
+            if self.tool['port'] is not None:
+                ssh.connect(self.tool['host_name'], port=self.tool['port'], username=self.tool['user_name'],
+                            password=self.tool['password'], pkey=pkey)
+            else:
+                ssh.connect(self.tool['host_name'], username=self.tool['user_name'],
+                            password=self.tool['password'], pkey=pkey)
+        else:
+            raise Exception("The connection information is incorrect or not allowed.")
 
         return ssh
+
+    def read_output(self, stdout, stderr):
+        """
+        Reads the return values of the executed process and writes them to the log.
+        :param stdout:
+        :param stderr:
+        :return:
+        """
+
+        for line in stderr:
+            self.log.error(line)
+
+        for line in stdout:
+            self.log.info(line)
+
 
     def execute_process(self, process_type, process_name):
 
@@ -59,13 +93,17 @@ class ProcessExecutor():
 
         tool_path_script = os.path.join(tool_path, tool_script)
 
-        if self.tool['host_name'] is not None and self.tool['host_name'] not in self.local_names:
+        if self.tool['host_name'] not in self.local_names:
             ssh = self.create_secure_shell()
-            ssh.connect(self.tool['host_name'], port=self.tool['port'], username=self.tool['user_name'],
-                            password=self.tool['password'])
-            stdin, stdout, stderr = ssh.exec_command("cd " + tool_path)
-            stdin, stdout, stderr = ssh.exec_command(tool_script, process)
 
+            stdin, stdout, stderr = ssh.exec_command("cd " + tool_path)
+
+            self.read_output(stdout, stderr)
+
+            stdin, stdout, stderr = ssh.exec_command(tool_script + " " + process)
+
+            self.read_output(stdout, stderr)
+            ssh.close()
         else:
 
             return call([tool_path_script, process])

@@ -3,6 +3,7 @@ PDI:
   port:
   user_name:
   password:
+  private_key: '~/.ssh/id_rsa'
   tool_path:  ${TOOL_PATH}
   code_path:  ${ETL_TEST_ROOT}/etltest/samples/etl/
   process_param:  "/file:"

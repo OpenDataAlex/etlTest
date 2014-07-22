@@ -64,3 +64,7 @@ class ProcessExecutorTests(unittest.TestCase):
         expected_result = 0
 
         self.assertEqual(given_result, expected_result)
+
+    # def test_process_remote_execution_no_key(self):
+    #
+    # def test_process_remote_execution_key(self):

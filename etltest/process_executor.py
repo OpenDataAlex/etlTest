@@ -96,6 +96,7 @@ class ProcessExecutor():
         if self.tool['host_name'] not in self.local_names:
             ssh = self.create_secure_shell()
 
+            self.log.debug("Attempting to change directory to {0:s}".format(tool_path))
             stdin, stdout, stderr = ssh.exec_command("cd " + tool_path)
 
             self.read_output(stdout, stderr)

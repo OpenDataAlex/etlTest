@@ -37,5 +37,6 @@ please check out our `Issue Board <https://github.com/OpenDataAlex/etlTest/issue
    Introduction <intro/intro.rst>
    Contributing <contributing.rst>
    setup.rst
+   Tutorial <tutorial/tutorial.rst>
    Configuration Settings <settings/settings.rst>
    Development Standards <standards/standards.rst>

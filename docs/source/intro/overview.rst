@@ -70,7 +70,7 @@ Once your tests have been written, you can then have etlTest generate and execut
 
     $ etlTest.py -f <path_to_your_test.yml> -o <path_to_your_output_dir> -g -e
 
-Which will generate something similar to: ::
+Which will generate and run something similar to: ::
 
     //etltest/samples/output/DataMart/UsersDim.py
     #!/usr/bin/python

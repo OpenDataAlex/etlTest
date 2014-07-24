@@ -20,8 +20,7 @@ as described in :doc:`Settings <./settings>`
 While the sample is written with example paths, any valid directory path can be used.  If the directory does not
 exist, it will be created.
 
-* ``[Locations]`` - This section of the properties configuration file contains locations for the various inputs and
-outputs of etlTest.
+* ``[Locations]`` - This section of the properties configuration file contains locations for the various inputs and outputs of etlTest.
 *    ``tests:``  - The location where the YAML test files are stored.
 *    ``data:``  - The location where the YAML data files are stored.
 *    ``output:`` - The location where the generated test scripts are created.

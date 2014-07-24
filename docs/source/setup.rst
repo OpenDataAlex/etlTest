@@ -14,7 +14,7 @@ If you wish to install etlTest manually instead of via ``pip``, there are two ma
 
 If going the manual install route, all requirements can be installed by running::
 
-    $ cd <where_etlTest_is_installed>
+    $ cd <where_etlTest_is_downloaded_and_extracted>
     $ tox
 
 All of etlTest's own unit tests will run once the requirements are installed.  If everything passes, you are good to go.

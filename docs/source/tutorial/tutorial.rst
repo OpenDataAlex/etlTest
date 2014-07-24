@@ -3,8 +3,8 @@ The etlTest Tutorial
 
 This is a walk through is intended to assist new users in writing, generating,
 and executing tests for data integration code.  We have tried to keep topics specific to each function of the tool in
- their own section.  This guide assumes that etlTest has been installed on the environment that the tutorial is being
-  performed on.
+their own section.  This guide assumes that etlTest has been installed on the environment that the tutorial is being
+performed on.
 
 .. toctree::
    :maxdepth: 2

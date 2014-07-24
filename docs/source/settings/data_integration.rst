@@ -8,6 +8,11 @@ Here is the default sample for ``tools.yml``.  This file can be found in the app
 ::
 
     PDI:
+      host_name:  localhost
+      port:
+      user_name:
+      password:
+      private_key: '~/.ssh/id_rsa'
       tool_path:  ${TOOL_PATH}
       code_path:  ${ETL_TEST_ROOT}/etltest/samples/etl/
       process_param:  "/file:"
@@ -22,6 +27,11 @@ Here is the default sample for ``tools.yml``.  This file can be found in the app
 While the sample is written for Pentaho Data Integration, it can be configured for any data integration tool that can be run from the command line.
 
 * ``PDI:`` - The unique name of the tool.  Can be any string as long as it does not break YAML standards.
+*   ``host_name:`` - The unique name or ip address of the host the tool lives on.
+*   ``port:`` - The port used to ssh onto the host box.
+*   ``user_name:`` - The name of the user account that is used to run data integration code.
+*   ``password:`` - The password of the user account that is used to run data integration code.
+*   ``private_key:`` - The private key to tunnel onto the box, if needed.
 *   ``tool_path:`` - The install location of the data integration tool.
 *   ``code_path:`` - The location of the data integration tool's code base.  This is where etlTest will look for executable code.
 *   ``process_param:`` - Any custom parameters that have to be used to call the code.  In PDI's case, files are called with the ``/file:`` property.

@@ -1,4 +1,4 @@
-CREATE SCHEMA etlUnitTest;
+CREATE SCHEMA IF NOT EXISTS etlUnitTest;
 
 USE etlUnitTest;
 

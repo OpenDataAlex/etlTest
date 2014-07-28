@@ -75,5 +75,6 @@ Pentaho Data Integration (file-based)
           script:  pan.sh
 
 Special note:  This sample takes advantage of two system variables:
+
 * TOOL_PATH - Where the tool is installed (~/data-integration).
 * ETL_TEST_ROOT - Where etlTest is installed, since we used the test samples for this sample tool configuration.

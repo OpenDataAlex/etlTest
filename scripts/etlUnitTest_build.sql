@@ -1,3 +1,5 @@
+CREATE SCHEMA etlUnitTest;
+
 USE etlUnitTest;
 
 

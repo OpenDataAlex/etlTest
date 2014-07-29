@@ -9,7 +9,6 @@ script:
     - "coverage run --source=etltest setup.py test"
     - 'tox'
 before_script:
-  - mysql -e 'create database etlUnitTest;'
   - mysql -e 'source scripts/etlUnitTest_build.sql'
   - wget http://sourceforge.net/projects/pentaho/files/Data%20Integration/5.0.1-stable/pdi-ce-5.0.1.A-stable.zip/download
   - unzip download

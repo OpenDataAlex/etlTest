@@ -22,5 +22,13 @@ So there are many different things that can be tested here:
 Take a few minutes as see if there are other things that could be tested to add to the list.  Okay,
 got a good list?  Awesome!  Tests will usually fall within one of three categories:
 
-* Expected results
-*
+* Positive testing - first_name is lower case
+* Negative testing - first_name is not upper case
+* Edge cases - first_name with this specific last name is lower case
+
+Each type of test can cause different kinds of issues while writing data integration jobs.  Positive testing is the most
+common type of testing in that it is the 'expected results'.  Testing for negatives - things that may have been seen but
+have since been resolved - is the next common classification of tests.  Edge cases are usually the hardest types of
+tests to cover, especially without the ability to control your test data set.
+
+For this tutorial, we will be creating three tests for our small data integration job.

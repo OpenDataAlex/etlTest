@@ -3,6 +3,7 @@ __author__ = 'coty, ameadows'
 
 import sys
 import argparse
+
 from utilities.settings_manager import SettingsManager
 
 
@@ -25,11 +26,12 @@ def create_parser():
                         help='Execute test code')
     parser.add_argument('-t', '--test', dest='test_run', default=False, action='store_true',
                         help='Run app as tests.  Does not persist the generated or executed code.')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.1')
 
     return parser
 
 
-def main(argv=None):
+def main():
 
     """
         This class is the entry point for the application. It takes the arguments, validates them, and passes
@@ -41,10 +43,7 @@ def main(argv=None):
         3) Execute that code so that we can take advantage of the unittest libraries
     """
     parser = create_parser()
-    if argv is None:
-        args = parser.parse_args(sys.argv)
-    else:
-        args = argv
+    args = parser.parse_args()
 
     # no arguments, print usage
     if len(sys.argv) < 3:
@@ -81,6 +80,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     SettingsManager().first_run_test()
-    p = create_parser()
-    arg = p.parse_args()
-    main(arg)
+    main()

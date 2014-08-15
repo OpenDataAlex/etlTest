@@ -67,3 +67,5 @@ class DataMartUsersDimTest(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+if __name__ == "__main__":
+    unittest.main()

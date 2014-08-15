@@ -32,10 +32,12 @@ setup(
     install_requires=[
         'appdirs==1.3.0',
         'docutils==0.11',
+        'ecdsa==0.11',
         'Jinja2==2.7.2',
         'MarkupSafe==0.19',
         'MySQL-python==1.2.5',
         'paramiko==1.14.0',
+        'pycrypto==2.6.1',
         'Pygments==1.6',
         'py==1.4.20',
         'PyMySQL==0.6.2',

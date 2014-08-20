@@ -3,4 +3,4 @@ logging_level: 20
 app_author:  etlTest
 settings_file:  properties.cfg
 connection_file: connections.cfg
-tools_file:  tools.ym
+tools_file:  tools.yml

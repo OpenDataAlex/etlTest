@@ -24,7 +24,7 @@ class CodeExecutor():
 
     def execute(self, test_exec):
         """
-            This method executes the generated tests.
+        This method executes the generated tests.
         :param test_exec: Flag to determine if the tests really need to be executed or not.  If not, a list of tests
         that would be executed are shown.
         :type test_exec: boolean
@@ -39,13 +39,14 @@ class CodeExecutor():
 
         self.log.debug(files)
 
+        import sys
         import subprocess
         for f in files:
             file_path = "{0:s}/{1:s}".format(self.out_dir, f)
 
             if test_exec:
-                self.log.debug("Would execute {0:s}".format(file_path))
+                self.log.info("Would execute {0:s}".format(file_path))
                 return 0
             else:
-                self.log.debug(file_path)
-                return subprocess.call(file_path)
+                self.log.info(file_path)
+                print subprocess.check_output([sys.executable, file_path])

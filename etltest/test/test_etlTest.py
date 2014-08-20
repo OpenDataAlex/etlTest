@@ -3,6 +3,7 @@ __author__ = 'ameadows'
 import unittest
 import os
 import subprocess
+import sys
 
 from etltest.utilities.settings_manager import SettingsManager
 from etltest import etlTest
@@ -99,8 +100,9 @@ class etlTestTests(CommandLineTestCase):
 
     def test_parser_in_dir_generation(self):
         #Test if in_dir generation exits appropriately.
-        args = self.parser.parse_args(['-d', self.in_dir, '-g'])
-        etlTest.main(args)
+        args = self.parser.parse_args()
+        sys.argv[1:] = [['-d' self.in_dir], '-g']
+        etlTest.main()
 
     def test_parser_in_file_custom_output_generation(self):
         #Test if custom output generation exits appropriately.

@@ -46,7 +46,7 @@ def main():
     args = parser.parse_args()
 
     # no arguments, print usage
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 2:
         parser.print_help()
 
     # validating args

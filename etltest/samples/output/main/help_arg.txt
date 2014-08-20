@@ -10,3 +10,4 @@ Options:
   -e, --exec            Execute test code.
   -t, --test            Run app as tests. Does not persist generated code or
                         execute code.
+  -v, --version         show program's version number and exit

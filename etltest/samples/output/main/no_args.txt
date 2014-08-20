@@ -1,5 +1,5 @@
 usage: etlTest.py [-h] [-f [IN_FILE]] [-d [IN_DIR]] [-o [OUT_DIR]] [-g] [-e]
-                  [-t]
+                  [-t] [-v]
 
 Automated data integration test generator and executor.
 
@@ -15,5 +15,6 @@ optional arguments:
   -e, --exec            Execute test code
   -t, --test            Run app as tests. Does not persist the generated or
                         executed code.
+  -v, --version         show program's version number and exit
 
 etlTest -d /your/test_file/directory/ -g

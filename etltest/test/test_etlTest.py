@@ -101,7 +101,7 @@ class etlTestTests(CommandLineTestCase):
     def test_parser_in_dir_generation(self):
         #Test if in_dir generation exits appropriately.
         args = self.parser.parse_args()
-        sys.argv[1:] = [['-d' self.in_dir], '-g']
+        sys.argv[1:] = ['-d', self.in_dir, '-g']
         etlTest.main()
 
     def test_parser_in_file_custom_output_generation(self):

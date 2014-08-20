@@ -1,0 +1,24 @@
+1:
+  user_id: 1
+  first_name:  Bob
+  last_name:  Richards
+  birthday:  2000-01-04
+  zipcode:  55555
+2:
+  user_id: 2
+  first_name:  Sarah
+  last_name: Jenkins
+  birthday:  2000-02-02
+  zipcode:  12345
+3:
+  user_id: 3
+  first_name:  Frank
+  last_name: Williams
+  birthday:  1972-03-03
+  zipcode:  56789
+4:
+  user_id: 4
+  first_name:
+  last_name:  Thomas
+  birthday:  1923-01-04
+  zipcode: 44444

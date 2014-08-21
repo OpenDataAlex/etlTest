@@ -16,36 +16,39 @@ class code_executor_tests(unittest.TestCase):
         self.multi_dir_path = self.setup_twoFiles()
 
     def setup_oneFile(self):
+        #Create a single file for testing purposes.
         from tempfile import mkdtemp, mkstemp
         dir_path = mkdtemp()
 
         (fh, f_path) = mkstemp(suffix='.py', dir=dir_path)
         f = os.fdopen(fh, 'w')
-        f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(1)")
+        f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(0)")
         os.chmod(f_path, 0770)
         f.close()
 
         return dir_path
 
     def setup_twoFiles(self):
+        #Create two temporary files for testing purposes.
         from tempfile import mkdtemp, mkstemp
         dir_path = mkdtemp()
 
         (fh, f_path) = mkstemp(suffix='.py', dir=dir_path)
         f = os.fdopen(fh, 'w')
-        f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(1)")
+        f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(0)")
         os.chmod(f_path, 0770)
         f.close()
 
         (fh, f_path) = mkstemp(suffix='.py', dir=dir_path)
         f = os.fdopen(fh, 'w')
-        f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(1)")
+        f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(0)")
         os.chmod(f_path, 0770)
         f.close()
 
         return dir_path
 
     def tearDown(self):
+        #Remove all testing files.
         from shutil import rmtree
         rmtree(self.one_dir_path)
         rmtree(self.multi_dir_path)
@@ -64,11 +67,10 @@ class code_executor_tests(unittest.TestCase):
 
     def test_execute_one(self):
         ce = CodeExecutor(self.one_dir_path)
-        self.assertEqual(ce.execute(False), 1)
+        self.assertEqual(ce.execute(False), None)
 
     def test_execute_multi(self):
         ce = CodeExecutor(self.multi_dir_path)
-        self.assertEqual(ce.execute(False), 1)
-
+        self.assertEqual(ce.execute(False), None)
 
 

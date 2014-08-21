@@ -74,7 +74,6 @@ class etlTestTests(CommandLineTestCase):
 
         self.assertEqual(given_result, expected_result)
 
-
     def test_parser_in_file_in_dir_exclusivity(self):
         #Test if in_file and in_dir are mutually exclusive.
         file_param = "-f {0:s}".format(self.in_file)
@@ -83,33 +82,22 @@ class etlTestTests(CommandLineTestCase):
         with self.assertRaises(subprocess.CalledProcessError):
             subprocess.check_output(args=['python', self.process, file_param, dir_param, "-g"])
 
-    def test_parser_in_file_in_dir_exclusivity(self):
-        #Test if in_file and in_dir are mutually exclusive.
-        args = self.parser.parse_args(['-f', 'file.yml', '-d', '/not/real/dir/', '-g'])
-        with self.assertRaises(SystemExit):
-            etlTest.main(args)
-
     def test_parser_no_args(self):
         #Test if no args returns help options.
-        etlTest.main(self.parser.parse_args([]))
+        subprocess.check_output(args=['python', self.process], stderr=subprocess.STDOUT)
 
     def test_parser_in_file_generation(self):
         #Test if in_file generation exits appropriately.
-        args = self.parser.parse_args(['-f', self.in_file, '-g'])
-        etlTest.main(args)
+        subprocess.check_output(args=['python', self.process, '-f', self.in_file, '-g'])
 
     def test_parser_in_dir_generation(self):
         #Test if in_dir generation exits appropriately.
-        args = self.parser.parse_args()
-        sys.argv[1:] = ['-d', self.in_dir, '-g']
-        etlTest.main()
+        subprocess.check_output(args=['python', self.process, '-d', self.in_dir, '-g'])
 
     def test_parser_in_file_custom_output_generation(self):
         #Test if custom output generation exits appropriately.
         output_loc = SettingsManager().find_setting('Locations', 'output')
-        args = self.parser.parse_args(['-f', self.in_file, '-g', '-o', str(output_loc)])
-        etlTest.main(args)
+        subprocess.check_output(args=['python', self.process, '-f', self.in_file, '-g', '-o', str(output_loc)])
 
     def test_parser_test_execution(self):
-        args = self.parser.parse_args(['-e'])
-        etlTest.main(args)
+        subprocess.check_output(args=['python', self.process, '-e'])

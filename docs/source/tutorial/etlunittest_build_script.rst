@@ -2,10 +2,12 @@ Sample MySQL Database
 =====================
 Here is the sample MySQL database script used for the tutorial and for etlTest's own unit tests: ::
 
-    CREATE SCHEMA etlUnitTest;
+    CREATE SCHEMA IF NOT EXISTS etlUnitTest;
 
     USE etlUnitTest;
 
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS user_dim;
 
     CREATE TABLE users (
                     user_id INT NOT NULL,

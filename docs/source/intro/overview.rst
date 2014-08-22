@@ -1,5 +1,3 @@
-.._intro_overview:
-
 Overview
 ````````
 Below is an overview of what etlTest is and how it works.  It is important to understand some fundamental concepts:
@@ -121,6 +119,9 @@ Which will generate and run something similar to: ::
             expected_result = [{'first_name': 'sarah'}]
 
             self.assertEqual(given_result, expected_result)
+
+    if __name__ == "__main__":
+        unittest.main()
 
 Notice that etlTest generates actual Python code so that you can leverage a full blown testing framework without
 writing a single line of code!  We'll go over the various components of the test suites in :doc:`Test Components <../standards/test_components>`

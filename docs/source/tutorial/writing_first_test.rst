@@ -4,7 +4,7 @@ Writing Your First Test
 Now that your environment is set up, it's time to write some tests!  Before we do,
 let's take a look at our sample data integration code - user_dim_load_tr.ktr:
 
- .. image:: ../images/user_dim_load_tr.png
+ .. image:: ../images/tutorial/user_dim_load_tr.png
 
 In this transformation, we have a Table Input that is pulling data from our users table (created as part of the
 :doc:`Sample Database Script <etlunittest_build_script>` ), uses a String operations step to lower case the

@@ -54,9 +54,37 @@ class {{ testGroup }}Test(unittest.TestCase):
         given_result = DataConnector("{{ test.query.source }}").select_data("{{ test.query.select }}",
                         "{{ test.query.from }}", "{{ test.query.where }}")
 
+      {% if test.query.result is defined %}
         expected_result = [{{ test.query.result }}]
+      {% endif %}
 
+      {% if test.type == 'Equal' or test.type is not defined %}
         self.assertEqual(given_result, expected_result)
+      {% elif test.type == 'NotEqual' %}
+        self.assertNotEqual(given_result, expected_result)
+      {% elif test.type == 'BooleanTrue' %}
+        self.assertTrue(given_result)
+      {% elif test.type == 'BooleanFalse' %}
+        self.assertFalse(given_result)
+      {% elif test.type == 'Is' %}
+        self.assertIs(given_result, expected_result)
+      {% elif test.type == 'IsNot' %}
+        self.assertIsNot(given_result, expected_result)
+      {% elif test.type == 'IsNone' %}
+        self.assertIsNone(given_result)
+      {% elif test.type == 'IsNotNone' %}
+        self.assertIsNotNone(given_result)
+      {% elif test.type == 'In' %}
+        self.assertIn(given_result, expected_result)
+      {% elif test.type == 'NotIn' %}
+        self.assertNotIn(given_result, expected_result)
+      {% elif test.type == 'IsInstance' %}
+        self.assertIsInstance(given_result, expected_result)
+      {% elif test.type == 'IsNotInstance' %}
+        self.assertIsNotInstance(given_result, expected_result)
+      {% else %}
+        self.assertEqual(given_result, expected_result)
+      {% endif %}
 
 {% endfor %}
 

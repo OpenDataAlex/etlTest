@@ -176,7 +176,7 @@
         <in_stream_name>first_name</in_stream_name>
         <out_stream_name/>
         <trim_type>none</trim_type>
-        <lower_upper>lower</lower_upper>
+        <lower_upper>upper</lower_upper>
         <padding_type>none</padding_type>
         <pad_char/>
         <pad_len/>

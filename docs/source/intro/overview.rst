@@ -28,12 +28,14 @@ etlTest ;) ) is to generate a sample data file... ::
       last_name:  Richards
       birthday:  2000-01-04
       zipcode:  55555
+      is_active: 0
     2:
       user_id: 2
       first_name:  Sarah
       last_name: Jenkins
       birthday:  2000-02-02
       zipcode:  12345
+      is_active: 1
     ...
 
 and a test file... ::
@@ -54,6 +56,7 @@ and a test file... ::
        tests:
          - name: testFirstNameLower
            desc:  Test for process that lower cases the first name field of a users table record.
+           type: NotEqual
            query:
              select: first_name
              from: user_dim
@@ -118,7 +121,7 @@ Which will generate and run something similar to: ::
 
             expected_result = [{'first_name': 'sarah'}]
 
-            self.assertEqual(given_result, expected_result)
+            self.assertNotEqual(given_result, expected_result)
 
     if __name__ == "__main__":
         unittest.main()

@@ -37,15 +37,15 @@ class DataMartUsersDimTest(unittest.TestCase):
 
         DataConnector("etlUnitTest").truncate_data("users")
 
-    def testFirstNameLower(self):
-        # Test for process that lower cases the first name field of a users table record.
+    def testFirstNameNotLower(self):
+        # Ensures that the first name field is not lower case after being processed.
 
         given_result = DataConnector("etlUnitTest").select_data("first_name",
                         "user_dim", "user_id = 2")
 
         expected_result = [{'first_name': 'sarah'}]
 
-        self.assertEqual(given_result, expected_result)
+        self.assertNotEqual(given_result, expected_result)
 
     def testFirstNameUpper(self):
         # Test for process that upper cases the first name field of a users table record.

@@ -31,6 +31,7 @@ For our first record, let's include a standard, run of the mill users table reco
       last_name:  Richards
       birthday:  2000-01-04
       zipcode:  55555
+      is_active: 0
 
 Notice, the record is identified uniquely with ``1`` and that all the fields for record one are indented two spaces
 to indicate they are all together.  To give a value to a field, we just put a colon followed by a space and then the
@@ -47,13 +48,15 @@ suites and data sets get larger.  Let's build a new record specific to this test
       last_name:  Richards
       birthday:  2000-01-04
       zipcode:  55555
+      is_active: 0
     2:
     # Record for first_name all upper case.
       user_id: 2
-      first_name:  SARAH
+      first_name:  Sarah
       last_name: Jenkins
       birthday:  2000-02-02
       zipcode:  12345
+      is_active: 1
 
 We indicate a new record in the YAML file by removing any indentation in the next line after the zipcode column for
 record one and give our record another unique identifier (this time ``2``).  We use the same column names as before,

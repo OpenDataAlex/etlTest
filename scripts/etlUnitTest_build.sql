@@ -11,6 +11,7 @@ CREATE TABLE users (
                 last_name VARCHAR(75) NOT NULL,
                 birthday DATE NOT NULL,
                 zipcode CHAR(5) NOT NULL,
+                is_active TINYINT(1) NOT NULL DEFAULT 1,
                 PRIMARY KEY (user_id)
 );
 

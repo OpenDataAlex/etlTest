@@ -11,8 +11,9 @@ DataMart\UsersDim:
        table:  users
        records:  [1, 2]
    tests:
-     - name: testFirstNameLower
-       desc:  Test for process that lower cases the first name field of a users table record.
+     - name: testFirstNameNotLower
+       desc:  Ensures that the first name field is not lower case after being processed.
+       type:  NotEqual
        query:
          select: first_name
          from: user_dim
@@ -22,6 +23,7 @@ DataMart\UsersDim:
 
      - name:  testFirstNameUpper
        desc:  Test for process that upper cases the first name field of a users table record.
+       type:  Equal
        query:
          select:  first_name
          from:  user_dim
@@ -37,3 +39,22 @@ DataMart\UsersDim:
          where:  user_id IN (1, 2)
          source:  etlUnitTest
          result:  "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}"
+
+     - name: testIsActiveTrue
+       desc: Passes if is_active field is set to true.
+       type:  BooleanTrue
+       query:
+         select:  is_active
+         from:  users
+         where:  user_id = 2
+         source:  etlUnitTest
+
+     - name: testIsActiveFalse
+       desc:  Passes if is_active field is set to false.
+       type:  BooleanFalse
+       query:
+         select:  is_active
+         from:  users
+         where:  user_id = 1
+         source:  etlUnitTest
+

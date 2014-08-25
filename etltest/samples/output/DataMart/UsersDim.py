@@ -67,6 +67,26 @@ class DataMartUsersDimTest(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def testIsActiveTrue(self):
+        # Passes if is_active field is set to true.
+
+        given_result = DataConnector("etlUnitTest").select_data("is_active",
+                        "users", "user_id = 2")
+
+        expected_result = []
+
+        self.assertTrue(given_result)
+
+    def testIsActiveFalse(self):
+        # Passes if is_active field is set to false.
+
+        given_result = DataConnector("etlUnitTest").select_data("is_active",
+                        "users", "user_id = 1")
+
+        expected_result = []
+
+        self.assertFalse(given_result)
+
 
 if __name__ == "__main__":
     unittest.main()

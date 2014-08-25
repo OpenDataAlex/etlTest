@@ -42,7 +42,7 @@ DataMart\UsersDim:
 
      - name: testIsActiveTrue
        desc: Passes if is_active field is set to true.
-       type:  BooleanTrue
+       type: BooleanTrue
        query:
          select:  is_active
          from:  users
@@ -50,11 +50,11 @@ DataMart\UsersDim:
          source:  etlUnitTest
 
      - name: testIsActiveFalse
-       desc:  Passes if is_active field is set to false.
-       type:  BooleanFalse
+       desc: Passes if is_active field is set to false.
+       type: BooleanFalse
        query:
          select:  is_active
          from:  users
          where:  user_id = 1
-         source:  etlUnitTest
+         source:  etlUnitTestz
 

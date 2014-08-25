@@ -24,61 +24,35 @@ class YamlParserTests(unittest.TestCase):
     def test_process_test_file_whitespace(self):
         self.test_file = " " + self.test_file
         given_result = YAMLParser().read_file(self.test_file)
-        expected_result = [{'DataMart\\UsersDim': {'tests': [{'name': 'testFirstNameLower',
-                            'desc': 'Test for process that lower cases the first name field of a users table record.'
-                            , 'query': {'select': 'first_name', 'from': 'user_dim', 'result': {'first_name': 'sarah'}
-                            , 'where': 'user_id = 2', 'source': 'etlUnitTest'}}, {'name': 'testFirstNameUpper'
-                            , 'desc': 'Test for process that upper cases the first name field of a users table record.'
-                            , 'query': {'select': 'first_name', 'from': 'user_dim', 'result': {'first_name': 'SARAH'}
-                            , 'where': 'user_id = 2', 'source': 'etlUnitTest'}}, {'name': 'testUserValidBirthday'
-                            , 'desc': 'Test for valid birth dates.', 'query': {'select': 'birthday', 'from': 'user_dim'
-                            , 'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}"
-                            , 'where': 'user_id IN (1, 2)', 'source': 'etlUnitTest'}}], 'suites': [{'suite': 'dataMart'}]
-                            , 'processes': [{'tool': 'PDI', 'processes': [{'type': 'job', 'name': 'data_mart/user_dim_jb.kjb'}]}]
-                            , 'dataset': [{'table': 'users', 'source': 'etlUnitTest', 'records': [1, 2]}]}}]
+        expected_result = [{'DataMart\\UsersDim': {'processes': [{'processes': [{'name': 'data_mart/user_dim_jb.kjb', 'type': 'job'}], 'tool': 'PDI'}], 'dataset': [{'source': 'etlUnitTest', 'table': 'users', 'records': [1, 2]}], 'tests': [{'name': 'testFirstNameNotLower', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'user_dim', 'result': {'first_name': 'sarah'}, 'select': 'first_name'}, 'type': 'NotEqual', 'desc': 'Ensures that the first name field is not lower case after being processed.'}, {'name': 'testFirstNameUpper', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'user_dim', 'result': {'first_name': 'SARAH'}, 'select': 'first_name'}, 'type': 'Equal', 'desc': 'Test for process that upper cases the first name field of a users table record.'}, {'name': 'testUserValidBirthday', 'query': {'source': 'etlUnitTest', 'where': 'user_id IN (1, 2)', 'from': 'user_dim', 'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}", 'select': 'birthday'}, 'desc': 'Test for valid birth dates.'}, {'name': 'testIsActiveTrue', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'users', 'select': 'is_active'}, 'type': 'BooleanTrue', 'desc': 'Passes if is_active field is set to true.'}, {'name': 'testIsActiveFalse', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 1', 'from': 'users', 'select': 'is_active'}, 'type': 'BooleanFalse', 'desc': 'Passes if is_active field is set to false.'}], 'suites': [{'suite': 'dataMart'}]}}]
 
         self.assertItemsEqual(given_result, expected_result)
 
     # Testing test yaml file for correct processing.
     def test_process_test_file(self):
         given_result = YAMLParser().read_file(self.test_file)
-        expected_result = [{'DataMart\\UsersDim': {'tests': [{'name': 'testFirstNameLower',
-                            'desc': 'Test for process that lower cases the first name field of a users table record.'
-                            , 'query': {'select': 'first_name', 'from': 'user_dim', 'result': {'first_name': 'sarah'}
-                            , 'where': 'user_id = 2', 'source': 'etlUnitTest'}}, {'name': 'testFirstNameUpper'
-                            , 'desc': 'Test for process that upper cases the first name field of a users table record.'
-                            , 'query': {'select': 'first_name', 'from': 'user_dim', 'result': {'first_name': 'SARAH'}
-                            , 'where': 'user_id = 2', 'source': 'etlUnitTest'}}, {'name': 'testUserValidBirthday'
-                            , 'desc': 'Test for valid birth dates.', 'query': {'select': 'birthday', 'from': 'user_dim'
-                            , 'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}"
-                            , 'where': 'user_id IN (1, 2)', 'source': 'etlUnitTest'}}], 'suites': [{'suite': 'dataMart'}]
-                            , 'processes': [{'tool': 'PDI', 'processes': [{'type': 'job', 'name': 'data_mart/user_dim_jb.kjb'}]}]
-                            , 'dataset': [{'table': 'users', 'source': 'etlUnitTest', 'records': [1, 2]}]}}]
+        expected_result = [{'DataMart\\UsersDim': {'processes': [{'processes': [{'name': 'data_mart/user_dim_jb.kjb', 'type': 'job'}], 'tool': 'PDI'}], 'dataset': [{'source': 'etlUnitTest', 'table': 'users', 'records': [1, 2]}], 'tests': [{'name': 'testFirstNameNotLower', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'user_dim', 'result': {'first_name': 'sarah'}, 'select': 'first_name'}, 'type': 'NotEqual', 'desc': 'Ensures that the first name field is not lower case after being processed.'}, {'name': 'testFirstNameUpper', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'user_dim', 'result': {'first_name': 'SARAH'}, 'select': 'first_name'}, 'type': 'Equal', 'desc': 'Test for process that upper cases the first name field of a users table record.'}, {'name': 'testUserValidBirthday', 'query': {'source': 'etlUnitTest', 'where': 'user_id IN (1, 2)', 'from': 'user_dim', 'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}", 'select': 'birthday'}, 'desc': 'Test for valid birth dates.'}, {'name': 'testIsActiveTrue', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'users', 'select': 'is_active'}, 'type': 'BooleanTrue', 'desc': 'Passes if is_active field is set to true.'}, {'name': 'testIsActiveFalse', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 1', 'from': 'users', 'select': 'is_active'}, 'type': 'BooleanFalse', 'desc': 'Passes if is_active field is set to false.'}], 'suites': [{'suite': 'dataMart'}]}}]
 
         self.assertItemsEqual(given_result, expected_result)
 
     # Testing data yaml file for correct processing.
     def test_process_data_file(self):
         given_result = YAMLParser().read_file(self.data_file)
-        expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555, 'birthday': datetime.date(2000, 1, 4)}, 2: {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2)}, 3: {'first_name': 'Frank', 'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789, 'birthday': datetime.date(1972, 3, 3)}, 4: {'first_name': None, 'last_name': 'Thomas', 'user_id': 4, 'zipcode': 44444, 'birthday': datetime.date(1923, 1, 4)}}]
+        expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
+                                'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, 2: {'first_name': 'Sarah',
+                                'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
+                                'birthday': datetime.date(2000, 2, 2), 'is_active': 1}, 3: {'first_name': 'Frank',
+                                'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789,
+                                'birthday': datetime.date(1972, 3, 3), 'is_active': 0}, 4: {'first_name': None,
+                                'last_name': 'Thomas', 'user_id': 4, 'zipcode': 44444,
+                                'birthday': datetime.date(1923, 1, 4)}, 'is_active': 1}]
         self.assertItemsEqual(given_result, expected_result)
 
 
     # Testing a directory of test yaml files to verify they are processed correctly.
     def test_process_test_dir(self):
         given_result = YAMLParser().read_dir(self.test_dir)
-        expected_result = [{'DataMart\\UsersDim': {'tests': [{'name': 'testFirstNameLower',
-                            'desc': 'Test for process that lower cases the first name field of a users table record.'
-                            , 'query': {'select': 'first_name', 'from': 'user_dim', 'result': {'first_name': 'sarah'}
-                            , 'where': 'user_id = 2', 'source': 'etlUnitTest'}}, {'name': 'testFirstNameUpper'
-                            , 'desc': 'Test for process that upper cases the first name field of a users table record.'
-                            , 'query': {'select': 'first_name', 'from': 'user_dim', 'result': {'first_name': 'SARAH'}
-                            , 'where': 'user_id = 2', 'source': 'etlUnitTest'}}, {'name': 'testUserValidBirthday'
-                            , 'desc': 'Test for valid birth dates.', 'query': {'select': 'birthday', 'from': 'user_dim'
-                            , 'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}"
-                            , 'where': 'user_id IN (1, 2)', 'source': 'etlUnitTest'}}], 'suites': [{'suite': 'dataMart'}]
-                            , 'processes': [{'tool': 'PDI', 'processes': [{'type': 'job', 'name': 'data_mart/user_dim_jb.kjb'}]}]
-                            , 'dataset': [{'table': 'users', 'source': 'etlUnitTest', 'records': [1, 2]}]}}]
+        expected_result = [{'DataMart\\UsersDim': {'processes': [{'processes': [{'name': 'data_mart/user_dim_jb.kjb', 'type': 'job'}], 'tool': 'PDI'}], 'dataset': [{'source': 'etlUnitTest', 'table': 'users', 'records': [1, 2]}], 'tests': [{'name': 'testFirstNameNotLower', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'user_dim', 'result': {'first_name': 'sarah'}, 'select': 'first_name'}, 'type': 'NotEqual', 'desc': 'Ensures that the first name field is not lower case after being processed.'}, {'name': 'testFirstNameUpper', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'user_dim', 'result': {'first_name': 'SARAH'}, 'select': 'first_name'}, 'type': 'Equal', 'desc': 'Test for process that upper cases the first name field of a users table record.'}, {'name': 'testUserValidBirthday', 'query': {'source': 'etlUnitTest', 'where': 'user_id IN (1, 2)', 'from': 'user_dim', 'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}", 'select': 'birthday'}, 'desc': 'Test for valid birth dates.'}, {'name': 'testIsActiveTrue', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2', 'from': 'users', 'select': 'is_active'}, 'type': 'BooleanTrue', 'desc': 'Passes if is_active field is set to true.'}, {'name': 'testIsActiveFalse', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 1', 'from': 'users', 'select': 'is_active'}, 'type': 'BooleanFalse', 'desc': 'Passes if is_active field is set to false.'}], 'suites': [{'suite': 'dataMart'}]}}]
 
         self.assertEqual(given_result, expected_result)
 
@@ -86,12 +60,12 @@ class YamlParserTests(unittest.TestCase):
     def test_process_data_dir(self):
         given_result = YAMLParser().read_dir(self.data_dir)
         expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
-                                'birthday': datetime.date(2000, 1, 4)}, 2: {'first_name': 'Sarah',
+                                'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, 2: {'first_name': 'Sarah',
                                 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
-                                'birthday': datetime.date(2000, 2, 2)}, 3: {'first_name': 'Frank',
+                                'birthday': datetime.date(2000, 2, 2), 'is_active': 1}, 3: {'first_name': 'Frank',
                                 'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789,
-                                'birthday': datetime.date(1972, 3, 3)}, 4: {'first_name': None,
+                                'birthday': datetime.date(1972, 3, 3), 'is_active': 0}, 4: {'first_name': None,
                                 'last_name': 'Thomas', 'user_id': 4, 'zipcode': 44444,
-                                'birthday': datetime.date(1923, 1, 4)}}]
+                                'birthday': datetime.date(1923, 1, 4)}, 'is_active': 1}]
 
         self.assertEqual(given_result, expected_result)

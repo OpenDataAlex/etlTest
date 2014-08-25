@@ -31,8 +31,9 @@ class DataConnectorTests(unittest.TestCase):
         #Testing to see if a subset of data is generated and not the full data set.
         given_result = DataConnector(self.source).generate_data(self.table, self.records)
         expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
-                            'birthday': datetime.date(2000, 1, 4)}, {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2,
-                                                        'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2)}]
+                            'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah',
+                            'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
+                            'birthday': datetime.date(2000, 2, 2), 'is_active': 1}]
 
         self.assertEqual(given_result, expected_result)
 
@@ -41,8 +42,9 @@ class DataConnectorTests(unittest.TestCase):
         records = [1, 2, 20]
         given_result = DataConnector(self.source).generate_data(self.table, records)
         expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
-                            'birthday': datetime.date(2000, 1, 4)}, {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2,
-                                                        'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2)}]
+                            'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah'
+                            , 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
+                            'birthday': datetime.date(2000, 2, 2), 'is_active': 1}]
 
         self.assertEqual(given_result, expected_result)
 
@@ -51,8 +53,8 @@ class DataConnectorTests(unittest.TestCase):
         DataConnector(self.source).insert_data(self.table, self.records)
         given_result = DataConnector(self.source).select_data("all_columns", self.table, "user_id IN (1, 2)")
         expected_result = {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': '55555'
-                            , 'birthday': datetime.date(2000, 1, 4)}, {'first_name': 'Sarah', 'last_name': 'Jenkins'
-                            , 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}
+                            , 'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah', 'last_name': 'Jenkins'
+                            , 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2), 'is_active': 1}
 
         self.assertItemsEqual(given_result, expected_result)
 
@@ -70,7 +72,7 @@ class DataConnectorTests(unittest.TestCase):
         records = [1, 2]
         DataConnector(self.source).insert_data(self.table, records)
         given_result = DataConnector(self.source).select_data("all_columns", self.table, "user_id = 2")
-        expected_result = [{'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}]
+        expected_result = [{'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}, 'is_active': 1]
 
         self.assertEqual(given_result, expected_result)
 

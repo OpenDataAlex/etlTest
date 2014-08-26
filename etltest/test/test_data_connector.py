@@ -72,7 +72,7 @@ class DataConnectorTests(unittest.TestCase):
         records = [1, 2]
         DataConnector(self.source).insert_data(self.table, records)
         given_result = DataConnector(self.source).select_data("all_columns", self.table, "user_id = 2")
-        expected_result = [{'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2)}, 'is_active': 1]
+        expected_result = [{'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2), 'is_active': 1}]
 
         self.assertEqual(given_result, expected_result)
 

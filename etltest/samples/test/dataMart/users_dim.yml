@@ -56,5 +56,5 @@ DataMart\UsersDim:
          select:  is_active
          from:  users
          where:  user_id = 1
-         source:  etlUnitTestz
+         source:  etlUnitTest
 

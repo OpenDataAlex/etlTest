@@ -53,8 +53,8 @@ class {{ testGroup }}Test(unittest.TestCase):
 
         given_result = DataConnector("{{ test.query.source }}").select_data("{{ test.query.select }}",
                         "{{ test.query.from }}", "{{ test.query.where }}")
+      {% if test.query.result is defined and test.query.result not in ('BooleanTrue', 'BooleanFalse', 'IsNone', 'IsNotNone')%}
 
-      {% if test.query.result is defined %}
         expected_result = [{{ test.query.result }}]
       {% endif %}
 

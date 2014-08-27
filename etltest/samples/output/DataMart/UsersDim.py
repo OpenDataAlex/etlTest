@@ -73,8 +73,6 @@ class DataMartUsersDimTest(unittest.TestCase):
         given_result = DataConnector("etlUnitTest").select_data("is_active",
                         "users", "user_id = 2")
 
-        expected_result = []
-
         self.assertTrue(given_result)
 
     def testIsActiveFalse(self):
@@ -82,8 +80,6 @@ class DataMartUsersDimTest(unittest.TestCase):
 
         given_result = DataConnector("etlUnitTest").select_data("is_active",
                         "users", "user_id = 1")
-
-        expected_result = []
 
         self.assertFalse(given_result)
 

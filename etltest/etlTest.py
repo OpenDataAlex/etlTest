@@ -28,6 +28,23 @@ def create_parser():
                         help='Run app as tests.  Does not persist the generated or executed code.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.1')
 
+    subparsers = parser.add_subparsers(title="Reference Data Handler",
+                                       help="Import and synchronize reference data sets")
+
+    # Create parser for handling reference data for tests.
+    parser_ref = subparsers.add_parser('ref', help="Import and synchronize reference data sets")
+    parser_ref.add_argument('-s', '--source', nargs='?', type=str, dest='source',
+                            help='Name of the source from the connections.cfg file')
+    parser_ref.add_argument('-t', '--table', nargs='?', type=str, dest='table',
+                            help='Name of the table from the named source')
+    parser_ref.add_argument('-c', '--column', nargs='?', type=str, dest='column',
+                            help='Name of the key column from the named table.  Used to identify records.')
+    parser_ref.add_argument('-i', '--import', dest='import_data', default=False, action='store_true',
+                            help='Import data from the named source table.')
+    parser_ref.add_argument('-r', '--refresh', nargs='?', type=str, choices=['ours', 'theirs'], dest='refresh_data',
+                            help='Refreshes the stored reference data.  If ours, we will keep our data and refresh the '
+                                 'source.  If theirs, we will drop our data and refresh from the source.')
+
     return parser
 
 

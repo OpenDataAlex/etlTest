@@ -1,4 +1,4 @@
-__author__ = 'coty, ameadows'
+s__author__ = 'coty, ameadows'
 """
     This file contains all the logic to connect to data sources using SQLAlchemy.
 """

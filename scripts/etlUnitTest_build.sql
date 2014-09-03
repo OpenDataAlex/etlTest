@@ -4,6 +4,7 @@ USE etlUnitTest;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_dim;
+DROP TABLE IF EXISTS user_geo_ref;
 
 CREATE TABLE users (
                 user_id INT NOT NULL,
@@ -29,6 +30,19 @@ CREATE TABLE user_dim (
                 PRIMARY KEY (user_id)
 );
 
-CREATE UNIQUE INDEX users_idx
+CREATE UNIQUE INDEX users_dim_idx
  ON user_dim
  ( user_id );
+
+CREATE TABLE user_geo_ref (
+  user_geo_ref_id INT NOT NULL,
+  zipcode CHAR(5) NOT NULL,
+  city VARCHAR(75) NOT NULL,
+  state VARCHAR(75) NOT NULL,
+  country VARCHAR(150) NOT NULL,
+  PRIMARY KEY (user_geo_ref_id)
+);
+
+CREATE UNIQUE INDEX user_geo_ref_idx
+  ON user_geo_ref
+  ( user_geo_ref_id );

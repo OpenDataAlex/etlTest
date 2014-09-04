@@ -78,7 +78,7 @@ class DataConnector():
 
         return table
 
-    def insert_data(self, table_name, record_set):
+    def insert_data(self, table_name, record_set=None):
         """
             This method inserts records into the given table for the specified connection.
             :param table_name: Name of the table we want to insert data into.
@@ -136,7 +136,7 @@ class DataConnector():
 
         return self.to_json(result, table)
 
-    def generate_data(self, table_name, records):
+    def generate_data(self, table_name, records='all_records'):
         """
         :param table_name: Name of the table yaml file that will be retrieved.
         :param table_name: str
@@ -146,14 +146,20 @@ class DataConnector():
         """
 
         full_set = YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml")
-        subset = []
-        for item in full_set:
-            for record in records:
-                try:
-                    subset.append(item[record])
-                except Exception:
-                    self.log.info("Record %s is not in the full set." % record)
-        return subset
+        if records != 'all_records':
+            subset = []
+            for item in full_set:
+                for record in records:
+                    try:
+                        subset.append(item[record])
+                    except Exception:
+                        self.log.info("Record %s is not in the full set." % record)
+            return subset
+        else:
+            set = []
+            for item in full_set:
+                set.append(item)
+            return set
 
     def to_json(self, result_set, table):
         """

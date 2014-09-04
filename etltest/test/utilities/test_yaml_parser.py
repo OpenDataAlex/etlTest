@@ -6,6 +6,7 @@ __author__ = 'ameadows'
 
 import unittest
 import datetime
+import os
 
 from etltest.utilities.yaml_parser import YAMLParser
 from etltest.utilities.settings_manager import SettingsManager
@@ -15,6 +16,7 @@ class YamlParserTests(unittest.TestCase):
 
     def setUp(self):
         self.tmp_path = SettingsManager().get_file_location()
+        self.data_loc = SettingsManager().find_setting('Locations', 'data')
         self.test_dir = self.tmp_path + "/etltest/samples/test/"
         self.data_dir = self.tmp_path + "/etltest/samples/data/"
         self.test_file = self.test_dir + "dataMart/users_dim.yml"
@@ -52,6 +54,23 @@ class YamlParserTests(unittest.TestCase):
     # Testing a directory of data yaml files to verify they are processed correctly.
     def test_process_data_dir(self):
         given_result = YAMLParser().read_dir(self.data_dir)
-        expected_result = [{1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555, 'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, 2: {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2), 'is_active': 1}, 3: {'first_name': 'Frank', 'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789, 'birthday': datetime.date(1972, 3, 3), 'is_active': 0}, 4: {'first_name': None, 'last_name': 'Thomas', 'user_id': 4, 'zipcode': 44444, 'birthday': datetime.date(1923, 1, 4), 'is_active': 1}}]
+        expected_result = [{1: {'city': 'Young America', 'state': 'Minnesota', 'user_geo_ref_id': 1, 'zipcode': 55555, 'country': 'United States'}, 2: {'city': 'Schenectady', 'state': 'New York', 'user_geo_ref_id': 2, 'zipcode': 12345, 'country': 'United States'}, 3: {'city': 'Colton', 'state': 'California', 'user_geo_ref_id': 3, 'zipcode': 56789, 'country': 'United States'}, 4: {'city': 'Newton Falls', 'state': 'Ohio', 'user_geo_ref_id': 4, 'zipcode': 44444, 'country': 'United States'}},
+                           {'Young America': {'city': 'Young America', 'state': 'Minnesota', 'user_geo_ref_id': 1, 'zipcode': 55555, 'country': 'United States'}, 'Colton': {'city': 'Colton', 'state': 'California', 'user_geo_ref_id': 3, 'zipcode': 56789, 'country': 'United States'}, 'Schenectady': {'city': 'Schenectady', 'state': 'New York', 'user_geo_ref_id': 2, 'zipcode': 12345, 'country': 'United States'}, 'Newton Falls': {'city': 'Newton Falls', 'state': 'Ohio', 'user_geo_ref_id': 4, 'zipcode': 44444, 'country': 'United States'}},
+                           {1: {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555, 'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, 2: {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345, 'birthday': datetime.date(2000, 2, 2), 'is_active': 1}, 3: {'first_name': 'Frank', 'last_name': 'Williams', 'user_id': 3, 'zipcode': 56789, 'birthday': datetime.date(1972, 3, 3), 'is_active': 0}, 4: {'first_name': None, 'last_name': 'Thomas', 'user_id': 4, 'zipcode': 44444, 'birthday': datetime.date(1923, 1, 4), 'is_active': 1}}]
 
-        self.assertEqual(given_result, expected_result)
+        self.assertItemsEqual(given_result, expected_result)
+
+    def test_process_write_file_defined_column(self):
+        data_set = [{'city': 'Young America', 'state': 'Minnesota', 'user_geo_ref_id': 1, 'zipcode': 55555, 'country': 'United States'}, {'city': 'Colton', 'state': 'California', 'user_geo_ref_id': 3, 'zipcode': 56789, 'country': 'United States'}, {'city': 'Schenectady', 'state': 'New York', 'user_geo_ref_id': 2, 'zipcode': 12345, 'country': 'United States'}, {'city': 'Newton Falls', 'state': 'Ohio', 'user_geo_ref_id': 4, 'zipcode': 44444, 'country': 'United States'}]
+        YAMLParser().write_file(data_set, 'etlUnitTest', 'user_geo_ref', 'city')
+
+        sample_file = os.path.join(self.data_dir, 'etlUnitTest/user_geo_ref_defined_column.yml')
+        output_file = os.path.join(self.data_loc, 'etlUnitTest/user_geo_ref.yml')
+
+        with open(sample_file) as f:
+            expected_result = f.read()
+
+        with open(output_file) as f:
+            given_result = f.read()
+
+        self.assertItemsEqual(given_result, expected_result)

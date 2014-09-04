@@ -91,9 +91,11 @@ class YAMLParser():
                 # Need to check if the record is identified by a column value or if we just give it an identifier.
                 if column is None:
                     f.write(str(count) + ':\n')
-                    count += 1
                 else:
                     f.write(str(record[column]) + ':\n')
-                for column, value in record:
-                    f.write(column + ': ' + str(value) + '\n')
+
+                for column_name, column_value in record.iteritems():
+                    f.write('  ' + column_name + ': ' + str(column_value) + '\n')
+
+                count += 1
         f.close()

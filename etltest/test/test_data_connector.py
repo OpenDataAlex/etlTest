@@ -27,6 +27,15 @@ class DataConnectorTests(unittest.TestCase):
         with self.assertRaises(KeyError) as raises:
             DataConnector("BadConnection").generate_data(self.table, records)
 
+    def test_generate_data_all(self):
+        #Testing to see if a subset of data is generated and not the full data set.
+        given_result = DataConnector(self.source).generate_data(self.table)
+        expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
+                            'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah',
+                            'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
+                            'birthday': datetime.date(2000, 2, 2), 'is_active': 1}]
+
+        self.assertEqual(given_result, expected_result)
     def test_generate_data_subset(self):
         #Testing to see if a subset of data is generated and not the full data set.
         given_result = DataConnector(self.source).generate_data(self.table, self.records)

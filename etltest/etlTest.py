@@ -83,7 +83,7 @@ def main():
         # It's okay if a column is not specified for identifying the records.  We'll number them.
 
         # The primary function of the reference handler is to import data from a source and store it as a YAML file.
-        if args.import_data:
+        if args.import_data or args.refresh == 'theirs':
             # First we need to build our data set.  Pulling the data.
             print(u"Reading data from {0:s}.{1:s}".format(args.source, args.table))
 
@@ -93,6 +93,17 @@ def main():
 
             print(u"Generating YAML file {0:s}/{1:s}.yml using {2:s} as the record identifier.".format(args.source, args.table, args.column))
             YAMLParser().write_file(data_set, args.source, args.table, args.column)
+
+        if args.refresh == 'ours':
+            # We need to take our reference data file and try to load it into the data target.
+
+            # First we need to truncate the table.
+            print(u"Truncate table {0:s}.{1:s}".format(args.source, args.table))
+            DataConnector(args.source).truncate_data(args.table)
+
+            # And now we can load all our data from the reference data file.
+            print(u"Loading data from reference data file.")
+            DataConnector(args.source).insert_data(args.table)
 
     else:
         # validating args

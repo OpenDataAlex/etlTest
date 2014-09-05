@@ -158,7 +158,8 @@ class DataConnector():
         else:
             set = []
             for item in full_set:
-                set.append(item)
+                for key in item.keys():
+                    set.append(item[key])
             return set
 
     def to_json(self, result_set, table):

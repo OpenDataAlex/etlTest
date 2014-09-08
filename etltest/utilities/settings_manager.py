@@ -20,7 +20,7 @@ class SettingsManager():
         """
             This method initializes the log for SettingsManager as well as sets some static variables for file paths.
         """
-        from settings import etltest_config, console
+        from etltest.utilities.settings import etltest_config, console
 
         self.log = logging.getLogger(name="SettingsManager")
         self.log.setLevel(etltest_config['logging_level'])

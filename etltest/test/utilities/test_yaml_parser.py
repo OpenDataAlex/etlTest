@@ -65,7 +65,7 @@ class YamlParserTests(unittest.TestCase):
         YAMLParser().write_file(data_set, 'etlUnitTest', 'user_geo_ref', 'city')
 
         sample_file = os.path.join(self.data_dir, 'etlUnitTest/user_geo_ref_defined_column.yml')
-        output_file = os.path.join(self.data_loc, 'etlUnitTest/DataMart/user_geo_ref.yml')
+        output_file = os.path.join(self.data_loc, 'etlUnitTest/user_geo_ref.yml')
 
         with open(sample_file) as f:
             expected_result = f.read()

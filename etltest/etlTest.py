@@ -30,12 +30,21 @@ def create_parser():
                         help='Run app as tests.  Does not persist the generated or executed code.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.1')
 
-    subparsers = parser.add_subparsers(title="Reference Data Handler",
-                                       help="Import and synchronize reference data sets",
-                                       dest="reference_handler")
+    # subparsers = parser.add_subparsers(title="Reference Data Handler",
+    #                                    help="Import and synchronize reference data sets",
+    #                                    dest="reference_handler")
+    # subparsers.required = False
+
+    return parser
+
+
+def create_parser_ref():
 
     # Create parser for handling reference data for tests.
-    parser_ref = subparsers.add_parser('ref')
+    parser_ref = argparse.ArgumentParser(
+        description='Reference data handler for etlTest.',
+        epilog='etlTest -s yourSource -t yourSourceTable -c yourTableIdentifyingColumn -i'
+    )
     parser_ref.add_argument('-s', '--source', nargs='?', type=str, dest='source',
                             help='Name of the source from the connections.cfg file')
     parser_ref.add_argument('-t', '--table', nargs='?', type=str, dest='table',
@@ -48,7 +57,7 @@ def create_parser():
                             help='Refreshes the stored reference data.  If ours, we will keep our data and refresh the '
                                  'source.  If theirs, we will drop our data and refresh from the source.')
 
-    return parser
+    return parser_ref
 
 
 def main():
@@ -64,46 +73,49 @@ def main():
         4) Handle reference data from sources/targets that needs to be kept in sync
     """
     parser = create_parser()
-    args = parser.parse_args()
+    parser_ref = create_parser_ref()
+    args, extra = parser.parse_known_args()
+    ref_args, ref_extra = parser_ref.parse_known_args()
 
     # no arguments, print usage
     if len(sys.argv) < 2:
         parser.print_help()
+        parser_ref.print_help()
 
-    if args.reference_handler:
+    if 'ref' in extra:
         # We require a source connection to work with.
-        if args.source is None:
-            parser.error("A source is required to work with reference data.  Please provide an existing data source.")
+        if ref_args.source is None:
+            parser_ref.error("A source is required to work with reference data.  Please provide an existing data source.")
 
         # We also need a table name to pull data from.
-        if args.table is None:
-            parser.error("A source table is required to work with reference data.  "
+        if ref_args.table is None:
+            parser_ref.error("A source table is required to work with reference data.  "
                          "Please provide an existing reference table.")
 
         # It's okay if a column is not specified for identifying the records.  We'll number them.
 
         # The primary function of the reference handler is to import data from a source and store it as a YAML file.
-        if args.import_data or args.refresh == 'theirs':
+        if ref_args.import_data or ref_args.refresh_data == 'theirs':
             # First we need to build our data set.  Pulling the data.
-            print(u"Reading data from {0:s}.{1:s}".format(args.source, args.table))
+            print(u"Reading data from {0:s}.{1:s}".format(ref_args.source, ref_args.table))
 
-            data_set = DataConnector(args.source).select_data("all_columns", args.table)
+            data_set = DataConnector(ref_args.source).select_data("all_columns", ref_args.table)
 
             # Now we need to process the data and turn it into a YAML file.
 
-            print(u"Generating YAML file {0:s}/{1:s}.yml using {2:s} as the record identifier.".format(args.source, args.table, args.column))
-            YAMLParser().write_file(data_set, args.source, args.table, args.column)
+            print(u"Generating YAML file {0:s}/{1:s}.yml using {2:s} as the record identifier.".format(ref_args.source, ref_args.table, ref_args.column))
+            YAMLParser().write_file(data_set, ref_args.source, ref_args.table, ref_args.column)
 
-        if args.refresh == 'ours':
+        if ref_args.refresh_data == 'ours':
             # We need to take our reference data file and try to load it into the data target.
 
             # First we need to truncate the table.
-            print(u"Truncate table {0:s}.{1:s}".format(args.source, args.table))
-            DataConnector(args.source).truncate_data(args.table)
+            print(u"Truncate table {0:s}.{1:s}".format(ref_args.source, ref_args.table))
+            DataConnector(ref_args.source).truncate_data(ref_args.table)
 
             # And now we can load all our data from the reference data file.
             print(u"Loading data from reference data file.")
-            DataConnector(args.source).insert_data(args.table)
+            DataConnector(ref_args.source).insert_data(ref_args.table)
 
     else:
         # validating args

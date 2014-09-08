@@ -18,3 +18,24 @@ optional arguments:
   -v, --version         show program's version number and exit
 
 etlTest -d /your/test_file/directory/ -g
+usage: etlTest.py [-h] [-s [SOURCE]] [-t [TABLE]] [-c [COLUMN]] [-i]
+                  [-r [{ours,theirs}]]
+
+Reference data handler for etlTest.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s [SOURCE], --source [SOURCE]
+                        Name of the source from the connections.cfg file
+  -t [TABLE], --table [TABLE]
+                        Name of the table from the named source
+  -c [COLUMN], --column [COLUMN]
+                        Name of the key column from the named table. Used to
+                        identify records.
+  -i, --import          Import data from the named source table.
+  -r [{ours,theirs}], --refresh [{ours,theirs}]
+                        Refreshes the stored reference data. If ours, we will
+                        keep our data and refresh the source. If theirs, we
+                        will drop our data and refresh from the source.
+
+etlTest -s yourSource -t yourSourceTable -c yourTableIdentifyingColumn -i

@@ -146,7 +146,7 @@ class DataConnector():
         """
 
         full_set = YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml")
-        if records != 'all_records':
+        if records != 'all_records' and records is not None:
             subset = []
             for item in full_set:
                 for record in records:

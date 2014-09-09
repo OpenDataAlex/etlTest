@@ -25,7 +25,7 @@ class SettingsManager():
         self.log = logging.getLogger(name="SettingsManager")
         self.log.setLevel(etltest_config['logging_level'])
         self.log.addHandler(console)
-
+        self.log.debug(u"Settings imported: {0:s}".format(etltest_config))
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
         self.data_dir = 'etltest/samples/data/'

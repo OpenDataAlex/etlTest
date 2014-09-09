@@ -51,7 +51,7 @@ for the_path in settings_fs_locs:
             for key, value in prop_list.items():
                 etltest_config[key] = value
 
-            settings_log.debug("Settings loaded from %s" % the_path)
+            settings_log.debug(u"Settings loaded from {0:s}, {1:s}".format(the_path, etltest_config))
             settings_loaded = True
             break
     except (OSError, IOError) as e:

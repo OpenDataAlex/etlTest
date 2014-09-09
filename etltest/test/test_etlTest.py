@@ -8,12 +8,14 @@ import sys
 from etltest.utilities.settings_manager import SettingsManager
 from etltest import etlTest
 
+
 class CommandLineTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         parser = etlTest.create_parser()
         cls.parser = parser
+
 
 class etlTestTests(CommandLineTestCase):
 

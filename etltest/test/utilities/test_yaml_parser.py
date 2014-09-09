@@ -15,6 +15,7 @@ from etltest.utilities.settings_manager import SettingsManager
 class YamlParserTests(unittest.TestCase):
 
     def setUp(self):
+        SettingsManager().first_run_test()
         self.tmp_path = SettingsManager().get_file_location()
         self.data_loc = SettingsManager().find_setting('Locations', 'data')
         self.test_dir = self.tmp_path + "/etltest/samples/test/"

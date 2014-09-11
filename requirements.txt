@@ -10,7 +10,6 @@ PyYAML==3.11
 Sphinx==1.2.2
 SQLAlchemy==0.9.3
 py==1.4.20
-subprocess32==3.2.6
 tox==1.7.1
 unittest-xml==0.2.2
 unittest-xml-reporting==1.9.0

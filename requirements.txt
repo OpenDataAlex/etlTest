@@ -5,6 +5,7 @@ Jinja2==2.7.2
 MarkupSafe==0.19
 paramiko==1.14.0
 Pygments==1.6
+PyMySQL==0.6.2
 PyYAML==3.11
 Sphinx==1.2.2
 SQLAlchemy==0.9.3

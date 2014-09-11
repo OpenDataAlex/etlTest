@@ -38,6 +38,7 @@ setup(
         'paramiko==1.14.0',
         'Pygments==1.6',
         'py==1.4.20',
+        'PyMySQL==0.6.2',
         'PyYAML==3.11',
         'Sphinx==1.2.2',
         'SQLAlchemy==0.9.3',

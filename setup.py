@@ -35,7 +35,6 @@ setup(
         'ecdsa==0.11',
         'Jinja2==2.7.2',
         'MarkupSafe==0.19',
-        'MySQL-python==1.2.5',
         'paramiko==1.14.0',
         'Pygments==1.6',
         'py==1.4.20',

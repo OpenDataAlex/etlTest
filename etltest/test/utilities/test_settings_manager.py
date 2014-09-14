@@ -76,13 +76,13 @@ class SettingsManagerTests(unittest.TestCase):
         expected_result = [{'PDI': {'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/', 'script_types': [{'script':
                                                                                                                 'kitchen.sh', 'type': 'job'}, {'script': 'pan.sh', 'type': 'trans'}], 'port': None, 'password': None, 'private_key': '~/.ssh/id_rsa', 'process_param': '/file:', 'user_name': None, 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d', 'tool_path': '${TOOL_PATH}', 'params': '/level: Detailed'}}]
 
-        self.assertItemsEqual(given_result, expected_result)
+        self.assertCountEqual(given_result, expected_result)
 
     def test_get_tool(self):
         given_result = list(SettingsManager().get_tool('PDI'))
         expected_result = ['host_name', 'user_name', 'password', 'port', 'private_key', 'tool_path', 'script_types',
                            'params', 'process_param', 'code_path', 'logging_filename_format']
-        self.assertItemsEqual(given_result, expected_result)
+        self.assertCountEqual(given_result, expected_result)
 
     def test_find_single_setting(self):
         given_result = SettingsManager().find_setting('Locations', 'tests')

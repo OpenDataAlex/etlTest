@@ -38,7 +38,7 @@ class DataConnectorTests(unittest.TestCase):
                             'birthday': datetime.date(1972, 3, 3)},{'first_name': None, 'last_name': 'Thomas',
                             'user_id': 4, 'is_active': 1, 'zipcode': 44444, 'birthday': datetime.date(1923, 1, 4)}]
 
-        self.assertItemsEqual(given_result, expected_result)
+        self.assertCountEqual(given_result, expected_result)
     def test_generate_data_subset(self):
         #Testing to see if a subset of data is generated and not the full data set.
         given_result = DataConnector(self.source).generate_data(self.table, self.records)
@@ -68,7 +68,7 @@ class DataConnectorTests(unittest.TestCase):
                             , 'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah', 'last_name': 'Jenkins'
                             , 'user_id': 2, 'zipcode': '12345', 'birthday': datetime.date(2000, 2, 2), 'is_active': 1}
 
-        self.assertItemsEqual(given_result, expected_result)
+        self.assertCountEqual(given_result, expected_result)
 
     def test_truncate_data(self):
         # Testing to see if the data set will be removed completely.
@@ -118,4 +118,4 @@ class DataConnectorTests(unittest.TestCase):
         given_result = DataConnector(self.source).select_data("first_name", self.table, "user_id IN (1, 4)")
         expected_result = [{'first_name': 'Bob'}, {'first_name': ''}]
 
-        self.assertItemsEqual(given_result, expected_result)
+        self.assertCountEqual(given_result, expected_result)

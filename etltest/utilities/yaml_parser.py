@@ -80,7 +80,7 @@ class YAMLParser():
         self.log.info(u'Creating {0:s} if does not exist.'.format(file_path))
 
         if not os.path.isdir(file_path):
-            os.makedirs(file_path, 0755)
+            os.makedirs(file_path, mode=0o755)
             self.log.info(u'{0:s} created.'.format(file_path))
 
         os.chdir(file_path)

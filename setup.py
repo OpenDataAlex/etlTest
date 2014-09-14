@@ -42,8 +42,7 @@ setup(
         'Sphinx==1.2.3',
         'SQLAlchemy==0.9.7',
         'py==1.4.24',
-        'tox==1.7.2',
-        'wsgiref==0.1.2'
+        'tox==1.7.2'
 
     ],
     classifiers=[

@@ -1,9 +1,9 @@
 language: python
 python:
-    - "3.4"
+    - "3.3"
 install:
     - "pip install -r requirements.txt --use-mirrors"
-    - "pip install MySQL-python==1.2.5"
+    - "pip install mysql-connector-python --allow-external mysql-connector-python"
     - "pip install coverage"
     - "pip install coveralls"
 script:

@@ -35,7 +35,7 @@ setup(
         'ecdsa==0.11',
         'Jinja2==2.7.3',
         'MarkupSafe==0.23',
-        'mysql-connector-python==1.2.3',
+        'mysql-connector-python==1.2.3 --allow-external mysql-connector-python',
         'paramiko==1.14.1',
         'Pygments==1.6',
         'PyYAML==3.11',

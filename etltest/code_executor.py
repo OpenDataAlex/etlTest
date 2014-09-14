@@ -5,7 +5,7 @@ __author__ = 'coty'
 
 import logging
 
-from utilities.settings import etltest_config, console
+from .utilities.settings import etltest_config, console
 
 
 class CodeExecutor():
@@ -49,5 +49,5 @@ class CodeExecutor():
                 return 0
             else:
                 self.log.info(file_path)
-                print subprocess.check_output([sys.executable, file_path])
+                print(subprocess.check_output([sys.executable, file_path]))
 

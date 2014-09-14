@@ -23,7 +23,7 @@ class code_executor_tests(unittest.TestCase):
         (fh, f_path) = mkstemp(suffix='.py', dir=dir_path)
         f = os.fdopen(fh, 'w')
         f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(0)")
-        os.chmod(f_path, 0770)
+        os.chmod(f_path, 0o770)
         f.close()
 
         return dir_path
@@ -36,13 +36,13 @@ class code_executor_tests(unittest.TestCase):
         (fh, f_path) = mkstemp(suffix='.py', dir=dir_path)
         f = os.fdopen(fh, 'w')
         f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(0)")
-        os.chmod(f_path, 0770)
+        os.chmod(f_path, 0o770)
         f.close()
 
         (fh, f_path) = mkstemp(suffix='.py', dir=dir_path)
         f = os.fdopen(fh, 'w')
         f.write("#!/usr/bin/python\n\nimport sys\nsys.exit(0)")
-        os.chmod(f_path, 0770)
+        os.chmod(f_path, 0o770)
         f.close()
 
         return dir_path

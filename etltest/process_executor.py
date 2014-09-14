@@ -25,7 +25,7 @@ class ProcessExecutor():
 
         self.tool_name = tool_name
         self.tool = SettingsManager().get_tool(tool_name)
-        self.log.info(u"Setting up tool {0:s}: {1:s}".format(tool_name, self.tool))
+        self.log.info("Setting up tool {0:s}: {1:s}".format(tool_name, self.tool))
 
         self.local_names = ['localhost', '127.0.0.1']
 
@@ -72,7 +72,7 @@ class ProcessExecutor():
 
     def execute_process(self, process_type, process_name):
 
-        self.log.info(u"Attempting to run {0:s} with {1:s}".format(process_name, self.tool_name))
+        self.log.info("Attempting to run {0:s} with {1:s}".format(process_name, self.tool_name))
 
         from subprocess import call
 
@@ -80,16 +80,16 @@ class ProcessExecutor():
 
         process_param = self.tool['process_param']
         params = self.tool['params']
-        self.log.info(u"Using {0:s} with {1:s}".format(process_param, params))
+        self.log.info("Using {0:s} with {1:s}".format(process_param, params))
 
         process = process_param + process_name
-        self.log.info(u"Running {0:s}".format(process))
+        self.log.info("Running {0:s}".format(process))
 
         for type in self.tool['script_types']:
             if type['type'] == process_type:
                 tool_script = type['script']
 
-        self.log.info(u"Using {0:s} with {1:s}".format(tool_path, tool_script))
+        self.log.info("Using {0:s} with {1:s}".format(tool_path, tool_script))
 
         tool_path_script = os.path.join(tool_path, tool_script)
 

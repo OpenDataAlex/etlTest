@@ -114,10 +114,10 @@ class SettingsManagerTests(unittest.TestCase):
         parameter = "${ETL_TEST_TOOT}/this_is_a_test/file.txt"
         expected_result = "The system variable either does not exist or has a bad value. System variable: ETL_TEST_TOOT"
 
-        with self.assertRaises(str(Exception)) as raises:
+        with self.assertRaises(Exception) as raises:
             SettingsManager().system_variable_replace(parameter)
 
-        self.assertEqual(raises.exception.message, expected_result)
+        self.assertEqual(str(raises.exception), expected_result)
 
     def test_copy_settings_file(self):
         SettingsManager().copy_settings_file('copy.test')

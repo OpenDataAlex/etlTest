@@ -21,8 +21,8 @@
   is_active: 0
 4:
   user_id: 4
-  first_name:
-  last_name:  Thomas
+  first_name:  Thomas
+  last_name:  Stedding
   birthday:  1923-01-04
   zipcode: 44444
   is_active: 1

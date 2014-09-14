@@ -17,6 +17,7 @@ class Tox(TestCommand):
     def run_tests(self):
         #import here, cause outside the eggs aren't loaded
         import tox
+        import
         errcode = tox.cmdline(self.test_args)
         sys.exit(errcode)
 
@@ -30,23 +31,20 @@ setup(
     author_email='alexmeadows@bluefiredatasolutions.com',
     packages=find_packages(),
     install_requires=[
-        'appdirs==1.3.0',
-        'docutils==0.11',
+        'appdirs==1.4.0',
+        'docutils==0.12'',
         'ecdsa==0.11',
-        'Jinja2==2.7.2',
-        'MarkupSafe==0.19',
-        'paramiko==1.14.0',
+        'Jinja2==2.7.3',
+        'MarkupSafe==0.23',
+        'paramiko==1.14.1',
         'Pygments==1.6',
-        'py==1.4.20',
         'PyYAML==3.11',
-        'Sphinx==1.2.2',
-        'SQLAlchemy==0.9.3',
-        'tox==1.7.1',
-        'unittest-xml==0.2.2',
-        'unittest-xml-reporting==1.9.0',
-        'virtualenv==1.11.5',
-        'wsgiref==0.1.2',
-        'xmlunittest==0.2.0'
+        'Sphinx==1.2.3',
+        'SQLAlchemy==0.9.7',
+        'py==1.4.24',
+        'tox==1.7.2',
+        'wsgiref==0.1.2'
+
     ],
     classifiers=[
         'Programming Language :: Python',

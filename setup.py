@@ -44,7 +44,7 @@ setup(
         'tox==1.7.2'
 
     ],
-    tests_requires=[
+    tests_require=[
         'PyMySQL==0.6.2',
     ],
     classifiers=[

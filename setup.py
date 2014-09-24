@@ -37,13 +37,15 @@ setup(
         'MarkupSafe==0.23',
         'paramiko==1.14.1',
         'Pygments==1.6',
-        'PyMySQL==0.6.2',
         'PyYAML==3.11',
         'Sphinx==1.2.3',
         'SQLAlchemy==0.9.7',
         'py==1.4.24',
         'tox==1.7.2'
 
+    ],
+    tests_requires=[
+        'PyMySQL==0.6.2',
     ],
     classifiers=[
         'Programming Language :: Python',

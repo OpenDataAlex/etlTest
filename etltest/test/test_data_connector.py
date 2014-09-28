@@ -33,9 +33,9 @@ class DataConnectorTests(unittest.TestCase):
         expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
                             'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah',
                             'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
-                            'birthday': datetime.date(2000, 2, 2), 'is_active': 1},{'first_name': 'Frank',
+                            'birthday': datetime.date(2000, 2, 2), 'is_active': 1}, {'first_name': 'Frank',
                             'last_name': 'Williams', 'user_id': 3, 'is_active': 0, 'zipcode': 56789,
-                            'birthday': datetime.date(1972, 3, 3)},{'first_name': None, 'last_name': 'Thomas',
+                            'birthday': datetime.date(1972, 3, 3)}, {'first_name': None, 'last_name': 'Thomas',
                             'user_id': 4, 'is_active': 1, 'zipcode': 44444, 'birthday': datetime.date(1923, 1, 4)}]
 
         self.assertItemsEqual(given_result, expected_result)

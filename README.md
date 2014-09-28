@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/OpenDataAlex/etlTest.png?branch=dev)](https://travis-ci.org/OpenDataAlex/etlTest)
 [![Coverage Status](https://coveralls.io/repos/OpenDataAlex/etlTest/badge.png?branch=dev)](https://coveralls.io/r/OpenDataAlex/etlTest?branch=dev)
+[![Codacy Badge](https://www.codacy.com/project/badge/0ff3a2e5b651416e9292ca9cdedf58f8)](https://www.codacy.com)
 [![Documentation Status](https://readthedocs.org/projects/etltest/badge/?version=latest)](https://readthedocs.org/projects/etltest/?badge=latest)
 [![endorse](https://api.coderwall.com/dbaalex/endorsecount.png)](https://coderwall.com/dbaalex)
 

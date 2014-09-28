@@ -9,7 +9,7 @@ from etltest.utilities.settings_manager import SettingsManager
 class YAMLParser():
 
     def __init__(self, in_file=None, in_dir=None):
-        from settings import etltest_config, console
+        from .settings import etltest_config, console
         """
             Initialization of method to setup the logging.
         """
@@ -22,10 +22,10 @@ class YAMLParser():
         self.in_dir = in_dir
         self.data_dir = SettingsManager().find_setting('Locations', 'data')
 
-        if in_file != None:
+        if in_file is not None:
             self.read_file(self.in_file)
 
-        if in_dir != None:
+        if in_dir is not None:
             self.read_dir(self.in_dir)
 
     def read_file(self, filename):
@@ -77,16 +77,16 @@ class YAMLParser():
         file_path = os.path.join(self.data_dir, source)
         filename = table + '.yml'
 
-        self.log.info(u'Creating {0:s} if does not exist.'.format(file_path))
+        self.log.info('Creating {0:s} if does not exist.'.format(file_path))
 
         if not os.path.isdir(file_path):
-            os.makedirs(file_path, 0755)
-            self.log.info(u'{0:s} created.'.format(file_path))
+            os.makedirs(file_path, mode=0o755)
+            self.log.info('{0:s} created.'.format(file_path))
 
         os.chdir(file_path)
-        self.log.info(u'Creating reference data file: {0:s}.'.format(filename))
+        self.log.info('Creating reference data file: {0:s}.'.format(filename))
         with open(filename, 'w') as f:
-            # Need to take the dataset one record at a time and format accordingly.
+            # Need to take the data set one record at a time and format accordingly.
             for record in data_set:
                 # Need to check if the record is identified by a column value or if we just give it an identifier.
                 if column is None:
@@ -94,7 +94,7 @@ class YAMLParser():
                 else:
                     f.write(str(record[column]) + ':\n')
 
-                for column_name, column_value in record.iteritems():
+                for column_name, column_value in record.items():
                     f.write('  ' + column_name + ': ' + str(column_value) + '\n')
 
                 count += 1

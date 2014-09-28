@@ -6,7 +6,7 @@ copies the default settings files, and building the array that stores all the pa
 from the settings files.
 """
 import logging
-from ConfigParser import SafeConfigParser
+from configparser import ConfigParser
 from shutil import copyfile, copy2
 
 import re
@@ -20,12 +20,12 @@ class SettingsManager():
         """
             This method initializes the log for SettingsManager as well as sets some static variables for file paths.
         """
-        from settings import etltest_config, console
+        from .settings import etltest_config, console
 
         self.log = logging.getLogger(name="SettingsManager")
         self.log.setLevel(etltest_config['logging_level'])
         self.log.addHandler(console)
-        self.log.debug(u"Settings imported: {0:s}".format(etltest_config))
+        self.log.debug("Settings imported: {0:s}".format(etltest_config))
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
         self.data_dir = 'etltest/samples/data/'
@@ -101,7 +101,7 @@ class SettingsManager():
                     os.makedirs(dest_full)
 
                 if not os.path.exists(d):
-                    self.log.info(u"Copying file {0:s} to {1:s}".format(s, d))
+                    self.log.info("Copying file {0:s} to {1:s}".format(s, d))
                     copy2(s, d)
 
     def make_dir(self, dir):
@@ -144,7 +144,7 @@ class SettingsManager():
         tools = self.get_tools()
 
         while True:
-            tool = tools.next()
+            tool = next(tools)
 
             if tool[tool_name]:
                 return tool[tool_name]
@@ -180,7 +180,7 @@ class SettingsManager():
             :type settings_file:  str
             :returns: Array
         """
-        parser = SafeConfigParser()
+        parser = ConfigParser()
         parser.read(os.path.join(self.user_settings, settings_file))
         self.log.info(parser._sections)
         return parser._sections
@@ -194,22 +194,22 @@ class SettingsManager():
             :return: Value of the parameter with all variables replaced.
         """
         variable_list = re.findall(self.variable_pattern, parameter)
-        self.log.debug(u"Variable list:  {0:s}".format(variable_list))
+        self.log.debug("Variable list:  {0:s}".format(variable_list))
         modified_param = str()
         for system_variable in variable_list:
             system_variable = re.sub('[\$\{\}]', '', system_variable)
             variable_value = str(os.environ.get(system_variable))
 
-            self.log.debug(u"Found {0:s} and it has a value of {1:s}".format(system_variable, variable_value))
+            self.log.debug("Found {0:s} and it has a value of {1:s}".format(system_variable, variable_value))
 
             if variable_value == "None":
-                raise Exception(u"The system variable either does not exist or has a bad value. System variable: "
-                                 u"{0:s}".format(system_variable))
+                raise Exception("The system variable either does not exist or has a bad value. System variable: "
+                                 "{0:s}".format(system_variable))
             else:
-                self.log.debug(u"Replacing ${0:s} with {1:s}".format(system_variable,
+                self.log.debug("Replacing ${0:s} with {1:s}".format(system_variable,
                                variable_value))
                 modified_param = parameter.replace("${" + system_variable + "}", variable_value)
-            self.log.debug(u"Final parameter value is: {0:s}".format(modified_param))
+            self.log.debug("Final parameter value is: {0:s}".format(modified_param))
         if modified_param == '':
             return parameter
         else:
@@ -222,7 +222,7 @@ class SettingsManager():
         :type filename: str
         """
 
-        self.log.info(u"Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings,
+        self.log.info("Copying default settings file to user directory. ({0:s}/{1:s})".format(self.user_settings,
                                                                                     filename))
 
         copyfile(self.get_file_location() + self.path_loc + filename,

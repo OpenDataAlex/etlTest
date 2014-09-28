@@ -3,9 +3,9 @@ __author__ = 'coty, ameadows'
 import logging
 import os
 
-from utilities.settings import etltest_config, console
-from utilities.settings_manager import SettingsManager
-from utilities.yaml_parser import YAMLParser
+from .utilities.settings import etltest_config, console
+from .utilities.settings_manager import SettingsManager
+from .utilities.yaml_parser import YAMLParser
 
 
 class CodeGenerator():
@@ -71,7 +71,7 @@ class CodeGenerator():
                          }
 
             if not os.path.isdir(self.file_path):
-                os.makedirs(self.file_path, 0755)
+                os.makedirs(self.file_path, 0o755)
                 self.log.debug("%s directory created." % self.file_path)
 
             os.chdir(self.file_path)
@@ -79,7 +79,7 @@ class CodeGenerator():
                 f.write(self.template.render(self.variables))
                 f.close()
 
-            self.log.info(u"{0:s} test file generated.".format(self.filename))
+            self.log.info("{0:s} test file generated.".format(self.filename))
 
 
     def jinja_setup(self):
@@ -87,7 +87,7 @@ class CodeGenerator():
         from time import strftime, gmtime
         template_dir = os.path.join(SettingsManager().get_file_location(), 'etltest/templates')
 
-        self.log.debug(u"Attempting to process templates from {0:s}".format(template_dir))
+        self.log.debug("Attempting to process templates from {0:s}".format(template_dir))
 
         self.jinja_env = Environment(loader=FileSystemLoader(template_dir),
                                      trim_blocks=True, lstrip_blocks=True)

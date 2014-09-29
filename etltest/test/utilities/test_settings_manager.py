@@ -109,9 +109,9 @@ class SettingsManagerTests(unittest.TestCase):
         Testing to ensure that the tool configuration settings match the tool configuration file.
         """
         given_result = list(SettingsManager().get_tools())
-        expected_result = [{'PDI': {'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/', 'script_types': [{'script':
-                            'kitchen.sh', 'type': 'job'}, {'script': 'pan.sh', 'type': 'trans'}], 'port': None,
-                            'password': None, 'private_key': '~/.ssh/id_rsa', 'process_param': '/file:',
+        expected_result = [{'PDI': {'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/', 'script_types':
+                            [{'script': 'kitchen.sh', 'type': 'job'}, {'script': 'pan.sh', 'type': 'trans'}],
+                            'port': None, 'password': None, 'private_key': '~/.ssh/id_rsa', 'process_param': '/file:',
                             'user_name': None, 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d',
                             'tool_path': '${TOOL_PATH}', 'params': '/level: Detailed'}}]
 

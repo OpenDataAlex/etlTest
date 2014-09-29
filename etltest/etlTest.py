@@ -30,21 +30,13 @@ def create_parser():
                         help='Run app as tests.  Does not persist the generated or executed code.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.1')
 
-    # subparsers = parser.add_subparsers(title="Reference Data Handler",
-    #                                    help="Import and synchronize reference data sets",
-    #                                    dest="reference_handler")
-    # subparsers.required = False
-
-    return parser
-
-
-def create_parser_ref():
+    subparsers = parser.add_subparsers(title="Reference Data Handler",
+                                       help="Import and synchronize reference data sets",
+                                       dest="reference_handler")
+    subparsers.required = False
 
     # Create parser for handling reference data for tests.
-    parser_ref = argparse.ArgumentParser(
-        description='Reference data handler for etlTest.',
-        epilog='etlTest -s yourSource -t yourSourceTable -c yourTableIdentifyingColumn -i'
-    )
+    parser_ref = subparsers.add_parser('ref', help="Import and synchronize reference data sets")
     parser_ref.add_argument('-s', '--source', nargs='?', type=str, dest='source',
                             help='Name of the source from the connections.cfg file')
     parser_ref.add_argument('-t', '--table', nargs='?', type=str, dest='table',
@@ -56,8 +48,7 @@ def create_parser_ref():
     parser_ref.add_argument('-r', '--refresh', nargs='?', type=str, choices=['ours', 'theirs'], dest='refresh_data',
                             help='Refreshes the stored reference data.  If ours, we will keep our data and refresh the '
                                  'source.  If theirs, we will drop our data and refresh from the source.')
-
-    return parser_ref
+    return parser
 
 
 def main():
@@ -73,16 +64,13 @@ def main():
         4) Handle reference data from sources/targets that needs to be kept in sync
     """
     parser = create_parser()
-    parser_ref = create_parser_ref()
-    args, extra = parser.parse_known_args()
-    ref_args, ref_extra = parser_ref.parse_known_args()
+    args = parser.parse_known_args()
 
     # no arguments, print usage
     if len(sys.argv) < 2:
         parser.print_help()
-        parser_ref.print_help()
 
-    if 'ref' in extra:
+
         # We require a source connection to work with.
         if ref_args.source is None:
             parser_ref.error("A source is required to work with reference data.  Please provide an existing data source.")

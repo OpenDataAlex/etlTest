@@ -31,6 +31,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'appdirs==1.4.0',
+        'configparser==3.5.0b1',
         'docutils==0.12',
         'ecdsa==0.11',
         'Jinja2==2.7.3',

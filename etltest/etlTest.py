@@ -26,7 +26,7 @@ def create_parser():
     parser.add_argument('-f', '--infile', nargs='?', type=str, dest='in_file', help='Specify the input file')
     parser.add_argument('-d', '--indir', nargs='?', type=str, dest='in_dir', help='Specify the input directory')
     parser.add_argument('-o', '--outdir', nargs='?', type=str, dest='out_dir', help='Specify the output directory')
-    parser.add_argument('-g', '--gen', dest='gen_code', default=False, action='store_true',
+    parser.add_argument('-g', '--gen', nargs='?', type='str', choices=['all', 'unit', 'suite'], dest='gen_code', default='all',
                         help='Generate new test code')
     parser.add_argument('-e', '--exec', dest='exec_code', default=False, action='store_true',
                         help='Execute test code')
@@ -125,11 +125,11 @@ def main():
 
             if args.in_file:
                 print(u"Attempting to process: {0:s}".format(args.in_file))
-                CodeGenerator(in_file=args.in_file, out_dir=out_dir).generate_test()
+                CodeGenerator(in_file=args.in_file, out_dir=out_dir).generate_tests(args.gen_code)
 
             if args.in_dir:
                 print(u"Attempting to process: {0:s}".format(args.in_dir))
-                CodeGenerator(in_dir=args.in_dir, out_dir=out_dir).generate_test()
+                CodeGenerator(in_dir=args.in_dir, out_dir=out_dir).generate_tests(args.gen_code)
 
             # TODO: Decide if there should be a way to check if generated code should be updated or not.
             # TODO: Fully enable test run capability.

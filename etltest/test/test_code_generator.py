@@ -27,7 +27,7 @@ class CodeGeneratorTest(unittest.TestCase):
         """
         Testing that we can generate a good PyUnit test file from a single yaml test file.
         """
-        CodeGenerator(in_file=self.test_file).generate_test()
+        CodeGenerator(in_file=self.test_file).generate_test('unit')
         # Testing the in_file option of code_generator
         sample_file = os.path.join(self.main_path, 'etltest/samples/output/DataMart/UsersDim.py')
         output_file = os.path.join(self.out_dir, 'DataMart/UsersDim.py')
@@ -46,7 +46,7 @@ class CodeGeneratorTest(unittest.TestCase):
         Testing that we can generate good PyUnit test files from a directory of yaml test files.
         """
         # Testing the in_dir option of code_generator.
-        CodeGenerator(in_dir=self.test_dir).generate_test()
+        CodeGenerator(in_dir=self.test_dir).generate_test('unit')
         sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
         output_dir = os.path.join(self.out_dir, 'DataMart')
 
@@ -55,8 +55,35 @@ class CodeGeneratorTest(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_get_template_unit(self):
+        """
+        Testing the get_template method to return the value for unit tests.
+        """
+        given_result = CodeGenerator().get_template('unit')
+        expected_result = 'test.jinja2'
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_get_template_suite(self):
+        """
+        Testing the get_template method to return the value for suite tests.
+        """
+        given_result = CodeGenerator().get_template('suite')
+        expected_result = 'suite.jinja2'
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_get_template_default(self):
+        """
+        Testing the get_template method to return the default value if no test types are passed.
+        """
+        given_result = CodeGenerator().get_template()
+        expected_result = 'test.jinja2'
+
+        self.assertEqual(given_result, expected_result)
+
     # def test_generate_code_no_option(self):
-    #     CodeGenerator(in_dir=self.test_dir).generate_test()
+    #     CodeGenerator(in_dir=self.test_dir).generate_test('unit')
     #     # Testing if neither in_file or in_dir are provided.
     #     sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
     #     output_dir = os.path.join(self.out_dir, 'DataMart')

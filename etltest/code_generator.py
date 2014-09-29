@@ -48,14 +48,36 @@ class CodeGenerator():
         if self.out_dir is None:
             self.out_dir = SettingsManager().find_setting('Locations', 'output')
 
-    def generate_test(self):
+    def generate_tests(self, generate_type):
+        """
+        Based on user input, generate tests based on the generation type.  The value 'all' will run through all other
+        test types and generate code accordingly.
+        :param generate_type: The type of tests that will be generated.  'All' will generate all other test types.
+        :type generate_type: str
+        """
+
+        if generate_type == 'unit':
+            self.generate_test('unit')
+        elif generate_type == 'suite':
+            self.generate_test('suite')
+        else:  # This is the 'all' case.  Default is to run all test types.
+            self.generate_test('unit')
+            self.generate_test('suite')
+
+    def generate_test(self, template_type):
         """
             This method generates test code based on the Jinja2 template and the test yaml file provided.
+        :param template_type:  The name of the template type that is to be used.
+        :type template_type: string
         """
         # TODO:  Continue working on YAML Validator.  Must be included either here or in the parser...
 
         self.jinja_setup()
-        self.template = self.jinja_env.get_template("output/test.jinja2")
+        template_file = self.get_template(template_type)
+
+        self.log.info("Creating tests of type: {0:s}".format(template_type))
+
+        self.template = self.jinja_env.get_template("output/" + template_file)
 
         for group in self.test_list:
             self.test_group, self.tests = group.popitem()
@@ -86,6 +108,22 @@ class CodeGenerator():
                 f.close()
 
             self.log.info("{0:s} test file generated.".format(self.filename))
+
+    def get_template(self, template_type=None):
+        """
+        This method returns back the template file name based on the type of template needed.
+        :param template_type: The type of template required.
+        :type template_type: str
+        :return template_name str The name of the template file.
+        """
+        template_name = 'test.jinja2'  # Return the default value if no test types are passed.
+
+        if template_type == 'unit':
+            template_name = 'test.jinja2'
+        elif template_type == 'suite':
+            template_name = 'suite.jinja2'
+
+        return template_name
 
     def jinja_setup(self):
         """

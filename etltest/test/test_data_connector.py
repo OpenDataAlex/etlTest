@@ -1,3 +1,7 @@
+"""
+Testing the DataConnector module.
+"""
+
 __author__ = 'ameadows'
 
 import unittest
@@ -21,30 +25,38 @@ class DataConnectorTests(unittest.TestCase):
         DataConnector(self.source).truncate_data(self.table)
 
     def test_bad_connection(self):
-        #Testing to see if a non existent connection will fail gracefully.
+        """
+        Testing to see if a non existent connection will fail gracefully.
+        """
         records = [1, 2]
 
-        with self.assertRaises(KeyError) as raises:
+        with self.assertRaises(KeyError):
             DataConnector("BadConnection").generate_data(self.table, records)
 
     def test_generate_data_all(self):
-        #Testing to see if the full data set is generated.
+        """
+        Testing to see if the full data set is generated.
+        """
         given_result = DataConnector(self.source).generate_data(self.table)
         expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
-                            'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah',
-                            'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
-                            'birthday': datetime.date(2000, 2, 2), 'is_active': 1},{'first_name': 'Frank',
-                            'last_name': 'Williams', 'user_id': 3, 'is_active': 0, 'zipcode': 56789,
-                            'birthday': datetime.date(1972, 3, 3)},{'first_name': 'Thomas', 'last_name': 'Stedding',
+                            'birthday': datetime.date(2000, 1, 4), 'is_active': 0},
+                           {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
+                            'birthday': datetime.date(2000, 2, 2), 'is_active': 1},
+                           {'first_name': 'Frank', 'last_name': 'Williams', 'user_id': 3, 'is_active': 0,
+                            'zipcode': 56789, 'birthday': datetime.date(1972, 3, 3)},
+                           {'first_name': 'Thomas', 'last_name': 'Stedding',
                             'user_id': 4, 'is_active': 1, 'zipcode': 44444, 'birthday': datetime.date(1923, 1, 4)}]
 
         self.assertCountEqual(given_result, expected_result)
+
     def test_generate_data_subset(self):
-        #Testing to see if a subset of data is generated and not the full data set.
+        """
+        Testing to see if a subset of data is generated and not the full data set.
+        """
         given_result = DataConnector(self.source).generate_data(self.table, self.records)
         expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
-                            'birthday': datetime.date(2000, 1, 4), 'is_active': 0}, {'first_name': 'Sarah',
-                            'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
+                            'birthday': datetime.date(2000, 1, 4), 'is_active': 0},
+                           {'first_name': 'Sarah', 'last_name': 'Jenkins', 'user_id': 2, 'zipcode': 12345,
                             'birthday': datetime.date(2000, 2, 2), 'is_active': 1}]
 
         self.assertEqual(given_result, expected_result)

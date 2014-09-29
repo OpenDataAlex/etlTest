@@ -23,11 +23,11 @@
 #         SettingsManager().first_run_test()
 #
 #         self.in_file = SettingsManager().system_variable_replace("${"
-#                                                                  "ETL_TEST_ROOT}/etltest/samples/test/dataMart/users_dim.yml")
+#                                                         "ETL_TEST_ROOT}/etltest/samples/test/dataMart/users_dim.yml")
 #         self.in_dir = SettingsManager().system_variable_replace("${ETL_TEST_ROOT}/etltest/samples/test/dataMart/")
 #
 #         self.expected_output = SettingsManager().system_variable_replace("${"
-#                                                                          "ETL_TEST_ROOT}/etltest/samples/output/DataMart/UsersDim.py")
+#                                               "ETL_TEST_ROOT}/etltest/samples/output/DataMart/UsersDim.py")
 #         self.process = os.path.join(SettingsManager().get_file_location(), "etltest/etlTest.py")
 #
 #     def test_in_file_generation_output(self):

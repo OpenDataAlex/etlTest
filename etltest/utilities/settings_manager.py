@@ -1,10 +1,12 @@
-__author__ = 'ameadows'
 
 """
 settingsManager handles building the standard directories used by etlTest,
 copies the default settings files, and building the array that stores all the parameters
 from the settings files.
 """
+__author__ = 'ameadows'
+
+
 import logging
 from configparser import ConfigParser
 from shutil import copyfile, copy2
@@ -15,7 +17,9 @@ import appdirs
 
 
 class SettingsManager():
-
+    """
+    Settings Manager is intended to handle settings (both setting and retrieval).
+    """
     def __init__(self):
         """
             This method initializes the log for SettingsManager as well as sets some static variables for file paths.
@@ -140,7 +144,12 @@ class SettingsManager():
         return YAMLParser().read_file(os.path.join(self.user_settings, self.tools_file))
 
     def get_tool(self, tool_name):
-
+        """
+        Gets a single tool from the tools configuration file.
+        :param tool_name: The name of a tool configuration from the tools config file.
+        :type tool_name: str
+        :return: tool settings as an array
+        """
         tools = self.get_tools()
 
         while True:
@@ -167,7 +176,10 @@ class SettingsManager():
 
     @staticmethod
     def get_file_location():
-
+        """
+        A static method that returns the trunk directory for where etlTest is installed.
+        :return: file_path as string
+        """
         file_path = os.path.dirname(os.path.abspath(__file__))
         file_path = re.sub('/etltest/utilities', '', file_path)
 

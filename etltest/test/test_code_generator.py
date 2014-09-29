@@ -1,3 +1,6 @@
+"""
+These are the tests for the Code Generator Module.
+"""
 __author__ = 'ameadows'
 
 import unittest
@@ -8,7 +11,10 @@ from etltest.code_generator import CodeGenerator
 
 
 class CodeGeneratorTest(unittest.TestCase):
-
+    """
+        We start our tests by ensuring the environment is set up correctly using the first_run_rest.  We then define
+        an output directory, and the location of our test files.
+    """
     def setUp(self):
         SettingsManager().first_run_test()
         self.out_dir = SettingsManager().find_setting('Locations', 'output')
@@ -18,6 +24,9 @@ class CodeGeneratorTest(unittest.TestCase):
 
 
     def test_generate_single_test_file(self):
+        """
+        Testing that we can generate a good PyUnit test file from a single yaml test file.
+        """
         CodeGenerator(in_file=self.test_file).generate_test()
         # Testing the in_file option of code_generator
         sample_file = os.path.join(self.main_path, 'etltest/samples/output/DataMart/UsersDim.py')
@@ -33,6 +42,9 @@ class CodeGeneratorTest(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_generate_multiple_test_file(self):
+        """
+        Testing that we can generate good PyUnit test files from a directory of yaml test files.
+        """
         # Testing the in_dir option of code_generator.
         CodeGenerator(in_dir=self.test_dir).generate_test()
         sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')

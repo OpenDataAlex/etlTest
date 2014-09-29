@@ -1,3 +1,7 @@
+"""
+This is the main class for etlTest.  All other code is kicked off from here.
+"""
+
 #!/usr/bin/python
 __author__ = 'coty, ameadows'
 

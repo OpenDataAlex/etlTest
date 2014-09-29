@@ -1,7 +1,8 @@
-s__author__ = 'coty, ameadows'
 """
     This file contains all the logic to connect to data sources using SQLAlchemy.
 """
+__author__ = 'coty, ameadows'
+
 
 import logging
 import sys
@@ -14,6 +15,9 @@ from etltest.utilities.yaml_parser import YAMLParser
 
 
 class DataConnector():
+    """
+    The DataConnector module is the location to handle data access and manipulation to and from a data source/target.
+    """
     #TODO:  Need to determine if a data validation tool is required.  For instance, does record set match the table
     # structure?
     def __init__(self, conn_name):

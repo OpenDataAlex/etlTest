@@ -1,7 +1,8 @@
-__author__ = 'coty'
 """
     This file contains all the logic necessary to execute the unit test code based on the parameters passed by the user.
 """
+__author__ = 'coty'
+
 
 import logging
 
@@ -9,6 +10,9 @@ from .utilities.settings import etltest_config, console
 
 
 class CodeExecutor():
+    """
+    The Code Executor runs the unittest code created and passes results back to the user.
+    """
 
     def __init__(self, out_dir):
         """

@@ -13,7 +13,9 @@ from etltest.utilities.settings_manager import SettingsManager
 
 
 class YamlParserTests(unittest.TestCase):
-
+    """
+    The main class for the the YamlParser test suite.
+    """
     def setUp(self):
         SettingsManager().first_run_test()
         self.tmp_path = SettingsManager().get_file_location()

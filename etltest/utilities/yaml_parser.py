@@ -1,3 +1,6 @@
+"""
+YAMLParser is the central location for all logic dealing with yaml files.
+"""
 __author__ = 'coty, ameadows'
 
 import logging
@@ -9,12 +12,14 @@ from etltest.utilities.settings_manager import SettingsManager
 
 
 class YAMLParser():
-
+    """
+    YAMLParser reads in yaml files and turns them into JSON arrays.
+    """
     def __init__(self, in_file=None, in_dir=None):
-        from .settings import etltest_config, console
         """
             Initialization of method to setup the logging.
         """
+        from .settings import etltest_config, console
 
         self.log = logging.getLogger(name="YAMLParser")
         self.log.setLevel(etltest_config['logging_level'])

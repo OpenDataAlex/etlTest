@@ -1,3 +1,6 @@
+"""
+CodeGenerator handles the creation of code based on Jinja2 templates.
+"""
 __author__ = 'coty, ameadows'
 
 import logging
@@ -9,6 +12,9 @@ from .utilities.yaml_parser import YAMLParser
 
 
 class CodeGenerator():
+    """
+    This class reads in yaml files and processes them into executable Python code.
+    """
 
     def __init__(self, in_file=None, in_dir=None, out_dir=None, test_run=None):
         """
@@ -81,8 +87,11 @@ class CodeGenerator():
 
             self.log.info("{0:s} test file generated.".format(self.filename))
 
-
     def jinja_setup(self):
+        """
+        Creates the header and setup for Jinja to process the yaml data.
+        """
+
         from jinja2 import Environment, FileSystemLoader
 
         template_dir = os.path.join(SettingsManager().get_file_location(), 'etltest/templates')

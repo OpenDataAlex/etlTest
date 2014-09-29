@@ -12,7 +12,10 @@ from etltest.utilities.settings_manager import SettingsManager
 
 
 class DataConnectorTests(unittest.TestCase):
-
+    """
+    We first make sure that the environment is set up by using the first_run_test method.  We then set some parameters
+    up to properly test for a given source and table.
+    """
     def setUp(self):
 
         SettingsManager().first_run_test()
@@ -62,7 +65,9 @@ class DataConnectorTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_generate_data_subset_non_existent_records(self):
-        # Testing to see if a record doesn't exist, the data generator will only return valid records.
+        """
+        Testing to see if a record doesn't exist, the data generator will only return valid records.
+        """
         records = [1, 2, 20]
         given_result = DataConnector(self.source).generate_data(self.table, records)
         expected_result = [{'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': 55555,
@@ -73,7 +78,9 @@ class DataConnectorTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_insert_data(self):
-        # Testing to see if the data set will be inserted correctly.
+        """
+        Testing to see if the data set will be inserted correctly.
+        """
         DataConnector(self.source).insert_data(self.table, self.records)
         given_result = DataConnector(self.source).select_data("all_columns", self.table, "user_id IN (1, 2)")
         expected_result = {'first_name': 'Bob', 'last_name': 'Richards', 'user_id': 1, 'zipcode': '55555'
@@ -83,7 +90,9 @@ class DataConnectorTests(unittest.TestCase):
         self.assertCountEqual(given_result, expected_result)
 
     def test_truncate_data(self):
-        # Testing to see if the data set will be removed completely.
+        """
+        Testing to see if the data set will be removed completely.
+        """
         DataConnector(self.source).insert_data(self.table, self.records)
         DataConnector(self.source).truncate_data(self.table)
         given_result = DataConnector(self.source).select_data("all_columns", self.table)
@@ -92,7 +101,9 @@ class DataConnectorTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_select_all_data(self):
-        # Testing to see if the full data set will be selected correctly.
+        """
+        Testing to see if the full data set will be selected correctly.
+        """
         records = [1, 2]
         DataConnector(self.source).insert_data(self.table, records)
         given_result = DataConnector(self.source).select_data("all_columns", self.table, "user_id = 2")
@@ -108,7 +119,9 @@ class DataConnectorTests(unittest.TestCase):
     #     self.assertEquals(given_result, expected_result)
 
     def test_select_multiple_column_data(self):
-        # Testing to see if the data set will be selected correctly.
+        """
+        Testing to see if the data set will be selected correctly.
+        """
         DataConnector(self.source).insert_data(self.table, self.records)
         given_result = DataConnector(self.source).select_data("first_name, last_name", self.table, "user_id = 1")
         expected_result = [{'first_name': 'Bob', 'last_name': 'Richards'}]
@@ -116,7 +129,9 @@ class DataConnectorTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_select_single_column_data(self):
-        # Testing to see if the data set will be selected correctly.
+        """
+        Testing to see if the data set will be selected correctly.
+        """
         DataConnector(self.source).insert_data(self.table, self.records)
         given_result = DataConnector(self.source).select_data("first_name", self.table, "user_id = 1")
         expected_result = [{'first_name': 'Bob'}]
@@ -124,7 +139,9 @@ class DataConnectorTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     def test_select_null_column_data(self):
-        # Testing to see if the data set that has a null in it will be selected correctly.
+        """
+        Testing to see if the data set that has a null in it will be selected correctly.
+        """
         records = [1, 4]
         DataConnector(self.source).insert_data(self.table, records)
         given_result = DataConnector(self.source).select_data("first_name", self.table, "user_id IN (1, 4)")

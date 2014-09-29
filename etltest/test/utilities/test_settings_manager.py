@@ -1,3 +1,7 @@
+"""
+Testing the SettingsManager module.
+"""
+
 __author__ = 'ameadows'
 
 import unittest
@@ -13,7 +17,9 @@ from etltest.utilities.settings_manager import SettingsManager
 
 
 class SettingsManagerTests(unittest.TestCase):
-
+    """
+    Module for testing SettingsManager.
+    """
     def setUp(self):
         """
             Setting up tests by running the first run setup and setting specific variables

@@ -1,10 +1,12 @@
 __author__ = 'coty, ameadows'
 
 import logging
-import yaml
 import os
 
+import yaml
+
 from etltest.utilities.settings_manager import SettingsManager
+
 
 class YAMLParser():
 

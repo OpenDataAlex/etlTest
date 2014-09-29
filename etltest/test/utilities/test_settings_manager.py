@@ -3,9 +3,9 @@ __author__ = 'ameadows'
 import unittest
 from collections import OrderedDict
 import inspect
-
 import re
 import os
+
 import appdirs
 
 from etltest.utilities.settings import etltest_config
@@ -110,7 +110,10 @@ class SettingsManagerTests(unittest.TestCase):
         """
         given_result = list(SettingsManager().get_tools())
         expected_result = [{'PDI': {'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl/', 'script_types': [{'script':
-                                                                                                                'kitchen.sh', 'type': 'job'}, {'script': 'pan.sh', 'type': 'trans'}], 'port': None, 'password': None, 'private_key': '~/.ssh/id_rsa', 'process_param': '/file:', 'user_name': None, 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d', 'tool_path': '${TOOL_PATH}', 'params': '/level: Detailed'}}]
+                            'kitchen.sh', 'type': 'job'}, {'script': 'pan.sh', 'type': 'trans'}], 'port': None,
+                            'password': None, 'private_key': '~/.ssh/id_rsa', 'process_param': '/file:',
+                            'user_name': None, 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d',
+                            'tool_path': '${TOOL_PATH}', 'params': '/level: Detailed'}}]
 
         self.assertCountEqual(given_result, expected_result)
 

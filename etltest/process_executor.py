@@ -5,8 +5,11 @@ __author__ = 'ameadows'
 """
 import logging
 import os
+
 import paramiko
+
 from etltest.utilities.settings_manager import SettingsManager
+
 
 class ProcessExecutor():
 
@@ -89,23 +92,23 @@ class ProcessExecutor():
             if type['type'] == process_type:
                 tool_script = type['script']
 
-        self.log.info("Using {0:s} with {1:s}".format(tool_path, tool_script))
+            self.log.info("Using {0:s} with {1:s}".format(tool_path, tool_script))
 
-        tool_path_script = os.path.join(tool_path, tool_script)
+            tool_path_script = os.path.join(tool_path, tool_script)
 
-        if self.tool['host_name'] not in self.local_names:
-            ssh = self.create_secure_shell()
+            if self.tool['host_name'] not in self.local_names:
+                ssh = self.create_secure_shell()
 
-            self.log.debug("Attempting to change directory to {0:s}".format(tool_path))
-            stdin, stdout, stderr = ssh.exec_command("cd " + tool_path)
+                self.log.debug("Attempting to change directory to {0:s}".format(tool_path))
+                stdin, stdout, stderr = ssh.exec_command("cd " + tool_path)
 
-            self.read_output(stdout, stderr)
+                self.read_output(stdout, stderr)
 
-            stdin, stdout, stderr = ssh.exec_command(tool_script + " " + process)
+                stdin, stdout, stderr = ssh.exec_command(tool_script + " " + process)
 
-            self.read_output(stdout, stderr)
-            ssh.close()
-        else:
+                self.read_output(stdout, stderr)
+                ssh.close()
+            else:
 
-            return call([tool_path_script, process])
+                return call([tool_path_script, process])
 

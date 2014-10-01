@@ -34,24 +34,22 @@ def create_parser():
                         help='Run app as tests.  Does not persist the generated or executed code.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.1')
 
-    subparsers = parser.add_subparsers(title="Reference Data Handler",
-                                       help="Import and synchronize reference data sets",
-                                       dest="reference_handler")
+    subparsers = parser.add_subparsers(help="Sub-command help.")
     subparsers.required = False
 
     # Create parser for handling reference data for tests.
-    parser_ref = subparsers.add_parser('ref', help="Import and synchronize reference data sets")
-    parser_ref.add_argument('-s', '--source', nargs='?', type=str, dest='source',
-                            help='Name of the source from the connections.cfg file')
-    parser_ref.add_argument('-t', '--table', nargs='?', type=str, dest='table',
-                            help='Name of the table from the named source')
-    parser_ref.add_argument('-c', '--column', nargs='?', type=str, dest='column',
-                            help='Name of the key column from the named table.  Used to identify records.')
-    parser_ref.add_argument('-i', '--import', dest='import_data', default=False, action='store_true',
-                            help='Import data from the named source table.')
-    parser_ref.add_argument('-r', '--refresh', nargs='?', type=str, choices=['ours', 'theirs'], dest='refresh_data',
-                            help='Refreshes the stored reference data.  If ours, we will keep our data and refresh the '
-                                 'source.  If theirs, we will drop our data and refresh from the source.')
+    parser = subparsers.add_parser('ref', help="Reference Data Handler")
+    parser.add_argument('-s', '--source', nargs='?', type=str, dest='source',
+                        help='Name of the source from the connections.cfg file')
+    parser.add_argument('-t', '--table', nargs='?', type=str, dest='table',
+                        help='Name of the table from the named source')
+    parser.add_argument('-c', '--column', nargs='?', type=str, dest='column',
+                        help='Name of the key column from the named table.  Used to identify records.')
+    parser.add_argument('-i', '--import', dest='import_data', default=False, action='store_true',
+                        help='Import data from the named source table.')
+    parser.add_argument('-r', '--refresh', nargs='?', type=str, choices=['ours', 'theirs'], dest='refresh_data',
+                        help='Refreshes the stored reference data.  If ours, we will keep our data and refresh the '
+                             'source.  If theirs, we will drop our data and refresh from the source.')
     return parser
 
 
@@ -68,46 +66,49 @@ def main():
         4) Handle reference data from sources/targets that needs to be kept in sync
     """
     parser = create_parser()
-    args = parser.parse_known_args()
+    args = parser.parse_args()
 
     # no arguments, print usage
     if len(sys.argv) < 2:
         parser.print_help()
 
-
+    if args.ref:
         # We require a source connection to work with.
-        if ref_args.source is None:
-            parser_ref.error("A source is required to work with reference data.  Please provide an existing data source.")
+        if args.source is None:
+            parser.error("A source is required to work with reference data.  "
+                         "Please provide an existing data source.")
 
         # We also need a table name to pull data from.
-        if ref_args.table is None:
-            parser_ref.error("A source table is required to work with reference data.  "
+        if args.table is None:
+            parser.error("A source table is required to work with reference data.  "
                          "Please provide an existing reference table.")
 
         # It's okay if a column is not specified for identifying the records.  We'll number them.
 
         # The primary function of the reference handler is to import data from a source and store it as a YAML file.
-        if ref_args.import_data or ref_args.refresh_data == 'theirs':
+        if args.import_data or args.refresh_data == 'theirs':
             # First we need to build our data set.  Pulling the data.
-            print(u"Reading data from {0:s}.{1:s}".format(ref_args.source, ref_args.table))
+            print(u"Reading data from {0:s}.{1:s}".format(args.source, args.table))
 
-            data_set = DataConnector(ref_args.source).select_data("all_columns", ref_args.table)
+            data_set = DataConnector(args.source).select_data("all_columns", args.table)
 
             # Now we need to process the data and turn it into a YAML file.
 
-            print(u"Generating YAML file {0:s}/{1:s}.yml using {2:s} as the record identifier.".format(ref_args.source, ref_args.table, ref_args.column))
-            YAMLParser().write_file(data_set, ref_args.source, ref_args.table, ref_args.column)
+            print(u"Generating YAML file {0:s}/{1:s}.yml using {2:s} as the record identifier.".format(args.source, 
+                                                                                                       args.table, 
+                                                                                                       args.column))
+            YAMLParser().write_file(data_set, args.source, args.table, args.column)
 
-        if ref_args.refresh_data == 'ours':
+        if args.refresh_data == 'ours':
             # We need to take our reference data file and try to load it into the data target.
 
             # First we need to truncate the table.
-            print(u"Truncate table {0:s}.{1:s}".format(ref_args.source, ref_args.table))
-            DataConnector(ref_args.source).truncate_data(ref_args.table)
+            print(u"Truncate table {0:s}.{1:s}".format(args.source, args.table))
+            DataConnector(args.source).truncate_data(args.table)
 
             # And now we can load all our data from the reference data file.
             print(u"Loading data from reference data file.")
-            DataConnector(ref_args.source).insert_data(ref_args.table)
+            DataConnector(args.source).insert_data(args.table)
 
     else:
         # validating args

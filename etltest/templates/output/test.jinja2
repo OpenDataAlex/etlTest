@@ -25,7 +25,8 @@ from etltest.utilities.settings_manager import SettingsManager
 
 class {{ testGroup }}Test(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
           # Queries for loading test data.
       {% for set in tests.dataset %}
             DataConnector("{{ set.source }}").insert_data("{{ set.table }}", {{ set.records }})
@@ -40,7 +41,8 @@ class {{ testGroup }}Test(unittest.TestCase):
       {% endfor %}
       {% endfor %}
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
        # Clean up testing environment.
 
       {% for set in tests.dataset %}

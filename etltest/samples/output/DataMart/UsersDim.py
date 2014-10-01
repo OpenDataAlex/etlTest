@@ -23,7 +23,8 @@ from etltest.utilities.settings_manager import SettingsManager
 
 class DataMartUsersDimTest(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
           # Queries for loading test data.
             DataConnector("etlUnitTest").insert_data("users", [1, 2])
 
@@ -32,7 +33,8 @@ class DataMartUsersDimTest(unittest.TestCase):
             ProcessExecutor("PDI").execute_process("job",
             path.join(PDI_code_path, "data_mart/user_dim_jb.kjb"))
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
        # Clean up testing environment.
 
         DataConnector("etlUnitTest").truncate_data("users")

@@ -22,6 +22,37 @@ class CodeGeneratorTest(unittest.TestCase):
         self.test_dir = self.main_path + '/etltest/samples/test/'
         self.test_file = self.test_dir + '/dataMart/users_dim.yml'
 
+    def test_generate_unit_test_file(self):
+        """
+        Testing that a unit test file is generated from a single yaml test file.
+        """
+        CodeGenerator(in_file=self.test_file).generate_test('unit')
+        sample_file = os.path.join(self.main_path, 'etltest/samples/output/DataMart/UsersDim.py')
+        output_file = os.path.join(self.out_dir, 'DataMart/UsersDim.py')
+
+        with open(output_file, 'r') as f:
+            expected_result = f.read()
+
+        with open(sample_file, 'r') as f:
+            given_result = f.read()
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_generate_suite_test_file(self):
+        """
+        Testing that a suite test file is generated from a single yaml test file.
+        """
+        CodeGenerator(in_file=self.test_file).generate_test('suite')
+        sample_file = os.path.join(self.main_path, 'etltest/samples/output/DataMart/UsersDim.py')
+        output_file = os.path.join(self.out_dir, 'DataMart/UsersDim.py')
+
+        with open(output_file, 'r') as f:
+            expected_result = f.read()
+
+        with open(sample_file, 'r') as f:
+            given_result = f.read()
+
+        self.assertEqual(given_result, expected_result)
 
     def test_generate_single_test_file(self):
         """

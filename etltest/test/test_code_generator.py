@@ -113,6 +113,46 @@ class CodeGeneratorTest(unittest.TestCase):
 
         self.assertEqual(given_result, expected_result)
 
+    def test_generate_tests_unit(self):
+        """
+        Testing that if we request unit tests, we get unit tests.
+        """
+        CodeGenerator(in_dir=self.test_dir).generate_tests('unit')
+        sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
+        output_dir = os.path.join(self.out_dir, 'DataMart')
+
+        given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
+        expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
+
+        self.assertEqual(given_result, expected_result)
+
+    #Commenting out because the test will fail until the template has been created.
+    # def test_generate_tests_suite(self):
+    #     """
+    #     Testing that if we request suite tests, we get unit tests.
+    #     """
+    #     CodeGenerator(in_dir=self.test_dir).generate_tests('suite')
+    #     sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
+    #     output_dir = os.path.join(self.out_dir, 'DataMart')
+    #
+    #     given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
+    #     expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
+    #
+    #     self.assertEqual(given_result, expected_result)
+
+    # def test_generate_tests_all(self):
+    #     """
+    #     Testing that if we request unit tests, we get unit tests.
+    #     """
+    #     CodeGenerator(in_dir=self.test_dir).generate_tests('suite')
+    #     sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
+    #     output_dir = os.path.join(self.out_dir, 'DataMart')
+    #
+    #     given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
+    #     expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
+    #
+    #     self.assertEqual(given_result, expected_result)
+
     # def test_generate_code_no_option(self):
     #     CodeGenerator(in_dir=self.test_dir).generate_test('unit')
     #     # Testing if neither in_file or in_dir are provided.

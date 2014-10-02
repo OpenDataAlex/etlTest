@@ -85,5 +85,10 @@ class ProcessExecutorTests(unittest.TestCase):
         self.assertEqual(given_result, expected_result)
 
     # def test_process_remote_execution_no_key(self):
+    #     """
+    #     Testing SSH capability without requiring a key for tunneling.
+    #     """
     #
+    #     ProcessExecutor('PDI-NoKey').create_secure_shell()
+
     # def test_process_remote_execution_key(self):

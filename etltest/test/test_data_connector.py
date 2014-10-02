@@ -114,7 +114,7 @@ class DataConnectorTests(unittest.TestCase):
         """
         Testing that when all columns are selected, None value is passed.
         """
-        given_result = DataConnector(self.source).get_table(self.table, "all_columns")
+        given_result = DataConnector(self.source).get_table(self.table, select_stmt="all_columns")
         expected_result = DataConnector(self.source).get_table(self.table)
 
         self.assertCountEqual(given_result.columns._data, expected_result.columns._data)

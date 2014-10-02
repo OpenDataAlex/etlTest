@@ -14,3 +14,20 @@ PDI:
       script:  kitchen.sh
     - type: trans
       script:  pan.sh
+
+PDI-NoKey:
+  host_name:  localhost
+  port:
+  user_name:
+  password:
+  private_key:
+  tool_path:  ${TOOL_PATH}
+  code_path:  ${ETL_TEST_ROOT}/etltest/samples/etl
+  process_param:  "/file:"
+  params:  "/level: Detailed"
+  logging_filename_format:  ${name}_%Y-%m-%d
+  script_types:
+    - type: job
+      script:  kitchen.sh
+    - type: trans
+      script:  pan.sh

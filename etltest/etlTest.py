@@ -32,7 +32,7 @@ def create_parser():
                         help='Execute test code')
     parser.add_argument('-t', '--test', dest='test_run', default=False, action='store_true',
                         help='Run app as tests.  Does not persist the generated or executed code.')
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.1')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1.5 - Beta')
 
     # subparsers = parser.add_subparsers(title="Sub Processes",
     #                                    description="Sub-processes for etlTest",

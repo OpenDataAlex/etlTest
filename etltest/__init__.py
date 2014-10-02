@@ -3,4 +3,4 @@ This file contains all the application code-specific variables for setup.py and 
 """
 
 __author__ = 'ameadows'
-__version__ = '0.1.4'
+__version__ = '0.1.5'

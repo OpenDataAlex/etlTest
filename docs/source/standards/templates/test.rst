@@ -40,7 +40,8 @@ These are all of the requirements for the tests - both external (from other pack
 Using the name of the testGroup (from the yaml test file) as part of the name of the test class.
 ::
 
-        def setUp(self):
+    @classmethod
+        def setUpClass(cls):
               # Queries for loading test data.
           {% for set in tests.dataset %}
                 DataConnector("{{ set.source }}").insert_data("{{ set.table }}", {{ set.records }})
@@ -56,17 +57,18 @@ Using the name of the testGroup (from the yaml test file) as part of the name of
           {% endfor %}
 
 During the setup phase of the test the records that are used are inserted into the source database.  The ETL processes that are listed in the header are executed here.
-This is repeated for every test in this setup.
+This is only run once at the start of the run.
 ::
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
        # Clean up testing environment.
 
-          {% for set in tests.dataset %}
-            DataConnector("{{ set.source }}").truncate_data("{{ set.table }}")
-          {% endfor %}
+      {% for set in tests.dataset %}
+        DataConnector("{{ set.source }}").truncate_data("{{ set.table }}")
+      {% endfor %}
 During the teardown phase of the test, the tables that had records inserted are truncated (this is a current limitation that we are trying to find a work around for).
-The teardown phase is repeated at the end of every test in this setup.
+The teardown phase is only run once at the end of the run.
 ::
 
     {% for test in tests.tests %}

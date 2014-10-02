@@ -156,7 +156,7 @@ class SettingsManagerTests(unittest.TestCase):
         """
         given_result = SettingsManager().get_file_location()
         expected_result = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-        expected_result = re.sub('/etltest/test/utilities', '', expected_result)
+        expected_result = re.sub(os.path.join('etltest', 'test', 'utilities'), '', expected_result)
 
         self.assertEqual(given_result, expected_result)
 

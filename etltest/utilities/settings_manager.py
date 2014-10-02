@@ -181,7 +181,7 @@ class SettingsManager():
         :return: file_path as string
         """
         file_path = os.path.dirname(os.path.abspath(__file__))
-        file_path = re.sub('/etltest/utilities', '', file_path)
+        file_path = re.sub(os.path.join('etltest','utilities'), '', file_path)
 
         return file_path
 

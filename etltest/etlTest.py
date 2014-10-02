@@ -32,7 +32,7 @@ def create_parser():
                         help='Execute test code')
     parser.add_argument('-t', '--test', dest='test_run', default=False, action='store_true',
                         help='Run app as tests.  Does not persist the generated or executed code.')
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1.5 - Beta')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1.6 - Beta')
 
     # subparsers = parser.add_subparsers(title="Sub Processes",
     #                                    description="Sub-processes for etlTest",
@@ -43,7 +43,10 @@ def create_parser():
 
 
 def create_parser_ref():
-
+    """
+    Create argparser parser for reference data handling.
+    :return: parser_ref parser object
+    """
     # Create parser for handling reference data for tests.
     parser_ref = argparse.ArgumentParser(
         description='Reference data handler for etlTest.',

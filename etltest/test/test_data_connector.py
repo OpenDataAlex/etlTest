@@ -33,8 +33,7 @@ class DataConnectorTests(unittest.TestCase):
         """
         records = [1, 2]
 
-        with self.assertRaises(KeyError):
-            DataConnector("BadConnection").generate_data(self.table, records)
+        self.assertRaises(KeyError, lambda: DataConnector("BadConnection").generate_data(self.table, records))
 
     def test_generate_data_all(self):
         """

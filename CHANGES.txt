@@ -1,3 +1,4 @@
+v<0.1.6>, <2014-10-03> -- Addressed bug with file locations on other operating systems that Linux.  Working on other bugs.
 v<0.1.5>, <2014-10-02> -- Updated the template for unit test generation.
 v<0.1.4>, <2014-09-11> -- Removed another unnecessary package so that the install will work successfully in Windows.
 v<0.1.3>, <2014-09-10> -- Added reference data handling, importing and exporting.  Removed unused dependencies.  Bugfixes for working on Windows.

@@ -36,15 +36,20 @@ class CodeGenerator():
         self.test_dir = SettingsManager().find_setting('Locations', 'tests')
         self.data_dir = SettingsManager().find_setting('Locations', 'data')
 
-
+        #Read a single file
         if self.in_file is not None:
             self.test_list = YAMLParser().read_file(self.in_file)
+
+        #Unless it's a directory
         elif self.in_dir is not None:
             self.test_list = YAMLParser().read_dir(self.in_dir)
+
+        #But if nothing is passed, read everything in the test directory
         else:
             test_loc = SettingsManager().find_setting("Locations", "tests")
             self.test_list = YAMLParser().read_dir(test_loc)
 
+        #If the output directory is not specified, use the default.
         if self.out_dir is None:
             self.out_dir = SettingsManager().find_setting('Locations', 'output')
 
@@ -56,13 +61,13 @@ class CodeGenerator():
         :type generate_type: str
         """
 
-        if generate_type == 'unit':
-            self.generate_test('unit')
-        elif generate_type == 'suite':
-            self.generate_test('suite')
+        if generate_type == 'table':
+            self.generate_test('table')
+        elif generate_type == 'process':
+            self.generate_test('process')
         else:  # This is the 'all' case.  Default is to run all test types.
-            self.generate_test('unit')
-            self.generate_test('suite')
+            self.generate_test('table')
+            self.generate_test('process')
 
     def generate_test(self, template_type):
         """
@@ -77,8 +82,9 @@ class CodeGenerator():
 
         self.log.info("Creating tests of type: {0:s}".format(template_type))
 
-        self.template = self.jinja_env.get_template("output/" + template_file)
+        template = self.jinja_env.get_template("output/" + template_file)
 
+        #We must break out each test and generate the test file for it.
         for group in self.test_list:
             self.test_group, self.tests = group.popitem()
             self.file_path, self.filename = self.test_group.rsplit("\\", 1)      # Using the testGroup as the
@@ -93,10 +99,10 @@ class CodeGenerator():
             self.log.debug("File name: %s" % self.filename)
 
             self.variables = {
-                "header": self.header,
-                "tests": self.tests,
-                "testGroup": self.test_group
-                         }
+                                "header": self.header,
+                                "tests": self.tests,
+                                "testGroup": self.test_group
+                             }
 
             if not os.path.isdir(self.file_path):
                 os.makedirs(self.file_path, 0o755)
@@ -104,7 +110,7 @@ class CodeGenerator():
 
             os.chdir(self.file_path)
             with open(self.filename, 'w') as f:
-                f.write(self.template.render(self.variables))
+                f.write(template.render(self.variables))
                 f.close()
 
             self.log.info("{0:s} test file generated.".format(self.filename))
@@ -116,12 +122,12 @@ class CodeGenerator():
         :type template_type: str
         :return template_name str The name of the template file.
         """
-        template_name = 'test.jinja2'  # Return the default value if no test types are passed.
+        template_name = 'table.jinja2'  # Return the default value if no test types are passed.
 
-        if template_type == 'unit':
-            template_name = 'test.jinja2'
-        elif template_type == 'suite':
-            template_name = 'suite.jinja2'
+        if template_type == 'table':
+            template_name = 'table.jinja2'
+        elif template_type == 'process':
+            template_name = 'process.jinja2'
 
         return template_name
 

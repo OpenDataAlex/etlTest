@@ -90,8 +90,8 @@ setup(
         ('etltest/samples/test/dataMart', ['etltest/samples/test/dataMart/users_dim.yml']),
         ('etltest/templates/output', [
                                         'etltest/templates/output/fixture.jinja2',
-                                        'etltest/templates/output/suite.jinja2',
-                                        'etltest/templates/output/test.jinja2'
+                                        'etltest/templates/output/process.jinja2',
+                                        'etltest/templates/output/table.jinja2'
         ]),
         ('etltest/templates/settings', [
                                         'etltest/templates/settings/connections.cfg',

@@ -115,11 +115,20 @@ class SettingsManagerTests(unittest.TestCase):
         Testing to ensure that the tool configuration settings match the tool configuration file.
         """
         given_result = list(SettingsManager().get_tools())
-        expected_result = [{'PDI': {'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl', 'script_types':
-                            [{'script': 'kitchen.sh', 'type': 'job'}, {'script': 'pan.sh', 'type': 'trans'}],
-                            'port': None, 'password': None, 'private_key': '~/.ssh/id_rsa', 'process_param': '/file:',
-                            'user_name': None, 'host_name': 'localhost', 'logging_filename_format': '${name}_%Y-%m-%d',
-                            'tool_path': '${TOOL_PATH}', 'params': '/level: Detailed'}}]
+        expected_result = [{'PDI-NoKey': {'process_param': '/file:', 'host_name': 'localhost',
+                                          'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl', 'port': None,
+                                          'params': '/level: Detailed', 'private_key': None, 'password': None,
+                                          'user_name': None, 'tool_path': '${TOOL_PATH}',
+                                          'logging_filename_format': '${name}_%Y-%m-%d',
+                                          'script_types': [{'script': 'kitchen.sh', 'type': 'job'},
+                                                           {'script': 'pan.sh', 'type': 'trans'}]},
+                            'PDI': {'process_param': '/file:', 'host_name': 'localhost',
+                                    'code_path': '${ETL_TEST_ROOT}/etltest/samples/etl',
+                                    'port': None, 'params': '/level: Detailed', 'private_key': '~/.ssh/id_rsa',
+                                    'password': None, 'user_name': None, 'tool_path': '${TOOL_PATH}',
+                                    'logging_filename_format': '${name}_%Y-%m-%d',
+                                    'script_types': [{'script': 'kitchen.sh', 'type': 'job'},
+                                                     {'script': 'pan.sh', 'type': 'trans'}]}}]
 
         self.assertCountEqual(given_result, expected_result)
 

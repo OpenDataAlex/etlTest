@@ -29,7 +29,7 @@ class SettingsManager():
         self.log = logging.getLogger(name="SettingsManager")
         self.log.setLevel(etltest_config['logging_level'])
         self.log.addHandler(console)
-        self.log.debug("Settings imported: {0:s}".format(etltest_config))
+        self.log.debug("Settings imported: {0}".format(etltest_config))
         self.app_name = etltest_config['app_name']
         self.app_author = etltest_config['app_author']
         self.data_dir = 'etltest/samples/data/'
@@ -206,7 +206,7 @@ class SettingsManager():
             :return: Value of the parameter with all variables replaced.
         """
         variable_list = re.findall(self.variable_pattern, parameter)
-        self.log.debug("Variable list:  {0:s}".format(variable_list))
+        self.log.debug("Variable list:  {0}".format(variable_list))
         modified_param = str()
         for system_variable in variable_list:
             system_variable = re.sub('[\$\{\}]', '', system_variable)

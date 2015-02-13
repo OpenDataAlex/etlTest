@@ -5,6 +5,7 @@ __author__ = 'ameadows'
 
 import unittest
 import os
+import logging
 
 from etltest.utilities.settings_manager import SettingsManager
 from etltest.code_generator import CodeGenerator
@@ -16,6 +17,7 @@ class CodeGeneratorTest(unittest.TestCase):
         an output directory, and the location of our test files.
     """
     def setUp(self):
+        self.log = logging.getLogger(name="TestCodeGenerator")
         SettingsManager().first_run_test()
         self.out_dir = SettingsManager().find_setting('Locations', 'output')
         self.main_path = SettingsManager().get_file_location()
@@ -91,7 +93,7 @@ class CodeGeneratorTest(unittest.TestCase):
         Testing the get_template method to return the value for unit tests.
         """
         given_result = CodeGenerator().get_template('unit')
-        expected_result = 'test.jinja2'
+        expected_result = 'table.jinja2'
 
         self.assertEqual(given_result, expected_result)
 
@@ -99,8 +101,8 @@ class CodeGeneratorTest(unittest.TestCase):
         """
         Testing the get_template method to return the value for suite tests.
         """
-        given_result = CodeGenerator().get_template('suite')
-        expected_result = 'suite.jinja2'
+        given_result = CodeGenerator().get_template('process')
+        expected_result = 'process.jinja2'
 
         self.assertEqual(given_result, expected_result)
 
@@ -109,17 +111,30 @@ class CodeGeneratorTest(unittest.TestCase):
         Testing the get_template method to return the default value if no test types are passed.
         """
         given_result = CodeGenerator().get_template()
-        expected_result = 'test.jinja2'
+        expected_result = 'table.jinja2'
 
         self.assertEqual(given_result, expected_result)
 
-    def test_generate_tests_unit(self):
+    def test_generate_tests_data_source(self):
         """
-        Testing that if we request unit tests, we get unit tests.
+        Testing that if we request data source based tests, we get data source based tests.
         """
-        CodeGenerator(in_dir=self.test_dir).generate_tests('unit')
+        CodeGenerator(in_dir=self.test_dir).generate_tests('table')
         sample_dir = os.path.join(self.main_path, 'etltest/samples/output/DataMart/')
         output_dir = os.path.join(self.out_dir, 'DataMart')
+
+        given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
+        expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])
+
+        self.assertEqual(given_result, expected_result)
+
+    def test_generate_tests_process(self):
+        """
+        Testing that if we request process based tests, we get process based tests.
+        """
+        CodeGenerator(in_dir=self.test_dir).generate_tests('process')
+        sample_dir = os.path.join(self.main_path, 'etltest/samples/output/PDI')
+        output_dir = os.path.join(self.out_dir, 'PDI')
 
         given_result = len([name for name in os.listdir(output_dir) if os.path.isfile(name)])
         expected_result = len([name for name in os.listdir(sample_dir) if os.path.isfile(name)])

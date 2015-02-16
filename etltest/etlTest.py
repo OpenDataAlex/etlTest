@@ -8,9 +8,9 @@ __author__ = 'coty, ameadows'
 import sys
 import argparse
 
-from etltest.utilities.settings_manager import SettingsManager
-from etltest.data_connector import DataConnector
-from etltest.utilities.yaml_parser import YAMLParser
+from utilities.settings_manager import SettingsManager
+from data_connector import DataConnector
+from utilities.yaml_parser import YAMLParser
 
 
 def create_parser():

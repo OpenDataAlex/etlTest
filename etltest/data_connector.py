@@ -136,7 +136,7 @@ class DataConnector():
         else:
             result = self.session.query(table).filter(where_stmt)
 
-        self.log.debug("Executing query {0:s}".format(result))
+        self.log.debug("Executing query {0}".format(result))
 
         return self.to_json(result, table)
 
@@ -178,7 +178,7 @@ class DataConnector():
         results = [] # In the event nothing is in the set, return empty set.
         col_types = dict()
         for result in result_set:
-            self.log.debug("Processing record: {0:s}".format(result))
+            self.log.debug("Processing record: {0}".format(result))
             table_json = {}
             i = 0
             for column in table._columns:

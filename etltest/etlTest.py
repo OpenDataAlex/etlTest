@@ -7,6 +7,9 @@ __author__ = 'coty, ameadows'
 
 import sys
 import argparse
+import os
+
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 from etltest.utilities.settings_manager import SettingsManager
 from etltest.data_connector import DataConnector

@@ -149,3 +149,13 @@ class DataConnectorTests(unittest.TestCase):
         expected_result = [{'first_name': 'Bob'}, {'first_name': 'Thomas'}]
 
         self.assertCountEqual(given_result, expected_result)
+
+    def test_empty_data_file(self):
+        """
+        Testing to ensure that if a data file being used is empty, it will throw an error.
+        """
+        records = [1, 4]
+
+        with self.assertRaises(Exception) as cm:
+            DataConnector(self.source).insert_data('empty_data_file', records)
+        self.assertRaises(Exception, cm.exception)

@@ -150,6 +150,11 @@ class DataConnector():
         """
 
         full_set = YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml")
+
+        if not next(full_set, False):
+            self.log.error("There is no data to process.")
+            raise Exception("There is no data to process.")
+
         if records != 'all_records' and records is not None:
             subset = []
             for item in full_set:

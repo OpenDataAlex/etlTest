@@ -10,7 +10,7 @@ import subprocess
 from etltest import etlTest
 from etltest.utilities.settings_manager import SettingsManager
 
-
+"""
 class CommandLineTestCase(unittest.TestCase):
 
     @classmethod
@@ -106,3 +106,5 @@ class etlTestTests(CommandLineTestCase):
 
     def test_parser_test_execution(self):
         subprocess.check_output(args=['python', self.process, '-e'])
+
+"""

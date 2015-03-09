@@ -23,6 +23,7 @@ class DataConnectorTests(unittest.TestCase):
         self.source = 'etlUnitTest'
         self.table = 'users'
         self.records = [1, 2]
+        self.maxDiff = None
 
     def tearDown(self):
         DataConnector(self.source).truncate_data(self.table)

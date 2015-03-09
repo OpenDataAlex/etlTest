@@ -149,27 +149,27 @@ class DataConnector():
         :return: Formatted data set for the the data connector method.
         """
 
-        full_set = YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml")
+        full_set = list(YAMLParser().read_file(self.data_dir + "/" + self.conn_name + "/" + table_name + ".yml"))
 
-        if not next(full_set, False):
+        if not full_set:
             self.log.error("There is no data to process.")
             raise Exception("There is no data to process.")
-
-        if records != 'all_records' and records is not None:
-            subset = []
-            for item in full_set:
-                for record in records:
-                    try:
-                        subset.append(item[record])
-                    except Exception:
-                        self.log.info("Record %s is not in the full set." % record)
-            return subset
         else:
-            set = []
-            for item in full_set:
-                for key in list(item.keys()):
-                    set.append(item[key])
-            return set
+            if records != 'all_records' and records is not None:
+                subset = []
+                for item in full_set:
+                    for record in records:
+                        try:
+                            subset.append(item[record])
+                        except Exception:
+                            self.log.info("Record %s is not in the full set." % record)
+                return subset
+            else:
+                set = []
+                for item in full_set:
+                    for key in list(item.keys()):
+                        set.append(item[key])
+                return set
 
     def to_json(self, result_set, table):
         """

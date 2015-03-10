@@ -103,8 +103,25 @@ class YamlParserTests(unittest.TestCase):
         expected_result = [{'DataMart\\UsersFact': {'tests': [{'query': {'from': 'user_dim', 'where': 'user_id = 2',
                             'select': 'first_name', 'result': {'first_name': 'sarah'}, 'source': 'etlUnitTest'},
                             'name': 'testFirstNameNotLower', 'type': 'NotEqual',
-                            'desc': 'Ensures that the first name field is not lower case after being processed.'}, {'query': {'from': 'user_dim', 'where': 'user_id = 2', 'select': 'first_name', 'result': {'first_name': 'SARAH'}, 'source': 'etlUnitTest'}, 'name': 'testFirstNameUpper', 'type': 'Equal', 'desc': 'Test for process that upper cases the first name field of a users table record.'}, {'query': {'from': 'user_dim', 'where': 'user_id IN (1, 2)', 'select': 'birthday', 'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday': datetime.date(2000, 2, 2)}", 'source': 'etlUnitTest'}, 'name': 'testUserValidBirthday', 'desc': 'Test for valid birth dates.'}, {'query': {'from': 'users', 'where': 'user_id = 2', 'select': 'is_active', 'source': 'etlUnitTest'}, 'name': 'testIsActiveTrue', 'type': 'BooleanTrue', 'desc': 'Passes if is_active field is set to true.'}, {'query': {'from': 'users', 'where': 'user_id = 1', 'select': 'is_active', 'source': 'etlUnitTest'}, 'name': 'testIsActiveFalse', 'type': 'BooleanFalse', 'desc': 'Passes if is_active field is set to false.'}], 'processes': [{'tool': 'PDI', 'processes': [{'name': 'data_mart/user_fact_jb.kjb', 'type': 'job'}]}], 'dataset': [{'records': [1, 2], 'table': 'users', 'source': 'etlUnitTest'}], 'suites': [{'suite': 'dataMart'}]}},{'DataMart\\UsersDim': {'processes': [{'processes': [{'name': 'data_mart/user_dim_jb.kjb',
-                                                                                 'type': 'job'}], 'tool': 'PDI'}],
+                            'desc': 'Ensures that the first name field is not lower case after being processed.'},
+                            {'query': {'from': 'user_dim', 'where': 'user_id = 2', 'select': 'first_name',
+                            'result': {'first_name': 'SARAH'}, 'source': 'etlUnitTest'}, 'name':
+                            'testFirstNameUpper', 'type': 'Equal', 'desc':
+                            'Test for process that upper cases the first name field of a users table record.'},
+                            {'query': {'from': 'user_dim', 'where': 'user_id IN (1, 2)', 'select': 'birthday',
+                            'result': "{'birthday': datetime.date(2000, 1, 4)}, {'birthday':"
+                            " datetime.date(2000, 2, 2)}", 'source': 'etlUnitTest'},
+                            'name': 'testUserValidBirthday', 'desc': 'Test for valid birth dates.'},
+                            {'query': {'from': 'users', 'where': 'user_id = 2', 'select': 'is_active', \
+                            'source': 'etlUnitTest'}, 'name': 'testIsActiveTrue', 'type': 'BooleanTrue',
+                            'desc': 'Passes if is_active field is set to true.'}, {'query': {'from': 'users',
+                            'where': 'user_id = 1', 'select': 'is_active', 'source': 'etlUnitTest'},
+                            'name': 'testIsActiveFalse', 'type': 'BooleanFalse',
+                            'desc': 'Passes if is_active field is set to false.'}], 'processes': [{'tool': 'PDI',
+                            'processes': [{'name': 'data_mart/user_fact_jb.kjb', 'type': 'job'}]}], 'dataset':
+            [{'records': [1, 2], 'table': 'users', 'source': 'etlUnitTest'}], 'suites': [{'suite': 'dataMart'}]}},
+            {'DataMart\\UsersDim': {'processes': [{'processes': [{'name': 'data_mart/user_dim_jb.kjb', 'type': 'job'}],
+                                                   'tool': 'PDI'}],
                                                    'dataset': [{'source': 'etlUnitTest', 'table': 'users',
                                                                 'records': [1, 2]}], 'tests':
             [{'name': 'testFirstNameNotLower', 'query': {'source': 'etlUnitTest', 'where': 'user_id = 2',

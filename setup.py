@@ -36,7 +36,7 @@ setup(
         'ecdsa==0.11',
         'Jinja2==2.7.3',
         'MarkupSafe==0.23',
-        'paramiko==1.14.1',
+        'paramiko==2.0.9',
         'Pygments==1.6',
         'PyYAML==3.11',
         'Sphinx==1.2.3',

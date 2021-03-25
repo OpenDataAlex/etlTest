@@ -38,7 +38,7 @@ setup(
         'MarkupSafe==0.23',
         'paramiko==1.14.1',
         'Pygments==1.6',
-        'PyYAML==3.11',
+        'PyYAML==5.4',
         'Sphinx==1.2.3',
         'SQLAlchemy==0.9.7',
         'py==1.4.24',
